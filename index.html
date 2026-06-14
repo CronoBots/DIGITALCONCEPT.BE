@@ -3,21 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Perspective Web crée des sites internet modernes et mobiles pour les commerces du Condroz. Tout compris à partir de 29 €/mois : création, hébergement, domaine, mises à jour. Maquette gratuite." />
-  <meta name="theme-color" content="#0e1b2c" />
-  <meta property="og:title" content="Perspective Web — Votre commerce passe au web" />
-  <meta property="og:description" content="Site pro, rapide et mobile pour votre commerce. Tout compris à partir de 29 €/mois. Maquette gratuite, sans engagement." />
+  <title>Perspective Web — Sites internet pour les commerces du Condroz</title>
+  <meta name="description" content="Perspective Web crée des sites internet modernes, rapides et mobiles pour les commerces du Condroz. Tout compris à partir de 29 €/mois : création, hébergement, domaine, mises à jour. Maquette gratuite, sans engagement." />
+  <meta name="theme-color" content="#0a0f1a" />
+  <link rel="canonical" href="https://cronobots.github.io/PERSPECTIVE-WEB/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Open Graph / réseaux sociaux -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_BE" />
-  <title>Perspective Web — Votre commerce passe au web</title>
+  <meta property="og:site_name" content="Perspective Web" />
+  <meta property="og:title" content="Perspective Web — Votre commerce passe au web" />
+  <meta property="og:description" content="Site pro, rapide et mobile pour votre commerce. Tout compris à partir de 29 €/mois. Maquette gratuite, sans engagement." />
+  <meta property="og:url" content="https://cronobots.github.io/PERSPECTIVE-WEB/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Perspective Web — Votre commerce passe au web" />
+  <meta name="twitter:description" content="Site pro, rapide et mobile pour votre commerce. Tout compris à partir de 29 €/mois." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Perspective Web",
+    "description": "Création de sites internet modernes et mobiles pour les commerces locaux du Condroz. Abonnement tout compris à partir de 29 €/mois.",
+    "url": "https://cronobots.github.io/PERSPECTIVE-WEB/",
+    "email": "contact@perspectiveweb.be",
+    "areaServed": "Condroz, Belgique",
+    "priceRange": "29€–79€/mois",
+    "serviceType": "Création et hébergement de sites web pour commerces"
+  }
+  </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Aller au contenu</a>
+
   <header class="site-header" id="top">
-    <nav class="nav container">
+    <nav class="nav container" aria-label="Navigation principale">
       <a href="#top" class="brand" aria-label="Perspective Web, accueil">
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">Perspective<span class="brand-web">Web</span></span>
@@ -27,7 +53,8 @@
       </button>
       <ul class="nav-menu" id="nav-menu">
         <li><a href="#avantages">Avantages</a></li>
-        <li><a href="#how">Comment ça marche</a></li>
+        <li><a href="#comparatif">Avant / Après</a></li>
+        <li><a href="#how">Méthode</a></li>
         <li><a href="#exemple">Exemple</a></li>
         <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#faq">Questions</a></li>
@@ -36,28 +63,29 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-grid">
-        <div class="hero-content">
+        <div class="hero-content" data-reveal>
           <p class="eyebrow">Sites web pour les commerces du Condroz</p>
           <h1>Votre commerce<br /><span class="gradient-text">passe au web.</span></h1>
           <p class="lead">
-            Vos clients vous cherchent sur leur téléphone&nbsp;: 8 sur 10 regardent menu,
-            horaires et avis avant de venir. On vous crée un site moderne, rapide et
-            mobile — et on s'occupe de <strong>tout</strong>.
+            8 clients sur 10 regardent vos horaires, votre carte et vos avis sur leur
+            téléphone avant de venir. On vous crée un site moderne, rapide et mobile —
+            et on s'occupe de <strong>tout</strong>.
           </p>
           <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Voir ma maquette gratuite</a>
-            <a href="#exemple" class="btn btn-secondary">Voir un exemple</a>
+            <a href="#exemple" class="btn btn-secondary">Voir un exemple concret</a>
           </div>
-          <ul class="hero-stats">
-            <li><strong>29 €</strong><span>/mois, tout compris</span></li>
-            <li><strong>0 €</strong><span>pour voir votre maquette</span></li>
-            <li><strong>100 %</strong><span>pensé mobile</span></li>
+          <ul class="hero-stats" data-counters>
+            <li><strong data-count="80" data-suffix="%">0%</strong><span>regardent en ligne avant de venir</span></li>
+            <li><strong data-count="29" data-prefix="€" data-prefix-after="false" data-suffix=" €">0 €</strong><span>par mois, tout compris</span></li>
+            <li><strong data-count="0" data-suffix=" €">0 €</strong><span>pour découvrir votre maquette</span></li>
           </ul>
         </div>
-        <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual" data-reveal aria-hidden="true">
           <div class="orb orb-1"></div>
           <div class="orb orb-2"></div>
           <div class="phone">
@@ -93,35 +121,35 @@
 
     <section class="features section" id="avantages">
       <div class="container">
-        <p class="eyebrow center">Ce qu'on fait pour vous</p>
-        <h2 class="section-title">Un vrai site, sans rien gérer de votre côté</h2>
+        <p class="eyebrow center" data-reveal>Ce qu'on fait pour vous</p>
+        <h2 class="section-title" data-reveal>Un vrai site, sans rien gérer de votre côté</h2>
         <div class="feature-grid">
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">📱</div>
             <h3>Pensé pour le mobile</h3>
             <p>Site rapide et impeccable sur téléphone, là où vos clients vous trouvent.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">⭐</div>
             <h3>Avis &amp; fiche Google</h3>
             <p>Vos avis mis en avant et votre fiche Google Business optimisée pour rassurer.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">📋</div>
             <h3>Carte / catalogue</h3>
             <p>Votre menu ou catalogue en ligne et en PDF, toujours à jour.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">📞</div>
             <h3>Appel &amp; itinéraire</h3>
             <p>Horaires, bouton d'appel et itinéraire en un clic, directement depuis le mobile.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">🔎</div>
             <h3>Visible sur Google</h3>
             <p>Plus de visibilité dans les recherches locales et sur Google Maps.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" data-reveal>
             <div class="feature-icon">🙌</div>
             <h3>Vous ne gérez rien</h3>
             <p>Création, hébergement et mises à jour inclus. Un message suffit, on s'occupe du reste.</p>
@@ -130,22 +158,52 @@
       </div>
     </section>
 
+    <section class="compare section" id="comparatif">
+      <div class="container">
+        <p class="eyebrow center" data-reveal>La différence</p>
+        <h2 class="section-title" data-reveal>Avant / après Perspective Web</h2>
+        <p class="section-subtitle" data-reveal>Une page Facebook ou un vieux site, ça ne suffit plus. Voilà ce qui change.</p>
+        <div class="compare-grid">
+          <article class="compare-card compare-before" data-reveal>
+            <header><span class="compare-tag">Avant</span><h3>Difficile à trouver</h3></header>
+            <ul>
+              <li>Invisible sur Google et Google Maps</li>
+              <li>Pas adapté au téléphone, lent</li>
+              <li>Horaires et carte introuvables ou périmés</li>
+              <li>Aucun bouton d'appel ni d'itinéraire</li>
+              <li>Image qui fait « daté »</li>
+            </ul>
+          </article>
+          <article class="compare-card compare-after" data-reveal>
+            <header><span class="compare-tag">Après</span><h3>Choisi en un coup d'œil</h3></header>
+            <ul>
+              <li>Présent sur Google et Google Maps</li>
+              <li>Rapide et parfait sur mobile</li>
+              <li>Horaires, carte et avis toujours à jour</li>
+              <li>Appel et itinéraire en un clic</li>
+              <li>Image pro qui inspire confiance</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="how section" id="how">
       <div class="container">
-        <p class="eyebrow center">Comment ça marche</p>
-        <h2 class="section-title">Simple, du premier contact à la mise en ligne</h2>
+        <p class="eyebrow center" data-reveal>Notre méthode</p>
+        <h2 class="section-title" data-reveal>Simple, du premier contact à la mise en ligne</h2>
         <ol class="steps">
-          <li class="step">
+          <li class="step" data-reveal>
             <span class="step-num">01</span>
             <h3>On crée votre maquette</h3>
             <p>On prépare un exemple de site pour votre commerce, gratuitement et sans engagement.</p>
           </li>
-          <li class="step">
+          <li class="step" data-reveal>
             <span class="step-num">02</span>
             <h3>Vous validez</h3>
             <p>Vous regardez, vous nous dites ce que vous aimez, on ajuste ensemble.</p>
           </li>
-          <li class="step">
+          <li class="step" data-reveal>
             <span class="step-num">03</span>
             <h3>On met en ligne</h3>
             <p>Mise en route offerte. Votre site est en ligne, on assure le suivi et les mises à jour.</p>
@@ -156,7 +214,7 @@
 
     <section class="example section" id="exemple">
       <div class="container example-grid">
-        <div class="example-text">
+        <div class="example-text" data-reveal>
           <p class="eyebrow">Exemple concret</p>
           <h2 class="section-title">Pizzeria Pino — Nandrin</h2>
           <p class="lead">
@@ -164,10 +222,10 @@
             d'appel à portée de pouce. Exactement ce que vos clients cherchent.
           </p>
           <a href="https://cronobots.github.io/PIZZAPINO/" class="btn btn-primary" target="_blank" rel="noopener">
-            Voir le site en ligne
+            Voir le site en ligne →
           </a>
         </div>
-        <div class="example-preview" aria-hidden="true">
+        <div class="example-preview" data-reveal aria-hidden="true">
           <div class="browser">
             <div class="browser-bar">
               <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
@@ -188,11 +246,11 @@
 
     <section class="pricing section" id="tarifs">
       <div class="container">
-        <p class="eyebrow center">Tarifs</p>
-        <h2 class="section-title">Tout compris, à partir de 29 €/mois</h2>
-        <p class="section-subtitle">Hébergement, domaine, HTTPS, sauvegardes, mises à jour et support toujours inclus. Engagement 12 mois, puis résiliable. <strong>Maquette gratuite&nbsp;: 0 €.</strong></p>
+        <p class="eyebrow center" data-reveal>Tarifs</p>
+        <h2 class="section-title" data-reveal>Tout compris, à partir de 29 €/mois</h2>
+        <p class="section-subtitle" data-reveal>Hébergement, domaine, HTTPS, sauvegardes, mises à jour et support toujours inclus. Engagement 12 mois, puis résiliable. <strong>Maquette gratuite&nbsp;: 0 €.</strong></p>
         <div class="pricing-grid">
-          <article class="plan">
+          <article class="plan" data-reveal>
             <h3>Essentiel</h3>
             <p class="price">29 €<span>/mois</span></p>
             <ul>
@@ -203,7 +261,7 @@
             </ul>
             <a href="#contact" class="btn btn-secondary">Commencer</a>
           </article>
-          <article class="plan plan-featured">
+          <article class="plan plan-featured" data-reveal>
             <span class="plan-badge">⭐ Le plus choisi</span>
             <h3>Pro</h3>
             <p class="price">49 €<span>/mois</span></p>
@@ -215,7 +273,7 @@
             </ul>
             <a href="#contact" class="btn btn-primary">Choisir Pro</a>
           </article>
-          <article class="plan">
+          <article class="plan" data-reveal>
             <h3>Premium</h3>
             <p class="price">79 €<span>/mois</span></p>
             <ul>
@@ -227,36 +285,36 @@
             <a href="#contact" class="btn btn-secondary">Choisir Premium</a>
           </article>
         </div>
-        <p class="pricing-note">Préférez un paiement unique&nbsp;? Formule « achat »&nbsp;: 600–900 € une fois + 15–25 €/mois de maintenance.</p>
+        <p class="pricing-note" data-reveal>Préférez un paiement unique&nbsp;? Formule « achat »&nbsp;: 600–900 € une fois + 15–25 €/mois de maintenance.</p>
       </div>
     </section>
 
     <section class="faq section" id="faq">
       <div class="container">
-        <p class="eyebrow center">Questions fréquentes</p>
-        <h2 class="section-title">Vous hésitez encore&nbsp;?</h2>
+        <p class="eyebrow center" data-reveal>Questions fréquentes</p>
+        <h2 class="section-title" data-reveal>Vous hésitez encore&nbsp;?</h2>
         <div class="faq-list">
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>J'ai déjà une page Facebook, ça suffit non&nbsp;?</summary>
             <p>On la garde&nbsp;! Mais Facebook ne sort pas dans Google et n'est pas vraiment votre vitrine. Un site rassure vos clients et vous fait apparaître sur Google Maps.</p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>29 €/mois, c'est cher pour moi.</summary>
             <p>C'est moins d'1 €/jour. Une seule commande de plus par mois et c'est rentabilisé — et il n'y a rien à payer d'avance.</p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>Je n'ai pas le temps de m'en occuper.</summary>
             <p>Justement&nbsp;: vous n'avez rien à faire. Un message quand un prix ou un horaire change, et on gère le reste.</p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>Je n'y connais rien en informatique.</summary>
             <p>C'est tout l'intérêt&nbsp;: aucun outil à apprendre, aucun mot de passe à retenir. Tout passe par nous.</p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>J'ai déjà un vieux site.</summary>
             <p>Il n'est probablement pas adapté au mobile et fait daté. Regardez votre maquette&nbsp;: la différence se voit tout de suite.</p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item" data-reveal>
             <summary>Et si je veux arrêter&nbsp;?</summary>
             <p>L'engagement de 12 mois couvre la création. Ensuite, c'est résiliable quand vous le souhaitez.</p>
           </details>
@@ -265,14 +323,14 @@
     </section>
 
     <section class="cta section" id="contact">
-      <div class="container cta-inner">
+      <div class="container cta-inner" data-reveal>
         <h2>Découvrez votre maquette — gratuitement</h2>
         <p>Laissez vos coordonnées&nbsp;: on prépare un exemple de site pour votre commerce, sans engagement.</p>
         <form class="cta-form" id="contact-form" novalidate>
           <label class="sr-only" for="name">Nom du commerce</label>
-          <input type="text" id="name" name="name" placeholder="Nom de votre commerce" required />
+          <input type="text" id="name" name="name" placeholder="Nom de votre commerce" autocomplete="organization" required />
           <label class="sr-only" for="email">Adresse e-mail</label>
-          <input type="email" id="email" name="email" placeholder="vous@exemple.be" required />
+          <input type="email" id="email" name="email" placeholder="vous@exemple.be" autocomplete="email" required />
           <button type="submit" class="btn btn-primary">Recevoir ma maquette</button>
         </form>
         <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
@@ -309,6 +367,8 @@
       <p>&copy; <span id="year"></span> Perspective Web. Tous droits réservés.</p>
     </div>
   </footer>
+
+  <button class="to-top" id="to-top" aria-label="Revenir en haut" title="Revenir en haut">↑</button>
 
   <script src="script.js"></script>
 </body>

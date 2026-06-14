@@ -1,42 +1,155 @@
-// Année dynamique dans le pied de page
-document.getElementById("year").textContent = new Date().getFullYear();
+(function () {
+  "use strict";
 
-// Menu mobile
-const toggle = document.querySelector(".nav-toggle");
-const menu = document.getElementById("nav-menu");
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-toggle.addEventListener("click", () => {
-  const isOpen = menu.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", String(isOpen));
-});
+  // Année dynamique
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Fermer le menu mobile après un clic sur un lien
-menu.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    menu.classList.remove("open");
-    toggle.setAttribute("aria-expanded", "false");
-  });
-});
+  // En-tête : ombre au scroll + bouton retour en haut
+  const header = document.querySelector(".site-header");
+  const toTop = document.getElementById("to-top");
+  function onScroll() {
+    const y = window.scrollY;
+    if (header) header.classList.toggle("scrolled", y > 8);
+    if (toTop) toTop.classList.toggle("show", y > 600);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
-// Formulaire de demande de maquette (démo front-end)
-const form = document.getElementById("contact-form");
-const message = document.getElementById("form-message");
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  message.className = "form-message";
-
-  const name = form.elements.name.value.trim();
-  const email = form.elements.email.value.trim();
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  if (!name || !emailValid) {
-    message.textContent = "Merci d'indiquer le nom de votre commerce et un e-mail valide.";
-    message.classList.add("error");
-    return;
+  if (toTop) {
+    toTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+    });
   }
 
-  message.textContent = `Merci ${name} ! On prépare votre maquette et on vous écrit à ${email}.`;
-  message.classList.add("success");
-  form.reset();
-});
+  // Menu mobile
+  const toggle = document.querySelector(".nav-toggle");
+  const menu = document.getElementById("nav-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  // Apparition au scroll
+  const revealEls = document.querySelectorAll("[data-reveal]");
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+  }
+
+  // Compteurs animés
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.count || "0");
+    const suffix = el.dataset.suffix || "";
+    if (prefersReduced) {
+      el.textContent = target + suffix;
+      return;
+    }
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const counterWrap = document.querySelector("[data-counters]");
+  if (counterWrap) {
+    const counters = counterWrap.querySelectorAll("[data-count]");
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      counters.forEach(animateCount);
+    } else {
+      const countObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              counters.forEach(animateCount);
+              obs.disconnect();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      countObserver.observe(counterWrap);
+    }
+  }
+
+  // Navigation active (scrollspy)
+  const navLinks = Array.from(document.querySelectorAll('.nav-menu a[href^="#"]'));
+  const sections = navLinks
+    .map((link) => document.getElementById(link.getAttribute("href").slice(1)))
+    .filter(Boolean);
+  if (sections.length && "IntersectionObserver" in window) {
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach((l) =>
+              l.classList.toggle("active", l.getAttribute("href") === "#" + id)
+            );
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  // Formulaire de demande de maquette (démo front-end)
+  const form = document.getElementById("contact-form");
+  const message = document.getElementById("form-message");
+  if (form && message) {
+    const nameInput = form.elements.namedItem("name");
+    const emailInput = form.elements.namedItem("email");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      message.className = "form-message";
+      nameInput.classList.remove("invalid");
+      emailInput.classList.remove("invalid");
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (!name) nameInput.classList.add("invalid");
+      if (!emailValid) emailInput.classList.add("invalid");
+
+      if (!name || !emailValid) {
+        message.textContent = "Merci d'indiquer le nom de votre commerce et un e-mail valide.";
+        message.classList.add("error");
+        return;
+      }
+
+      message.textContent = `Merci ${name} ! On prépare votre maquette et on vous écrit à ${email}.`;
+      message.classList.add("success");
+      form.reset();
+    });
+  }
+})();

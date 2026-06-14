@@ -10,9 +10,18 @@ Le site présente l'offre, les tarifs (Essentiel 29 €/mois · Pro 49 €/mois 
 
 | Fichier | Rôle |
 |---|---|
-| `index.html` | Page unique (hero, avantages, étapes, exemple, tarifs, FAQ, contact) |
-| `styles.css` | Thème sombre, responsive, mobile-first |
-| `script.js` | Menu mobile, validation du formulaire, année dynamique |
+| `index.html` | Page unique (hero, avantages, avant/après, méthode, exemple, tarifs, FAQ, contact) + SEO et données structurées JSON-LD |
+| `styles.css` | Thème sombre premium, responsive, mobile-first, animations |
+| `script.js` | Apparition au scroll, navigation active, compteurs animés, en-tête au scroll, retour-en-haut, menu mobile, validation du formulaire |
+| `favicon.svg` | Icône de l'onglet |
+| `robots.txt` / `sitemap.xml` | Référencement |
+
+## Optimisations intégrées
+
+- **Performance** : aucune dépendance, aucun build, JS léger et `passive` sur le scroll.
+- **Accessibilité** : lien d'évitement, focus visibles, `aria-*`, contrastes, respect de `prefers-reduced-motion`.
+- **SEO** : balises meta, Open Graph/Twitter, canonical, `sitemap.xml`, `robots.txt`, données structurées `ProfessionalService`.
+- **UX** : navigation active au scroll, animations d'apparition, micro-interactions, retour-en-haut.
 
 ## Lancer en local
 
