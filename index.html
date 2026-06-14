@@ -69,6 +69,7 @@
   <main id="main">
     <section class="hero">
       <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-spotlight" id="hero-spotlight" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-content" data-reveal>
           <p class="eyebrow">Sites web pour les commerces du Condroz</p>
@@ -82,6 +83,14 @@
             <a href="#contact" class="btn btn-primary">Voir ma maquette gratuite</a>
             <a href="#exemple" class="btn btn-secondary">Voir un exemple concret</a>
           </div>
+          <div class="trades" id="trades" role="group" aria-label="Choisissez votre métier pour personnaliser l'aperçu">
+            <span class="trades-label">Votre métier&nbsp;:</span>
+            <button type="button" class="trade is-active" data-emoji="🍽️" data-name="Resto de Marie">Restaurant</button>
+            <button type="button" class="trade" data-emoji="✂️" data-name="Salon de Marie">Coiffeur</button>
+            <button type="button" class="trade" data-emoji="🔧" data-name="Atelier Marie">Artisan</button>
+            <button type="button" class="trade" data-emoji="💅" data-name="Institut Marie">Institut</button>
+            <button type="button" class="trade" data-emoji="🛍️" data-name="Boutique Marie">Boutique</button>
+          </div>
           <ul class="hero-stats" data-counters>
             <li><strong data-count="80" data-suffix="%">0%</strong><span>regardent en ligne avant de venir</span></li>
             <li><strong data-count="29" data-suffix=" €">0 €</strong><span>par mois, tout compris</span></li>
@@ -94,7 +103,7 @@
           <div class="phone">
             <div class="phone-notch"></div>
             <div class="phone-screen">
-              <div class="phone-banner">Chez Marie · Commerce local</div>
+              <div class="phone-banner"><span id="phone-emoji">🍽️</span> <span id="phone-name">Resto de Marie</span></div>
               <div class="phone-line phone-line-lg"></div>
               <div class="phone-line"></div>
               <div class="phone-chips">
@@ -365,6 +374,9 @@
           <input type="email" id="email" name="email" placeholder="vous@exemple.be" autocomplete="email" required />
           <button type="submit" class="btn btn-primary">Recevoir ma maquette</button>
         </form>
+        <div class="form-check" id="form-check" aria-hidden="true">
+          <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" /><path d="M14 27l8 8 16-16" /></svg>
+        </div>
         <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
         <p class="cta-direct">
           Ou contactez-nous directement&nbsp;:

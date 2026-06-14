@@ -134,12 +134,14 @@
   if (form && message) {
     const nameInput = form.elements.namedItem("name");
     const emailInput = form.elements.namedItem("email");
+    const formCheck = document.getElementById("form-check");
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       message.className = "form-message";
       nameInput.classList.remove("invalid");
       emailInput.classList.remove("invalid");
+      if (formCheck) formCheck.classList.remove("show");
 
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
@@ -154,6 +156,11 @@
         return;
       }
 
+      if (formCheck) {
+        // relance l'animation de la coche
+        void formCheck.offsetWidth;
+        formCheck.classList.add("show");
+      }
       message.textContent = `Merci ${name} ! On prépare votre maquette et on vous écrit à ${email}.`;
       message.classList.add("success");
       form.reset();
@@ -184,6 +191,69 @@
       card.addEventListener("pointerleave", () => {
         card.classList.remove("is-tilting");
         card.style.transform = "";
+      });
+    });
+  }
+
+  // Sélecteur de métier : personnalise l'aperçu du téléphone en direct
+  const trades = document.getElementById("trades");
+  const phoneEmoji = document.getElementById("phone-emoji");
+  const phoneName = document.getElementById("phone-name");
+  if (trades && phoneEmoji && phoneName) {
+    trades.addEventListener("click", (e) => {
+      const btn = e.target.closest(".trade");
+      if (!btn) return;
+      trades.querySelectorAll(".trade").forEach((t) => t.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      phoneEmoji.textContent = btn.dataset.emoji || "🏪";
+      phoneName.textContent = btn.dataset.name || "Votre commerce";
+      if (!prefersReduced) {
+        phoneName.animate(
+          [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
+          { duration: 350, easing: "ease" }
+        );
+      }
+    });
+  }
+
+  // Effets au pointeur (souris de précision uniquement, hors reduced-motion)
+  if (finePointer && !prefersReduced) {
+    // Projecteur + parallaxe 3D de la maquette dans le héros
+    const hero = document.querySelector(".hero");
+    const spotlight = document.getElementById("hero-spotlight");
+    const phone = document.querySelector(".phone");
+    if (phone) phone.classList.add("has-parallax");
+    if (hero) {
+      hero.addEventListener("pointermove", (e) => {
+        const r = hero.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        if (spotlight) {
+          spotlight.style.setProperty("--mx", x + "px");
+          spotlight.style.setProperty("--my", y + "px");
+        }
+        if (phone) {
+          const rx = (y / r.height - 0.5) * -10;
+          const ry = (x / r.width - 0.5) * 12;
+          phone.style.transform =
+            "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+        }
+      });
+      hero.addEventListener("pointerleave", () => {
+        if (phone) phone.style.transform = "";
+      });
+    }
+
+    // Boutons principaux magnétiques
+    document.querySelectorAll(".btn-primary").forEach((btn) => {
+      btn.addEventListener("pointermove", (e) => {
+        const r = btn.getBoundingClientRect();
+        const mx = (e.clientX - r.left - r.width / 2) * 0.3;
+        const my = (e.clientY - r.top - r.height / 2) * 0.4;
+        btn.style.transform = "translate(" + mx + "px, " + (my - 2) + "px)";
+      });
+      btn.addEventListener("pointerleave", () => {
+        btn.style.transform = "";
       });
     });
   }

@@ -414,13 +414,66 @@ a { color: inherit; text-decoration: none; }
 .o-text { font-size: 0.78rem; color: #444; line-height: 1.4; }
 .o-warn { font-family: var(--font-body); font-size: 0.7rem; color: #b91c1c; background: #f6d6d6; border: 1px solid #e3a3a3; padding: 4px 10px; border-radius: 4px; }
 
+/* Projecteur lumineux du héros (suit la souris) */
+.hero-spotlight {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 30%), rgba(56, 189, 248, 0.14), transparent 65%);
+  transition: opacity 0.4s var(--ease);
+}
+.hero:hover .hero-spotlight { opacity: 1; }
+.phone.has-parallax { animation: none; transition: transform 0.15s var(--ease); will-change: transform; }
+
+/* Logo animé */
+.brand-mark { animation: mark-pulse 4.5s ease-in-out infinite; }
+@keyframes mark-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(56, 189, 248, 0.45); }
+  50% { box-shadow: 0 0 26px rgba(99, 102, 241, 0.7); }
+}
+
+/* Sélecteur de métier */
+.trades { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 1.8rem; }
+.trades-label { font-size: 0.85rem; color: var(--text-muted); margin-right: 2px; }
+.trade {
+  font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted);
+  background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: 999px;
+  padding: 7px 14px; cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.trade:hover { border-color: var(--primary); color: var(--text); transform: translateY(-2px); }
+.trade.is-active {
+  background: linear-gradient(120deg, var(--primary), var(--primary-2));
+  color: #06101f; border-color: transparent; font-weight: 600;
+}
+
+/* Bordure dégradée animée (offre populaire) */
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.plan-featured::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+  background: conic-gradient(from var(--a), var(--primary), var(--primary-2), #22d3ee, var(--primary-2), var(--primary));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none; animation: spin-a 6s linear infinite;
+}
+@keyframes spin-a { to { --a: 360deg; } }
+
+/* Coche animée du formulaire */
+.form-check { height: 0; overflow: hidden; display: flex; justify-content: center; transition: height 0.3s var(--ease), margin 0.3s var(--ease); }
+.form-check.show { height: 58px; margin-top: 1.2rem; }
+.form-check svg { width: 56px; height: 56px; }
+.form-check circle { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 151; stroke-dashoffset: 151; }
+.form-check path { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; }
+.form-check.show circle { animation: draw-circle 0.5s var(--ease) forwards; }
+.form-check.show path { animation: draw-check 0.4s 0.45s var(--ease) forwards; }
+@keyframes draw-circle { to { stroke-dashoffset: 0; } }
+@keyframes draw-check { to { stroke-dashoffset: 0; } }
+
 /* Responsive */
 @media (max-width: 900px) {
   .hero { padding-top: 32px; }
   .hero-grid, .example-grid, .compare-grid { grid-template-columns: 1fr; gap: 36px; }
   .hero-content { text-align: center; }
   .hero-content .lead { margin-left: auto; margin-right: auto; }
-  .hero-actions, .hero-stats { justify-content: center; }
+  .hero-actions, .hero-stats, .trades { justify-content: center; }
   .hero-stats li { align-items: center; text-align: center; }
   .hero-visual { min-height: 360px; }
   .feature-grid, .steps, .pricing-grid { grid-template-columns: 1fr; }
