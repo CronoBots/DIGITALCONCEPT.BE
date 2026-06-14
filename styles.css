@@ -300,7 +300,8 @@ a { color: inherit; text-decoration: none; }
 .form-message.success { color: var(--accent); }
 .form-message.error { color: var(--danger); }
 .cta-direct { margin-top: 1.6rem; color: var(--text-muted); font-size: 0.95rem; }
-.cta-direct a { color: var(--primary); }
+.cta-direct a { color: var(--primary); font-weight: 500; }
+.cta-sep { margin: 0 0.5rem; color: var(--border); }
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--border-soft); background: var(--bg-soft); padding: 60px 0 28px; }
