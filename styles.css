@@ -589,10 +589,16 @@ html.js:not(.no-intro) .intro {
     -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
     border-bottom: 1px solid var(--glass-border);
     box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 var(--glass-hi);
-    padding: 8px 24px 20px; max-height: 0; overflow: hidden;
-    transition: max-height 0.35s var(--ease);
+    padding: 0 24px; max-height: 0; overflow: hidden;
+    visibility: hidden; pointer-events: none;
+    transition: max-height 0.35s var(--ease), visibility 0s linear 0.35s, padding 0.35s var(--ease);
   }
-  .nav-menu.open { max-height: calc(100vh - 72px); overflow-y: auto; }
+  .nav-menu.open {
+    max-height: calc(100vh - 72px); overflow-y: auto;
+    padding: 8px 24px 20px;
+    visibility: visible; pointer-events: auto;
+    transition: max-height 0.35s var(--ease), visibility 0s, padding 0.35s var(--ease);
+  }
   .nav-menu li { padding: 0; border-bottom: 1px solid var(--border-soft); }
   .nav-menu li:last-child { border-bottom: 0; }
   .nav-menu a { display: block; padding: 14px 2px; font-size: 1.02rem; }
