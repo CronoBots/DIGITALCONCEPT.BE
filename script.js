@@ -148,7 +148,29 @@
   if (form && message) {
     const nameInput = form.elements.namedItem("name");
     const emailInput = form.elements.namedItem("email");
+    const submitBtn = document.getElementById("contact-submit");
     const formCheck = document.getElementById("form-check");
+    const endpoint = (form.dataset.endpoint || "").trim();
+    const mailTo = form.dataset.mailto || "contact@perspectiveweb.be";
+    if (endpoint) form.setAttribute("action", endpoint); // repli sans JS
+
+    function showError(msg) {
+      message.className = "form-message error";
+      message.textContent = msg;
+    }
+    function showSuccess(msg) {
+      if (formCheck) {
+        void formCheck.offsetWidth; // relance l'animation
+        formCheck.classList.add("show");
+      }
+      message.className = "form-message success";
+      message.textContent = msg;
+    }
+    function setLoading(on) {
+      if (!submitBtn) return;
+      submitBtn.disabled = on;
+      submitBtn.textContent = on ? "Envoi…" : "Recevoir ma maquette";
+    }
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -160,24 +182,47 @@
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
       const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (form.elements.namedItem("_gotcha") && form.elements.namedItem("_gotcha").value) return; // anti-spam
 
       if (!name) nameInput.classList.add("invalid");
       if (!emailValid) emailInput.classList.add("invalid");
-
       if (!name || !emailValid) {
-        message.textContent = "Merci d'indiquer le nom de votre commerce et un e-mail valide.";
-        message.classList.add("error");
+        showError("Merci d'indiquer le nom de votre commerce et un e-mail valide.");
         return;
       }
 
-      if (formCheck) {
-        // relance l'animation de la coche
-        void formCheck.offsetWidth;
-        formCheck.classList.add("show");
+      if (endpoint) {
+        // Envoi fluide via Formspree (reste sur la page)
+        setLoading(true);
+        fetch(endpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        })
+          .then((res) => {
+            setLoading(false);
+            if (res.ok) {
+              showSuccess(`Merci ${name} ! Votre demande est envoyée, on vous écrit à ${email}.`);
+              form.reset();
+            } else {
+              showError("Oups, l'envoi a échoué. Réessayez ou écrivez-nous à " + mailTo + ".");
+            }
+          })
+          .catch(() => {
+            setLoading(false);
+            showError("Connexion impossible. Réessayez ou écrivez-nous à " + mailTo + ".");
+          });
+      } else {
+        // Repli sans inscription : ouvre la messagerie du visiteur, pré-remplie
+        const subject = encodeURIComponent("Demande de maquette gratuite — " + name);
+        const body = encodeURIComponent(
+          "Bonjour,\n\nJe souhaite découvrir ma maquette gratuite.\n\nCommerce : " +
+            name + "\nE-mail : " + email + "\n\nMerci !"
+        );
+        window.location.href = "mailto:" + mailTo + "?subject=" + subject + "&body=" + body;
+        showSuccess("Votre messagerie s'ouvre pour finaliser l'envoi. Merci " + name + " !");
+        form.reset();
       }
-      message.textContent = `Merci ${name} ! On prépare votre maquette et on vous écrit à ${email}.`;
-      message.classList.add("success");
-      form.reset();
     });
   }
 

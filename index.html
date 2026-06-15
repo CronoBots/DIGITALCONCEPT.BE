@@ -392,12 +392,18 @@
       <div class="container cta-inner" data-reveal>
         <h2>Découvrez votre maquette — gratuitement</h2>
         <p>Laissez vos coordonnées&nbsp;: on prépare un exemple de site pour votre commerce, sans engagement.</p>
-        <form class="cta-form" id="contact-form" novalidate>
+        <!-- Pour un envoi fluide sans quitter la page : créez un formulaire gratuit sur
+             https://formspree.io puis collez votre identifiant dans data-endpoint,
+             ex. data-endpoint="https://formspree.io/f/xxxxxxx".
+             Tant qu'il est vide, le formulaire ouvre la messagerie du visiteur (fonctionne sans inscription). -->
+        <form class="cta-form" id="contact-form" data-endpoint="" data-mailto="contact@perspectiveweb.be" novalidate>
           <label class="sr-only" for="name">Nom du commerce</label>
           <input type="text" id="name" name="name" placeholder="Nom de votre commerce" autocomplete="organization" required />
           <label class="sr-only" for="email">Adresse e-mail</label>
           <input type="email" id="email" name="email" placeholder="vous@exemple.be" autocomplete="email" required />
-          <button type="submit" class="btn btn-primary">Recevoir ma maquette</button>
+          <input type="hidden" name="_subject" value="Nouvelle demande de maquette — Perspective Web" />
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+          <button type="submit" class="btn btn-primary" id="contact-submit">Recevoir ma maquette</button>
         </form>
         <div class="form-check" id="form-check" aria-hidden="true">
           <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" /><path d="M14 27l8 8 16-16" /></svg>

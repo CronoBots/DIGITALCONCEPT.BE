@@ -38,9 +38,18 @@ python3 -m http.server 8000
 Hébergeable tel quel sur n'importe quel hébergement statique (GitHub Pages,
 Netlify, Cloudflare Pages…).
 
+## Formulaire de contact
+
+Le formulaire est **fonctionnel** :
+- Par défaut (sans configuration), il ouvre la messagerie du visiteur pré-remplie
+  vers l'adresse indiquée dans `data-mailto` (aucune inscription requise).
+- Pour un envoi fluide sans quitter la page, créez un formulaire gratuit sur
+  [Formspree](https://formspree.io) et collez son identifiant dans l'attribut
+  `data-endpoint` du `<form id="contact-form">` (ex.
+  `data-endpoint="https://formspree.io/f/xxxxxxx"`). Le script bascule alors
+  automatiquement en envoi AJAX (avec état de chargement et anti-spam).
+
 ## À faire / à personnaliser
 
-- Renseigner le **numéro de téléphone** réel (placeholders dans les CTA).
-- Brancher le formulaire de contact à un service d'envoi d'e-mails (Formspree,
-  Netlify Forms, ou une fonction serveur) — actuellement en démo front-end.
 - Ajouter le logo définitif et des photos réelles une fois disponibles.
+- (Optionnel) Activer Formspree pour l'envoi du formulaire sans quitter la page.
