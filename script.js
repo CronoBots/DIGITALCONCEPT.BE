@@ -25,9 +25,14 @@
   const header = document.querySelector(".site-header");
   const toTop = document.getElementById("to-top");
   const progress = document.getElementById("scroll-progress");
+  const heroEl = document.querySelector(".hero");
+  function headerThreshold() {
+    // La barre reste transparente tant qu'on est dans le héros
+    return heroEl ? Math.max(heroEl.offsetHeight - 72, 8) : 8;
+  }
   function onScroll() {
     const y = window.scrollY;
-    if (header) header.classList.toggle("scrolled", y > 8);
+    if (header) header.classList.toggle("scrolled", y > headerThreshold());
     if (toTop) toTop.classList.toggle("show", y > 600);
     if (progress) {
       const doc = document.documentElement;
