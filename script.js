@@ -336,4 +336,61 @@
       window.addEventListener("resize", fit);
     }
   });
+
+  // Terminal qui s'écrit (façon fi.co)
+  const term = document.querySelector("[data-terminal]");
+  if (term) {
+    const lines = Array.from(term.querySelectorAll(".t-line"));
+    if (prefersReduced) {
+      lines.forEach((el) => {
+        el.textContent = el.getAttribute("data-line");
+        el.classList.add("done");
+      });
+    } else {
+      let li = 0;
+      const typeLine = () => {
+        if (li >= lines.length) return;
+        const el = lines[li];
+        const full = el.getAttribute("data-line");
+        el.classList.add("typing");
+        let ci = 0;
+        const typeChar = () => {
+          el.textContent = full.slice(0, ci);
+          ci += 1;
+          if (ci <= full.length) {
+            setTimeout(typeChar, 24 + Math.random() * 36);
+          } else {
+            el.classList.remove("typing");
+            el.classList.add("done");
+            li += 1;
+            setTimeout(typeLine, 340);
+          }
+        };
+        typeChar();
+      };
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { obs.disconnect(); typeLine(); }
+          });
+        }, { threshold: 0.35 });
+        io.observe(term);
+      } else {
+        typeLine();
+      }
+    }
+  }
+
+  // Parallaxe douce des halos de fond
+  if (!prefersReduced) {
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        document.body.style.setProperty("--halo-y", window.scrollY * 0.12 + "px");
+        ticking = false;
+      });
+    }, { passive: true });
+  }
 })();

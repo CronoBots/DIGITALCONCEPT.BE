@@ -553,17 +553,16 @@ html.js:not(.no-intro) .intro {
 :root[data-theme="dark"] { background-color: var(--bg); }
 :root[data-theme="dark"] body { background: transparent; }
 :root[data-theme="dark"] body::before {
-  content: ""; position: fixed; inset: -10%; z-index: -1; pointer-events: none;
+  content: ""; position: fixed; inset: -15%; z-index: -1; pointer-events: none;
   background:
     radial-gradient(1000px circle at 50% 2%, rgba(124, 92, 255, 0.16), transparent 58%),
     radial-gradient(820px circle at 92% 6%, rgba(56, 189, 248, 0.12), transparent 52%),
     radial-gradient(720px circle at 4% 30%, rgba(124, 92, 255, 0.08), transparent 55%);
-  animation: halo-drift 20s ease-in-out infinite;
+  transform: translateY(var(--halo-y, 0px));
+  transition: transform 0.18s linear;
+  animation: halo-breathe 11s ease-in-out infinite;
 }
-@keyframes halo-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.95; }
-  50% { transform: translate(1.8%, 1.4%) scale(1.06); opacity: 1; }
-}
+@keyframes halo-breathe { 0%, 100% { opacity: 0.88; } 50% { opacity: 1; } }
 
 /* Labels / petits textes en monospace (signature betsfix) */
 .eyebrow { font-family: var(--font-mono); letter-spacing: 0.2em; }
@@ -637,3 +636,54 @@ html.js:not(.no-intro) .intro {
   0%, 100% { box-shadow: 0 0 16px -2px rgba(56, 189, 248, 0.45); }
   50% { box-shadow: 0 0 26px 0 rgba(124, 92, 255, 0.6); }
 }
+
+/* Halo qui suit le curseur (intensifié, néon) */
+.hero-spotlight {
+  background: radial-gradient(440px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(56, 189, 248, 0.16), rgba(124, 92, 255, 0.08) 42%, transparent 70%);
+}
+
+/* Révélation du titre hero (wipe montant), piloté par le conteneur
+   pour ne pas casser l'IntersectionObserver (clip = surface nulle) */
+.js .hero-content h1 {
+  clip-path: inset(0 0 110% 0);
+  transition: clip-path 0.9s var(--ease) 0.05s;
+}
+.js .hero-content.is-visible h1 { clip-path: inset(0 0 -14% 0); }
+
+/* Bandeau défilant (marquee) */
+.marquee { overflow: hidden; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); background: var(--bg-soft); padding: 15px 0; }
+.marquee-track {
+  display: flex; align-items: center; gap: 1.8rem; width: max-content;
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;
+  animation: marquee 32s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track .sep { color: var(--primary); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Terminal qui s'écrit (façon fi.co) */
+.terminal {
+  margin: 1.8rem 0 0; max-width: 460px;
+  background: #060a14; border: 1px solid var(--neon-border); border-radius: 12px;
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.9), 0 0 30px -14px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+.terminal-bar { display: flex; align-items: center; gap: 7px; padding: 10px 13px; background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid var(--border-soft); }
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; background: #2c4a72; }
+.terminal-dot:nth-child(1) { background: #ff5f57; }
+.terminal-dot:nth-child(2) { background: #febc2e; }
+.terminal-dot:nth-child(3) { background: #28c840; }
+.terminal-title { margin-left: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
+.terminal-body { padding: 14px 16px 16px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.9; min-height: 10.6em; }
+.t-line { white-space: nowrap; overflow: hidden; color: var(--accent-ink); }
+.t-line.t-ok { color: var(--accent); }
+.t-line.t-go { color: var(--primary); }
+.js .terminal-body .t-line { visibility: hidden; }
+.js .terminal-body .t-line.typing, .js .terminal-body .t-line.done { visibility: visible; }
+.t-line.typing::after { content: "▌"; color: var(--primary); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Labels de stats en mono (façon fi.co) */
+.hero-stats span, .trust-inner span { font-family: var(--font-mono); letter-spacing: 0.04em; font-size: 0.74rem; }
