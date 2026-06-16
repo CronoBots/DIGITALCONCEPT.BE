@@ -567,7 +567,7 @@ html.js:not(.no-intro) .intro {
    pour ne pas casser l'IntersectionObserver (clip = surface nulle) */
 .js .hero-content h1 {
   clip-path: inset(0 0 110% 0);
-  transition: clip-path 0.9s var(--ease) 0.05s;
+  transition: clip-path 0.9s var(--ease) 0.14s;
 }
 .js .hero-content.is-visible h1 { clip-path: inset(0 0 -14% 0); }
 
@@ -689,3 +689,38 @@ html.js:not(.no-intro) .intro {
 /* Lien de retour-haut : petite rotation au survol */
 .to-top { transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s, border-color 0.2s, color 0.2s; }
 .to-top:hover { transform: translateY(-3px); }
+
+/* Chorégraphie d'entrée du hero (cascade au chargement) */
+.js .hero-content[data-reveal] { opacity: 1; transform: none; transition: none; }
+.js .hero-content > *:not(h1) { opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.js .hero-content.is-visible > *:not(h1) { opacity: 1; transform: none; }
+.js .hero-content.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
+.js .hero-content.is-visible > *:nth-child(3) { transition-delay: 0.34s; }
+.js .hero-content.is-visible > *:nth-child(4) { transition-delay: 0.46s; }
+.js .hero-content.is-visible > *:nth-child(5) { transition-delay: 0.56s; }
+.js .hero-content.is-visible > *:nth-child(6) { transition-delay: 0.64s; }
+.js .hero-content.is-visible > *:nth-child(7) { transition-delay: 0.72s; }
+.js .hero-content.is-visible > *:nth-child(8) { transition-delay: 0.80s; }
+
+/* Cascade des cellules de plateformes */
+.logo-grid [data-reveal].is-visible:nth-child(2) { transition-delay: 0.05s; }
+.logo-grid [data-reveal].is-visible:nth-child(3) { transition-delay: 0.1s; }
+.logo-grid [data-reveal].is-visible:nth-child(4) { transition-delay: 0.15s; }
+.logo-grid [data-reveal].is-visible:nth-child(5) { transition-delay: 0.2s; }
+.logo-grid [data-reveal].is-visible:nth-child(6) { transition-delay: 0.25s; }
+.logo-grid [data-reveal].is-visible:nth-child(7) { transition-delay: 0.3s; }
+.logo-grid [data-reveal].is-visible:nth-child(8) { transition-delay: 0.35s; }
+
+/* Perf : compositing des éléments animés */
+.marquee-track, .phone { will-change: transform; }
+
+/* Curseur personnalisé (desktop, anneau avec inertie) */
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+  border: 1.5px solid var(--primary); border-radius: 50%;
+  pointer-events: none; z-index: 9999; opacity: 0;
+  transition: width 0.22s var(--ease), height 0.22s var(--ease), background-color 0.22s var(--ease), border-color 0.22s var(--ease), opacity 0.3s var(--ease);
+  will-change: transform;
+}
+.cursor-dot.is-active { opacity: 1; }
+.cursor-dot.is-hover { width: 48px; height: 48px; background: rgba(56, 189, 248, 0.12); }

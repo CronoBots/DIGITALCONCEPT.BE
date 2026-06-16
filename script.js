@@ -286,27 +286,33 @@
 
   // Effets au pointeur (souris de précision uniquement, hors reduced-motion)
   if (finePointer && !prefersReduced) {
-    // Projecteur + parallaxe 3D de la maquette dans le héros
+    // Projecteur + parallaxe 3D de la maquette dans le héros (throttlé en rAF)
     const hero = document.querySelector(".hero");
     const spotlight = document.getElementById("hero-spotlight");
     const phone = document.querySelector(".phone");
     if (phone) phone.classList.add("has-parallax");
     if (hero) {
+      let hraf = 0, hev = null;
       hero.addEventListener("pointermove", (e) => {
-        const r = hero.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        if (spotlight) {
-          spotlight.style.setProperty("--mx", x + "px");
-          spotlight.style.setProperty("--my", y + "px");
-        }
-        if (phone) {
-          const rx = (y / r.height - 0.5) * -10;
-          const ry = (x / r.width - 0.5) * 12;
-          phone.style.transform =
-            "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
-        }
-      });
+        hev = e;
+        if (hraf) return;
+        hraf = requestAnimationFrame(() => {
+          hraf = 0;
+          const r = hero.getBoundingClientRect();
+          const x = hev.clientX - r.left;
+          const y = hev.clientY - r.top;
+          if (spotlight) {
+            spotlight.style.setProperty("--mx", x + "px");
+            spotlight.style.setProperty("--my", y + "px");
+          }
+          if (phone) {
+            const rx = (y / r.height - 0.5) * -10;
+            const ry = (x / r.width - 0.5) * 12;
+            phone.style.transform =
+              "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+          }
+        });
+      }, { passive: true });
       hero.addEventListener("pointerleave", () => {
         if (phone) phone.style.transform = "";
       });
@@ -319,11 +325,35 @@
         const mx = (e.clientX - r.left - r.width / 2) * 0.3;
         const my = (e.clientY - r.top - r.height / 2) * 0.4;
         btn.style.transform = "translate(" + mx + "px, " + (my - 2) + "px)";
-      });
+      }, { passive: true });
       btn.addEventListener("pointerleave", () => {
         btn.style.transform = "";
       });
     });
+
+    // Curseur personnalisé : anneau qui suit avec inertie, grossit sur les éléments interactifs
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot";
+    document.body.appendChild(dot);
+    const hoverSel = "a, button, .btn, [role='button'], input, summary, label, .trade";
+    let tx = 0, ty = 0, cx = 0, cy = 0, shown = false;
+    document.addEventListener("pointermove", (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (!shown) { shown = true; cx = tx; cy = ty; dot.classList.add("is-active"); }
+    }, { passive: true });
+    document.addEventListener("pointerover", (e) => {
+      if (e.target.closest && e.target.closest(hoverSel)) dot.classList.add("is-hover");
+    });
+    document.addEventListener("pointerout", (e) => {
+      if (e.target.closest && e.target.closest(hoverSel)) dot.classList.remove("is-hover");
+    });
+    window.addEventListener("blur", () => dot.classList.remove("is-active"));
+    const follow = () => {
+      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      dot.style.transform = "translate(" + cx + "px, " + cy + "px) translate(-50%, -50%)";
+      requestAnimationFrame(follow);
+    };
+    requestAnimationFrame(follow);
   }
 
   // Aperçu en direct : mise à l'échelle responsive de l'iframe (largeur de référence 1280px)
