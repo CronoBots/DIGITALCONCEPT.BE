@@ -380,19 +380,6 @@
     }
   }
 
-  // Parallaxe douce des halos de fond
-  if (!prefersReduced) {
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        document.body.style.setProperty("--halo-y", window.scrollY * 0.12 + "px");
-        ticking = false;
-      });
-    }, { passive: true });
-  }
-
   // Carrousel de témoignages
   const testi = document.querySelector("[data-testi]");
   if (testi) {
