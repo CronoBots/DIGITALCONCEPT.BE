@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cronobots.github.io/PERSPECTIVE-WEB/sitemap.xml
+Sitemap: https://pointcomme.be/sitemap.xml
