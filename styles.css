@@ -1002,3 +1002,12 @@ html.js:not(.no-intro) .intro {
 @media (prefers-reduced-motion: reduce) {
   .bg-fx span { animation: none !important; }
 }
+
+/* Flèche d'affordance au survol des cartes de service (rappel image de réf.) */
+.feature-card h3 { display: inline-flex; align-items: center; }
+.feature-card h3::after {
+  content: "→"; margin-left: 0.5rem; color: var(--primary);
+  opacity: 0; transform: translateX(-5px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.feature-card:hover h3::after { opacity: 1; transform: translateX(2px); }
