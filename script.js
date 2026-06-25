@@ -3,11 +3,6 @@
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Verrouillage type application : pas de zoom au pincement (iOS)
-  ["gesturestart", "gesturechange", "gestureend"].forEach((evt) =>
-    document.addEventListener(evt, (e) => e.preventDefault(), { passive: false })
-  );
-
   // Année dynamique
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -90,6 +85,10 @@
     revealEls.forEach((el) => revealObserver.observe(el));
   }
 
+  // Garantit l'affichage immédiat du héros (titre + chorégraphie) dès le chargement
+  const heroContent = document.querySelector(".hero-content");
+  if (heroContent) requestAnimationFrame(() => heroContent.classList.add("is-visible"));
+
   // Compteurs animés
   function animateCount(el) {
     const target = parseFloat(el.dataset.count || "0");
@@ -151,7 +150,7 @@
     sections.forEach((s) => spy.observe(s));
   }
 
-  // Formulaire de demande de maquette (démo front-end)
+  // Formulaire de demande de devis
   const form = document.getElementById("contact-form");
   const message = document.getElementById("form-message");
   if (form && message) {
@@ -196,7 +195,7 @@
       if (!name) nameInput.classList.add("invalid");
       if (!emailValid) emailInput.classList.add("invalid");
       if (!name || !emailValid) {
-        showError("Merci d'indiquer le nom de votre commerce et un e-mail valide.");
+        showError("Merci d'indiquer votre nom et une adresse e-mail valide.");
         return;
       }
 
@@ -211,7 +210,7 @@
           .then((res) => {
             setLoading(false);
             if (res.ok) {
-              showSuccess(`Merci ${name} ! Votre demande est envoyée, on vous écrit à ${email}.`);
+              showSuccess(`Merci ${name} ! Votre demande est envoyée, nous vous répondons à ${email} sous 24 h.`);
               form.reset();
             } else {
               showError("Oups, l'envoi a échoué. Réessayez ou écrivez-nous à " + mailTo + ".");
@@ -223,10 +222,10 @@
           });
       } else {
         // Repli sans inscription : ouvre la messagerie du visiteur, pré-remplie
-        const subject = encodeURIComponent("Demande de maquette gratuite — " + name);
+        const subject = encodeURIComponent("Demande de devis — " + name);
         const body = encodeURIComponent(
-          "Bonjour,\n\nJe souhaite découvrir ma maquette gratuite.\n\nCommerce : " +
-            name + "\nE-mail : " + email + "\n\nMerci !"
+          "Bonjour,\n\nJe souhaite discuter d'un projet.\n\nNom / entreprise : " +
+            name + "\nE-mail : " + email + "\n\nDescription du projet : \n\nMerci !"
         );
         window.location.href = "mailto:" + mailTo + "?subject=" + subject + "&body=" + body;
         showSuccess("Votre messagerie s'ouvre pour finaliser l'envoi. Merci " + name + " !");
@@ -235,19 +234,10 @@
     });
   }
 
-  // Comparateur avant / après (glissable, clavier-accessible)
-  document.querySelectorAll("[data-ba]").forEach((ba) => {
-    const range = ba.querySelector(".ba-range");
-    if (!range) return;
-    const update = () => ba.style.setProperty("--pos", range.value + "%");
-    range.addEventListener("input", update);
-    update();
-  });
-
   // Inclinaison 3D des cartes (pointeur précis uniquement, hors reduced-motion)
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (finePointer && !prefersReduced) {
-    document.querySelectorAll(".feature-card, .plan:not(.plan-featured), .step").forEach((card) => {
+    document.querySelectorAll(".feature-card, .step").forEach((card) => {
       card.addEventListener("pointermove", (e) => {
         const r = card.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width - 0.5;
@@ -263,43 +253,7 @@
     });
   }
 
-  // Sélecteur de métier : personnalise l'aperçu du téléphone en direct
-  const trades = document.getElementById("trades");
-  const phoneEmoji = document.getElementById("phone-emoji");
-  const phoneName = document.getElementById("phone-name");
-  if (trades && phoneEmoji && phoneName) {
-    trades.addEventListener("click", (e) => {
-      const btn = e.target.closest(".trade");
-      if (!btn) return;
-      trades.querySelectorAll(".trade").forEach((t) => t.classList.remove("is-active"));
-      btn.classList.add("is-active");
-      phoneEmoji.textContent = btn.dataset.emoji || "🏪";
-      phoneName.textContent = btn.dataset.name || "Votre commerce";
-      if (!prefersReduced) {
-        phoneName.animate(
-          [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
-          { duration: 350, easing: "ease" }
-        );
-      }
-    });
-  }
-
-  // Aperçu en direct : mise à l'échelle responsive de l'iframe (largeur de référence 1280px)
-  document.querySelectorAll(".browser-frame").forEach((frame) => {
-    const viewport = frame.parentElement;
-    const BASE = 1280;
-    const fit = () => {
-      frame.style.transform = "scale(" + viewport.clientWidth / BASE + ")";
-    };
-    fit();
-    if (window.ResizeObserver) {
-      new ResizeObserver(fit).observe(viewport);
-    } else {
-      window.addEventListener("resize", fit);
-    }
-  });
-
-  // Terminal qui s'écrit (façon fi.co)
+  // Terminal qui s'écrit
   const term = document.querySelector("[data-terminal]");
   if (term) {
     const lines = Array.from(term.querySelectorAll(".t-line"));
@@ -340,57 +294,6 @@
       } else {
         typeLine();
       }
-    }
-  }
-
-  // Carrousel de témoignages (auto, pause au survol/focus, glissé, clavier)
-  const testi = document.querySelector("[data-testi]");
-  if (testi) {
-    const cards = Array.from(testi.querySelectorAll(".testi-card"));
-    const dotsWrap = testi.querySelector(".testi-dots");
-    const viewport = testi.querySelector(".testi-viewport");
-    if (cards.length && dotsWrap) {
-      let idx = 0;
-      let timer = null;
-      const show = (i) => {
-        i = (i + cards.length) % cards.length;
-        cards[idx].classList.remove("is-active");
-        dots[idx].classList.remove("is-active");
-        idx = i;
-        cards[idx].classList.add("is-active");
-        dots[idx].classList.add("is-active");
-      };
-      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-      const play = () => { if (!prefersReduced && !timer) timer = setInterval(() => show(idx + 1), 5000); };
-      const restart = () => { stop(); play(); };
-      const dots = cards.map((_, i) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.setAttribute("aria-label", "Avis " + (i + 1));
-        b.addEventListener("click", () => { show(i); restart(); });
-        dotsWrap.appendChild(b);
-        return b;
-      });
-      dots[0].classList.add("is-active");
-      testi.addEventListener("pointerenter", stop);
-      testi.addEventListener("pointerleave", play);
-      testi.addEventListener("focusin", stop);
-      testi.addEventListener("focusout", play);
-      testi.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") { show(idx - 1); restart(); }
-        else if (e.key === "ArrowRight") { show(idx + 1); restart(); }
-      });
-      if (viewport) {
-        let x0 = null;
-        viewport.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-        viewport.addEventListener("touchend", (e) => {
-          if (x0 === null) return;
-          const dx = e.changedTouches[0].clientX - x0;
-          if (Math.abs(dx) > 40) { show(idx + (dx < 0 ? 1 : -1)); restart(); }
-          x0 = null;
-        }, { passive: true });
-      }
-      play();
     }
   }
 })();
