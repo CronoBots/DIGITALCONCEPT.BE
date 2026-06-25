@@ -19,33 +19,42 @@
     });
   }
 
-  // Bilingue FR / EN (français par défaut, préférence mémorisée)
-  const I18N = window.I18N_EN || {};
-  const langToggle = document.getElementById("lang-toggle");
+  // Multilingue FR / EN / NL (français par défaut, préférence mémorisée)
+  const I18N = window.I18N || {};
+  const LANGS = ["fr", "en", "nl"];
+  const langSwitch = document.getElementById("lang-switch");
   function applyLang(lang) {
+    if (LANGS.indexOf(lang) === -1) lang = "fr";
     currentLang = lang;
     document.documentElement.setAttribute("lang", lang);
+    const dict = lang !== "fr" ? I18N[lang] : null;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       if (el._fr == null) el._fr = el.innerHTML;
-      const en = I18N[el.getAttribute("data-i18n")];
-      el.innerHTML = lang === "en" && en != null ? en : el._fr;
+      const tr = dict ? dict[el.getAttribute("data-i18n")] : null;
+      el.innerHTML = tr != null ? tr : el._fr;
     });
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
       if (el._frPh == null) el._frPh = el.getAttribute("placeholder") || "";
-      const en = I18N[el.getAttribute("data-i18n-ph")];
-      el.setAttribute("placeholder", lang === "en" && en != null ? en : el._frPh);
+      const tr = dict ? dict[el.getAttribute("data-i18n-ph")] : null;
+      el.setAttribute("placeholder", tr != null ? tr : el._frPh);
     });
-    if (langToggle) {
-      langToggle.textContent = lang === "en" ? "FR" : "EN";
-      langToggle.setAttribute("aria-label", lang === "en" ? "Repasser en français" : "Switch to English");
+    if (langSwitch) {
+      langSwitch.querySelectorAll("button").forEach((b) => {
+        const on = b.dataset.lang === lang;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
     }
     try { localStorage.setItem("lang", lang); } catch (e) {}
   }
   let storedLang = "fr";
   try { storedLang = localStorage.getItem("lang") || "fr"; } catch (e) {}
-  applyLang(storedLang === "en" ? "en" : "fr");
-  if (langToggle) {
-    langToggle.addEventListener("click", () => applyLang(currentLang === "en" ? "fr" : "en"));
+  applyLang(storedLang);
+  if (langSwitch) {
+    langSwitch.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-lang]");
+      if (b) applyLang(b.dataset.lang);
+    });
   }
 
   // L'intro ne se rejoue pas pendant la session
@@ -191,7 +200,8 @@
     const endpoint = (form.dataset.endpoint || "").trim();
     const mailTo = form.dataset.mailto || "contact@digitalconcept.be";
     if (endpoint) form.setAttribute("action", endpoint); // repli sans JS
-    const t = (fr, en) => (currentLang === "en" ? en : fr);
+    const t = (fr, en, nl) =>
+      currentLang === "nl" ? (nl != null ? nl : fr) : currentLang === "en" ? en : fr;
 
     function showError(msg) {
       message.className = "form-message error";
@@ -208,7 +218,9 @@
     function setLoading(on) {
       if (!submitBtn) return;
       submitBtn.disabled = on;
-      submitBtn.textContent = on ? t("Envoi…", "Sending…") : t("Demander un devis gratuit", "Get a free quote");
+      submitBtn.textContent = on
+        ? t("Envoi…", "Sending…", "Versturen…")
+        : t("Demander un devis gratuit", "Get a free quote", "Gratis offerte aanvragen");
     }
 
     form.addEventListener("submit", (event) => {
@@ -226,7 +238,7 @@
       if (!name) nameInput.classList.add("invalid");
       if (!emailValid) emailInput.classList.add("invalid");
       if (!name || !emailValid) {
-        showError(t("Merci d'indiquer votre nom et une adresse e-mail valide.", "Please enter your name and a valid email address."));
+        showError(t("Merci d'indiquer votre nom et une adresse e-mail valide.", "Please enter your name and a valid email address.", "Vul uw naam en een geldig e-mailadres in."));
         return;
       }
 
@@ -243,29 +255,34 @@
             if (res.ok) {
               showSuccess(t(
                 `Merci ${name} ! Votre demande est envoyée, nous vous répondons à ${email} sous 24 h.`,
-                `Thanks ${name}! Your request has been sent — we'll reply to ${email} within 24 h.`
+                `Thanks ${name}! Your request has been sent — we'll reply to ${email} within 24 h.`,
+                `Bedankt ${name}! Uw aanvraag is verzonden — we antwoorden binnen 24 u op ${email}.`
               ));
               form.reset();
             } else {
               showError(t("Oups, l'envoi a échoué. Réessayez ou écrivez-nous à " + mailTo + ".",
-                          "Sorry, sending failed. Please retry or email us at " + mailTo + "."));
+                          "Sorry, sending failed. Please retry or email us at " + mailTo + ".",
+                          "Verzenden mislukt. Probeer opnieuw of mail ons op " + mailTo + "."));
             }
           })
           .catch(() => {
             setLoading(false);
             showError(t("Connexion impossible. Réessayez ou écrivez-nous à " + mailTo + ".",
-                        "Connection failed. Please retry or email us at " + mailTo + "."));
+                        "Connection failed. Please retry or email us at " + mailTo + ".",
+                        "Verbinding mislukt. Probeer opnieuw of mail ons op " + mailTo + "."));
           });
       } else {
         // Repli sans inscription : ouvre la messagerie du visiteur, pré-remplie
-        const subject = encodeURIComponent(t("Demande de devis — ", "Quote request — ") + name);
+        const subject = encodeURIComponent(t("Demande de devis — ", "Quote request — ", "Offerteaanvraag — ") + name);
         const body = encodeURIComponent(t(
           "Bonjour,\n\nJe souhaite discuter d'un projet.\n\nNom / entreprise : " + name + "\nE-mail : " + email + "\n\nDescription du projet : \n\nMerci !",
-          "Hello,\n\nI'd like to discuss a project.\n\nName / company: " + name + "\nEmail: " + email + "\n\nProject description: \n\nThank you!"
+          "Hello,\n\nI'd like to discuss a project.\n\nName / company: " + name + "\nEmail: " + email + "\n\nProject description: \n\nThank you!",
+          "Hallo,\n\nIk wil graag een project bespreken.\n\nNaam / bedrijf: " + name + "\nE-mail: " + email + "\n\nProjectomschrijving: \n\nBedankt!"
         ));
         window.location.href = "mailto:" + mailTo + "?subject=" + subject + "&body=" + body;
         showSuccess(t("Votre messagerie s'ouvre pour finaliser l'envoi. Merci " + name + " !",
-                      "Your email app is opening to complete the request. Thanks " + name + "!"));
+                      "Your email app is opening to complete the request. Thanks " + name + "!",
+                      "Uw e-mailprogramma opent om de aanvraag af te ronden. Bedankt " + name + "!"));
         form.reset();
       }
     });
