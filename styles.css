@@ -916,32 +916,40 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 
 /* Pause des animations hors écran déjà gérée ; on évite le double-grille */
 
-/* Sélecteur de langue FR / EN */
-.lang-toggle {
-  margin-left: auto; flex: none;
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 42px; height: 40px; padding: 0 11px; border-radius: 999px;
-  background: var(--btn-secondary-bg); border: 1px solid var(--border);
-  color: var(--text-muted); cursor: pointer;
-  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em;
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-.lang-toggle:hover { color: var(--text); border-color: var(--primary); transform: translateY(-2px); }
-/* Le bouton de langue prend le margin-left:auto ; le thème suit juste à côté */
+/* Le sélecteur de langue prend le margin-left:auto ; le thème suit juste à côté */
 .theme-toggle { margin-left: 0; }
 
-/* Sélecteur de langue segmenté FR · EN · NL */
-.lang-switch {
-  margin-left: auto; flex: none;
-  display: inline-flex; align-items: center; gap: 2px; padding: 3px;
-  background: var(--btn-secondary-bg); border: 1px solid var(--border); border-radius: 999px;
+/* Sélecteur de langue compact (FR / EN / NL regroupés dans un menu) */
+.lang-switch { margin-left: auto; flex: none; position: relative; }
+.lang-current {
+  display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; line-height: 1;
+  padding: 8px 10px; border-radius: 999px;
+  background: var(--btn-secondary-bg); border: 1px solid var(--border); color: var(--text-muted);
+  font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.lang-switch button {
-  border: 0; background: transparent; cursor: pointer; line-height: 1;
-  font-family: var(--font-display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em;
-  color: var(--text-muted); padding: 6px 9px; border-radius: 999px;
-  transition: color 0.2s var(--ease), background 0.2s var(--ease), transform 0.15s var(--ease);
+.lang-current:hover { color: var(--text); border-color: var(--primary); transform: translateY(-2px); }
+.lang-globe { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.lang-caret { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s var(--ease); }
+.lang-current[aria-expanded="true"] { color: var(--text); border-color: var(--primary); }
+.lang-current[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 1100; min-width: 160px;
+  display: flex; flex-direction: column; padding: 6px;
+  background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.85);
+  opacity: 0; transform: translateY(-6px); visibility: hidden; pointer-events: none;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0s linear 0.2s;
 }
-.lang-switch button:hover { color: var(--text); }
-.lang-switch button.is-active { color: #06101f; background: linear-gradient(120deg, var(--primary), var(--primary-2)); }
-@media (max-width: 380px) { .lang-switch button { padding: 6px 7px; font-size: 0.68rem; } }
+.lang-switch.open .lang-menu {
+  opacity: 1; transform: none; visibility: visible; pointer-events: auto;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0s;
+}
+.lang-menu button {
+  border: 0; background: transparent; cursor: pointer; text-align: left;
+  padding: 10px 12px; border-radius: 9px; color: var(--text-muted);
+  font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
+  transition: color 0.15s var(--ease), background 0.15s var(--ease);
+}
+.lang-menu button:hover { color: var(--text); background: var(--btn-secondary-bg); }
+.lang-menu button[aria-checked="true"] { color: #06101f; background: linear-gradient(120deg, var(--primary), var(--primary-2)); }

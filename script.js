@@ -39,11 +39,11 @@
       el.setAttribute("placeholder", tr != null ? tr : el._frPh);
     });
     if (langSwitch) {
-      langSwitch.querySelectorAll("button").forEach((b) => {
-        const on = b.dataset.lang === lang;
-        b.classList.toggle("is-active", on);
-        b.setAttribute("aria-pressed", String(on));
+      langSwitch.querySelectorAll("button[data-lang]").forEach((b) => {
+        b.setAttribute("aria-checked", String(b.dataset.lang === lang));
       });
+      const code = langSwitch.querySelector("[data-lang-code]");
+      if (code) code.textContent = lang.toUpperCase();
     }
     try { localStorage.setItem("lang", lang); } catch (e) {}
   }
@@ -62,9 +62,30 @@
   try { storedLang = localStorage.getItem("lang"); } catch (e) {}
   applyLang(storedLang && LANGS.indexOf(storedLang) !== -1 ? storedLang : detectLang());
   if (langSwitch) {
+    const langCurrent = document.getElementById("lang-current");
+    const closeLang = () => {
+      langSwitch.classList.remove("open");
+      if (langCurrent) langCurrent.setAttribute("aria-expanded", "false");
+    };
+    if (langCurrent) {
+      langCurrent.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const open = langSwitch.classList.toggle("open");
+        langCurrent.setAttribute("aria-expanded", String(open));
+      });
+    }
     langSwitch.addEventListener("click", (e) => {
       const b = e.target.closest("button[data-lang]");
-      if (b) applyLang(b.dataset.lang);
+      if (b) { applyLang(b.dataset.lang); closeLang(); }
+    });
+    document.addEventListener("click", (e) => {
+      if (!langSwitch.contains(e.target)) closeLang();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && langSwitch.classList.contains("open")) {
+        closeLang();
+        if (langCurrent) langCurrent.focus();
+      }
     });
   }
 
