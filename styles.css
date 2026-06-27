@@ -364,7 +364,6 @@ a.browser:hover { border-color: var(--primary); transform: translateY(-4px); }
 
 /* Bascule de thème */
 .theme-toggle {
-  margin-left: auto; margin-right: 0.85rem;
   width: 40px; height: 40px; flex: none; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--btn-secondary-bg); border: 1px solid var(--border);
@@ -425,6 +424,22 @@ html.js:not(.no-intro) .intro {
   .nav-menu a { display: block; padding: 14px 2px; font-size: 1.02rem; }
   .nav-menu a:not(.btn-ghost)::after { display: none; }
   .nav-menu .btn-ghost { margin-top: 12px; text-align: center; padding: 12px; }
+
+  /* Langue + thème : ligne dédiée en bas du menu */
+  .nav-extras {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; margin: 0; padding: 16px 2px 4px; border-bottom: 0;
+  }
+  .lang-current { display: none; }            /* on masque le bouton globe sur mobile */
+  .lang-switch { position: static; }
+  .lang-menu {                                 /* le menu devient un segmenté FR · EN · NL en ligne */
+    position: static; min-width: 0; flex-direction: row; gap: 2px; padding: 3px;
+    border-radius: 999px; box-shadow: none;
+    opacity: 1; visibility: visible; transform: none; pointer-events: auto;
+  }
+  .lang-menu button { padding: 9px 14px; font-size: 0.85rem; border-radius: 999px; }
+  .lang-menu .l-full { display: none; }        /* libellés courts (FR/EN/NL) sur mobile */
+  .lang-menu .l-code { display: inline; }
 }
 
 @media (max-width: 520px) {
@@ -916,11 +931,12 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 
 /* Pause des animations hors écran déjà gérée ; on évite le double-grille */
 
-/* Le sélecteur de langue prend le margin-left:auto ; le thème suit juste à côté */
-.theme-toggle { margin-left: 0; }
+/* Langue + thème regroupés dans la barre de navigation (dernier item du menu) */
+.nav-extras { display: flex; align-items: center; gap: 0.6rem; margin-left: 0.5rem; }
 
 /* Sélecteur de langue compact (FR / EN / NL regroupés dans un menu) */
-.lang-switch { margin-left: auto; flex: none; position: relative; }
+.lang-switch { flex: none; position: relative; }
+.lang-menu .l-code { display: none; }
 .lang-current {
   display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; line-height: 1;
   padding: 8px 10px; border-radius: 999px;
