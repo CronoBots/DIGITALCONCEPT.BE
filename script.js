@@ -118,11 +118,11 @@
     const y = window.scrollY;
     if (header) header.classList.toggle("scrolled", y > headerThreshold());
     if (toTop) toTop.classList.toggle("show", y > 600);
-    if (progress) {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
-    }
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const pct = max > 0 ? (y / max) * 100 : 0;
+    if (progress) progress.style.width = pct + "%";
+    if (toTop) toTop.style.setProperty("--p", pct.toFixed(1));
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll, { passive: true });

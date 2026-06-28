@@ -1012,3 +1012,11 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   .grain { display: none; }
   .feature-card::after, .step::after { display: none; }
 }
+
+/* Bouton retour-haut = anneau de progression de lecture */
+.to-top::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from -90deg, var(--primary) calc(var(--p, 0) * 1%), var(--border) 0);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+}
