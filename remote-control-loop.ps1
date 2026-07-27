@@ -26,7 +26,16 @@ $pidFile = Join-Path $PSScriptRoot ".remote-control.pid"
 # IMPORTANT : --continue reprend une ancienne conversation LOCALE et n'etablit
 # PAS la session distante visible sur claude.ai/code. C'est pour ca que les
 # projets lances avec --continue ne montraient aucune session. On l'enleve.
-$argsFresh = @("--remote-control", $SessionName, "--dangerously-skip-permissions")
+#
+# --- UUID FIXE : evite l'empilement de sessions fantomes sur mobile ----------
+# Sans --session-id, claude genere un UUID NEUF a chaque relance -> chaque
+# relance cree une NOUVELLE entree sur le mobile (fantomes qui s'empilent =
+# "tout en double"). En epinglant un UUID STABLE, chaque relance reutilise LE
+# MEME slot => une seule entree recyclee cote mobile. On reste en session
+# fraiche : on efface l'historique de cet UUID avant chaque lancement (boucle).
+$RemoteSessionId = "34c928e0-694a-422a-bd53-5966194ccdb2"
+$projectStore    = Join-Path (Join-Path $env:USERPROFILE ".claude\projects") ($PSScriptRoot -replace '[^A-Za-z0-9]', '-')
+$argsFresh = @("--remote-control", $SessionName, "--session-id", $RemoteSessionId, "--dangerously-skip-permissions")
 
 # PID de la boucle (le desinstallateur cible aussi par le mot "DIGITALCONCEPT.BE")
 Set-Content -Path $pidFile -Value $PID -Encoding ASCII
@@ -79,18 +88,17 @@ Start-Job -Name "wd-$SessionName" -ArgumentList $SessionName, $logFile, $PID -Sc
         if (-not $p) { $strikes = 0; continue }
         $conns = @(Get-NetTCPConnection -OwningProcess $p.ProcessId -State Established -ErrorAction SilentlyContinue |
                    Where-Object { $_.RemoteAddress -notin '127.0.0.1','::1' })
-        # Sante = au moins UNE connexion ET pas une "tempete de retry".
-        # Tempete = >=15 connexions TOUTES vers une seule IP : le canal API
-        # boucle en reconnexion mais le relais mobile (2e IP) n'est jamais monte
-        # -> session invisible sur mobile (BETSFIX, 2026-07-17). Une session saine
-        # a le relais => >=2 IP distinctes ; une session idle a peu de connexions.
-        $distinct = @($conns | Select-Object -ExpandProperty RemoteAddress -Unique).Count
-        $storm = ($conns.Count -ge 15 -and $distinct -le 1)
-        if ($conns.Count -gt 0 -and -not $storm) { $strikes = 0; continue }
+        # Sante = au moins UNE connexion etablie vers Anthropic.
+        # NB (2026-07-27) : on ne tue PLUS sur "tempete / relais absent". Une
+        # session en veille NON regardee ne monte jamais son relais mobile :
+        # c'est son etat NORMAL, pas une panne. La tuer relancait une session
+        # toutes les ~5 min (fantomes empiles sur mobile) sans jamais remonter
+        # le relais -- il se monte quand tu OUVRES la session sur mobile. On ne
+        # garde que le kill du process REELLEMENT fige (0 connexion ~180s).
+        if ($conns.Count -gt 0) { $strikes = 0; continue }
         $strikes++
         if ($strikes -ge 9) {
-            $why = if ($storm) { "tempete retry ($($conns.Count) conn / 1 IP, relais absent)" } else { "0 connexion ~180s" }
-            "$(Get-Date -Format s) WATCHDOG: claude $session malsain ($why, PID $($p.ProcessId)) -> kill" | Out-File -FilePath $log -Append -Encoding utf8
+            "$(Get-Date -Format s) WATCHDOG: claude $session fige (0 connexion ~180s, PID $($p.ProcessId)) -> kill" | Out-File -FilePath $log -Append -Encoding utf8
             Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue
             $strikes = 0
         }
@@ -99,6 +107,12 @@ Start-Job -Name "wd-$SessionName" -ArgumentList $SessionName, $logFile, $PID -Sc
 
 while ($true) {
     try {
+        # "Repart a neuf" : on efface l'historique persistant de CET UUID avant
+        # chaque lancement. Meme session-id (mobile recycle une seule entree)
+        # MAIS conversation fraiche (pas de reprise, pas de gonflement contexte).
+        Get-ChildItem -Path $projectStore -Filter "$RemoteSessionId*" -ErrorAction SilentlyContinue |
+            Remove-Item -Force -ErrorAction SilentlyContinue
+
         # On appelle claude DIRECTEMENT (operateur &), pas via Start-Process
         # -WindowStyle Hidden. claude a besoin d'heriter de la console (cachee)
         # de ce PowerShell pour le mode remote-control. Avec
