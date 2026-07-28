@@ -439,10 +439,9 @@
     const showcase = document.querySelector("[data-showcase]");
     if (!showcase) return;
     const PROJECTS = [
-      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", img: "img/cryptonauts.jpg", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes, publiée sur la marketplace Crypto.com NFT." },
-      { host: "oryxia.be", url: "https://www.oryxia.be", img: "img/oryxia.jpg", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
-      { host: "api.betsfix.be", url: "https://api.betsfix.be", img: "img/betsfix.jpg", name: "Betsfix", kindKey: "kind.betsfix", kindFr: "API · Paris sportifs", descKey: "desc.betsfix", descFr: "API de données et de pronostics pour les paris sportifs : cotes et statistiques." },
-      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", img: "img/toukin.jpg", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
+      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg", mobile: "img/cryptonauts-mobile.jpg", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes, publiée sur la marketplace Crypto.com NFT." },
+      { host: "oryxia.be", url: "https://www.oryxia.be", desktop: "img/oryxia-desktop.jpg", mobile: "img/oryxia-mobile.jpg", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
+      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg", mobile: "img/toukin-mobile.jpg", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
     ];
     const q = (s) => showcase.querySelector(s);
     const elDesktop = q("[data-sc-desktop]"), elMobile = q("[data-sc-mobile]");
@@ -483,8 +482,8 @@
 
     function paint(i) {
       const p = PROJECTS[i];
-      if (elDesktop) { elDesktop.src = p.img; elDesktop.alt = p.name + " — aperçu du projet"; }
-      if (elMobile) elMobile.src = p.img;
+      if (elDesktop) { elDesktop.src = p.desktop; elDesktop.alt = p.name + " — aperçu du site (version ordinateur)"; }
+      if (elMobile) elMobile.src = p.mobile;
       if (elUrl) elUrl.textContent = p.host;
       if (elHost) elHost.textContent = p.host;
       if (elLink) elLink.href = p.url;
