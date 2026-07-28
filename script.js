@@ -536,5 +536,23 @@
       if (document.hidden) stop();
       else if (started && !showcase.matches(":hover")) { restartFill(index); arm(); }
     });
+
+    // Suivi souris (parallaxe 3D gauche/droite/haut/bas), comme Defaweux
+    if (finePointer && !prefersReduced) {
+      const stage = showcase.querySelector(".showcase-stage");
+      const devices = showcase.querySelector(".devices");
+      if (stage && devices) {
+        stage.addEventListener("pointermove", (e) => {
+          const r = stage.getBoundingClientRect();
+          const rx = (e.clientX - r.left) / r.width - 0.5;
+          const ry = (e.clientY - r.top) / r.height - 0.5;
+          devices.style.transform =
+            "perspective(1300px) rotateY(" + (rx * 7).toFixed(2) + "deg) rotateX(" +
+            (-ry * 7).toFixed(2) + "deg) translate3d(" + (rx * 18).toFixed(1) + "px, " +
+            (ry * 18).toFixed(1) + "px, 0)";
+        });
+        stage.addEventListener("pointerleave", () => { devices.style.transform = ""; });
+      }
+    }
   })();
 })();

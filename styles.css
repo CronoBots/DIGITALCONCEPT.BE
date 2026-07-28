@@ -1024,10 +1024,10 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Vitrine réalisations : carrousel PC + mobile */
 .showcase { display: grid; grid-template-columns: 1.48fr 0.72fr; gap: 26px; align-items: center; }
 .showcase-stage { position: relative; perspective: 1600px; }
-.devices { position: relative; width: min(100%, 720px); margin-inline: auto; animation: scFloat 7s var(--ease) infinite; }
+.devices { position: relative; width: min(100%, 720px); margin-inline: auto; transition: transform 0.2s var(--ease); transform-style: preserve-3d; will-change: transform; }
 
 .browser {
-  position: relative; width: 80%; border-radius: 13px; overflow: hidden;
+  position: relative; width: 74%; border-radius: 13px; overflow: hidden;
   background: linear-gradient(160deg, #1c2c44, #0b1422);
   border: 1px solid var(--border);
   box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -1042,23 +1042,24 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
 
 .phone {
-  position: absolute; right: 0; bottom: -8%; width: 30%; aspect-ratio: 9 / 19.5;
-  border-radius: 12% / 5.6%; padding: 3.2%;
-  background: linear-gradient(145deg, #40485c 0%, #20252f 34%, #0c0f16 72%, #171b24 100%);
-  box-shadow: 0 34px 60px -20px rgba(0, 0, 0, 0.85), 0 8px 22px -10px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.10), inset 0 1.5px 1px rgba(255, 255, 255, 0.18);
+  position: absolute; right: 0; bottom: -6%; width: 27%;
+  border-radius: 16% / 7.4%; padding: 1.9%;
+  background: linear-gradient(145deg, #2b303b 0%, #14171e 46%, #080a0f 100%);
+  box-shadow: 0 36px 60px -20px rgba(0, 0, 0, 0.85), 0 8px 22px -10px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07);
   z-index: 3;
 }
-/* Boutons latéraux */
-.phone::before { content: ""; position: absolute; right: -2px; top: 27%; width: 2.5px; height: 10%; border-radius: 0 2px 2px 0; background: linear-gradient(#3a4152, #0d1017); }
-.phone::after { content: ""; position: absolute; left: -2px; top: 20%; width: 2.5px; height: 13%; border-radius: 2px 0 0 2px; background: linear-gradient(#3a4152 0%, #0d1017 22%, #0d1017 44%, #3a4152 52%, #3a4152 78%, #0d1017 100%); }
-.phone-screen { position: relative; width: 100%; height: 100%; border-radius: 8.5% / 4.4%; overflow: hidden; background: #070d18; box-shadow: inset 0 0 0 2px #04060a; }
+/* Boutons latéraux (fins) */
+.phone::before { content: ""; position: absolute; right: -1.5px; top: 26%; width: 2px; height: 9%; border-radius: 0 2px 2px 0; background: linear-gradient(#333a47, #0c0f15); }
+.phone::after { content: ""; position: absolute; left: -1.5px; top: 19%; width: 2px; height: 13%; border-radius: 2px 0 0 2px; background: linear-gradient(#333a47 0%, #0c0f15 24%, #0c0f15 45%, #333a47 53%, #333a47 78%, #0c0f15 100%); }
+/* Écran : ratio EXACT d'un iPhone (430/932) -> aperçu mobile 1:1, sans zoom ni coupe */
+.phone-screen { position: relative; width: 100%; aspect-ratio: 430 / 932; border-radius: 13% / 6%; overflow: hidden; background: #070d18; }
 .phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-/* Dynamic island */
-.phone-island { position: absolute; top: 3.4%; left: 50%; transform: translateX(-50%); width: 34%; height: 3.4%; min-height: 9px; border-radius: 999px; background: #04060a; z-index: 3; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); }
-.phone-island::after { content: ""; position: absolute; right: 14%; top: 50%; transform: translateY(-50%); width: 22%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b2942, #05070c 70%); }
+/* Dynamic island (fine) */
+.phone-island { position: absolute; top: 2.4%; left: 50%; transform: translateX(-50%); width: 27%; height: 2.4%; min-height: 7px; border-radius: 999px; background: #05060a; z-index: 3; }
+.phone-island::after { content: ""; position: absolute; right: 12%; top: 50%; transform: translateY(-50%); width: 20%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b2942, #05070c 70%); }
 /* Reflet de verre */
-.phone-gloss { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(125deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 16%, transparent 32%); }
+.phone-gloss { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 13% / 6%; background: linear-gradient(125deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 15%, transparent 30%); }
 
 /* Fondu de contenu lors du changement de projet */
 .browser-screen img, .phone-screen img { transition: opacity 0.42s var(--ease), transform 0.42s var(--ease); }
