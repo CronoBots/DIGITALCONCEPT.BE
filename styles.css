@@ -1022,12 +1022,12 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 }
 
 /* Vitrine réalisations : carrousel PC + mobile */
-.showcase { display: grid; grid-template-columns: 1.34fr 0.78fr; gap: 34px; align-items: center; }
-.showcase-stage { position: relative; perspective: 1500px; }
-.devices { position: relative; width: min(100%, 620px); margin-inline: auto; animation: scFloat 7s var(--ease) infinite; }
+.showcase { display: grid; grid-template-columns: 1.48fr 0.72fr; gap: 26px; align-items: center; }
+.showcase-stage { position: relative; perspective: 1600px; }
+.devices { position: relative; width: min(100%, 720px); margin-inline: auto; animation: scFloat 7s var(--ease) infinite; }
 
 .browser {
-  position: relative; border-radius: 13px; overflow: hidden;
+  position: relative; width: 80%; border-radius: 13px; overflow: hidden;
   background: linear-gradient(160deg, #1c2c44, #0b1422);
   border: 1px solid var(--border);
   box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -1042,7 +1042,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
 
 .phone {
-  position: absolute; right: -4%; bottom: -12%; width: 23%; aspect-ratio: 9 / 19.5;
+  position: absolute; right: 0; bottom: -8%; width: 30%; aspect-ratio: 9 / 19.5;
   border-radius: 12% / 5.6%; padding: 3.2%;
   background: linear-gradient(145deg, #40485c 0%, #20252f 34%, #0c0f16 72%, #171b24 100%);
   box-shadow: 0 34px 60px -20px rgba(0, 0, 0, 0.85), 0 8px 22px -10px rgba(0, 0, 0, 0.6),
@@ -1097,7 +1097,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   .sc-tab { flex: 1 1 40%; }
 }
 @media (max-width: 560px) {
-  .phone { width: 26%; bottom: -9%; right: -3%; }
+  .phone { width: 33%; bottom: -6%; right: 0; }
   .showcase-title { font-size: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
