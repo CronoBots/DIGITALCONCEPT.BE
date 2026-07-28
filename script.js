@@ -59,6 +59,7 @@
       if (code) code.textContent = lang.toUpperCase();
     }
     try { localStorage.setItem("lang", lang); } catch (e) {}
+    if (typeof window.__onLang === "function") window.__onLang();
   }
   // 1er passage : on détecte la langue du navigateur (FR/EN/NL, repli FR).
   // Un choix manuel (mémorisé) reste toujours prioritaire.
@@ -432,4 +433,109 @@
       }
     }
   }
+
+  // Vitrine réalisations : un projet à la fois (PC + mobile), rotation auto ~3,6 s
+  (function () {
+    const showcase = document.querySelector("[data-showcase]");
+    if (!showcase) return;
+    const PROJECTS = [
+      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", img: "img/cryptonauts.jpg", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes, publiée sur la marketplace Crypto.com NFT." },
+      { host: "oryxia.be", url: "https://www.oryxia.be", img: "img/oryxia.jpg", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
+      { host: "api.betsfix.be", url: "https://api.betsfix.be", img: "img/betsfix.jpg", name: "Betsfix", kindKey: "kind.betsfix", kindFr: "API · Paris sportifs", descKey: "desc.betsfix", descFr: "API de données et de pronostics pour les paris sportifs : cotes et statistiques." },
+      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", img: "img/toukin.jpg", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
+    ];
+    const q = (s) => showcase.querySelector(s);
+    const elDesktop = q("[data-sc-desktop]"), elMobile = q("[data-sc-mobile]");
+    const elUrl = q("[data-sc-url]"), elKind = q("[data-sc-kind]"), elTitle = q("[data-sc-title]");
+    const elDesc = q("[data-sc-desc]"), elLink = q("[data-sc-link]"), elHost = q("[data-sc-host]");
+    const tabsWrap = q("[data-sc-tabs]");
+    const INT = prefersReduced ? 0 : 3600;
+    showcase.style.setProperty("--sc-int", INT + "ms");
+    let index = 0, timer = null, started = false;
+
+    const txt = (key, fr) =>
+      currentLang !== "fr" && key && I18N[currentLang] && I18N[currentLang][key] != null
+        ? I18N[currentLang][key] : fr;
+
+    const tabs = PROJECTS.map((p, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "sc-tab";
+      b.setAttribute("role", "tab");
+      b.innerHTML = '<span class="sc-tab-fill" aria-hidden="true"></span><span class="sc-tab-label"></span>';
+      b.querySelector(".sc-tab-label").textContent = p.name;
+      b.addEventListener("click", () => {
+        if (!started) { started = true; showcase.classList.add("is-live"); }
+        go(i, true); arm();
+      });
+      tabsWrap.appendChild(b);
+      return b;
+    });
+
+    function restartFill(i) {
+      if (prefersReduced) return;
+      const fill = tabs[i] && tabs[i].querySelector(".sc-tab-fill");
+      if (!fill) return;
+      fill.style.animation = "none";
+      void fill.offsetWidth; // reflow -> relance l'animation de progression
+      fill.style.animation = "";
+    }
+
+    function paint(i) {
+      const p = PROJECTS[i];
+      if (elDesktop) { elDesktop.src = p.img; elDesktop.alt = p.name + " — aperçu du projet"; }
+      if (elMobile) elMobile.src = p.img;
+      if (elUrl) elUrl.textContent = p.host;
+      if (elHost) elHost.textContent = p.host;
+      if (elLink) elLink.href = p.url;
+      if (elKind) elKind.textContent = txt(p.kindKey, p.kindFr);
+      if (elTitle) elTitle.textContent = p.name;
+      if (elDesc) elDesc.textContent = txt(p.descKey, p.descFr);
+      tabs.forEach((t, k) => {
+        t.classList.toggle("active", k === i);
+        t.setAttribute("aria-selected", k === i ? "true" : "false");
+      });
+      restartFill(i);
+    }
+
+    function go(i, animate) {
+      index = (i + PROJECTS.length) % PROJECTS.length;
+      if (animate && !prefersReduced) {
+        showcase.classList.add("is-swapping");
+        setTimeout(() => { paint(index); showcase.classList.remove("is-swapping"); }, 240);
+      } else {
+        paint(index);
+      }
+    }
+
+    function arm() { if (!INT) return; clearInterval(timer); timer = setInterval(() => go(index + 1, true), INT); }
+    function stop() { clearInterval(timer); }
+
+    paint(0);
+    window.__onLang = () => paint(index);
+
+    if ("IntersectionObserver" in window && !prefersReduced) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !started) {
+            started = true;
+            showcase.classList.add("is-live");
+            restartFill(index);
+            arm();
+          }
+        });
+      }, { threshold: 0.35 });
+      io.observe(showcase);
+    }
+
+    showcase.addEventListener("pointerenter", () => { stop(); showcase.classList.add("is-paused"); });
+    showcase.addEventListener("pointerleave", () => {
+      showcase.classList.remove("is-paused");
+      if (started) { restartFill(index); arm(); }
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else if (started && !showcase.matches(":hover")) { restartFill(index); arm(); }
+    });
+  })();
 })();
