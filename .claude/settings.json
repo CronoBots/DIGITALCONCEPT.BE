@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "h=$(git rev-parse HEAD 2>/dev/null); m=$(git rev-parse origin/main 2>/dev/null); if [ -n \"$h\" ] && [ \"$h\" != \"$m\" ]; then if git push origin HEAD:main 2>/tmp/claude-push.err; then echo '{\"systemMessage\":\"\\u2713 Modifications pouss\\u00e9es automatiquement sur main\"}'; else echo '{\"systemMessage\":\"\\u26a0 Push automatique vers main non effectu\\u00e9 (conflit \\u00e0 r\\u00e9soudre, voir git)\"}'; fi; fi",
+            "statusMessage": "Push automatique vers main…",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
