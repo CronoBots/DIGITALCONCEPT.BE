@@ -1054,11 +1054,11 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   border: 1px solid #05070c;
 }
 /* Barre du navigateur : tailles relatives a la largeur du laptop (cqw) */
-.browser-bar { position: relative; display: flex; align-items: center; gap: 1.3cqw; padding: 1.5cqw 2.2cqw; background: linear-gradient(180deg, #14223a, #0c1525); border-bottom: 1px solid var(--border-soft); }
-.browser-dot { width: 1.9cqw; height: 1.9cqw; border-radius: 50%; background: #2c4a72; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }
+.browser-bar { position: relative; display: flex; align-items: center; gap: 1cqw; padding: 1cqw 1.7cqw; background: linear-gradient(180deg, #14223a, #0c1525); border-bottom: 1px solid var(--border-soft); }
+.browser-dot { width: 1.4cqw; height: 1.4cqw; border-radius: 50%; background: #2c4a72; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }
 .browser-dot:nth-child(1) { background: #ff5f57; } .browser-dot:nth-child(2) { background: #febc2e; } .browser-dot:nth-child(3) { background: #28c840; }
-.browser-url { display: inline-flex; align-items: center; gap: 1.2cqw; margin-left: 2.4cqw; font-family: var(--font-mono); font-size: 2.5cqw; color: var(--text-muted); background: #0a1322; padding: 0.9cqw 3.2cqw; border-radius: 999px; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); }
-.browser-url::before { content: ""; flex: none; width: 1.7cqw; height: 1.5cqw; border-radius: 0.4cqw; background: #35507a; box-shadow: inset 0 0 0 10cqw #35507a; -webkit-mask: radial-gradient(circle at 50% 0.5cqw, transparent 0.6cqw, #000 0.62cqw) top/100% 0.9cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.85cqw no-repeat; mask: radial-gradient(circle at 50% 0.5cqw, transparent 0.6cqw, #000 0.62cqw) top/100% 0.9cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.85cqw no-repeat; }
+.browser-url { display: inline-flex; align-items: center; gap: 1cqw; margin-left: 1.8cqw; font-family: var(--font-mono); font-size: 1.9cqw; color: var(--text-muted); background: #0a1322; padding: 0.7cqw 2.6cqw; border-radius: 999px; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); }
+.browser-url::before { content: ""; flex: none; width: 1.3cqw; height: 1.15cqw; border-radius: 0.3cqw; background: #35507a; box-shadow: inset 0 0 0 10cqw #35507a; -webkit-mask: radial-gradient(circle at 50% 0.38cqw, transparent 0.46cqw, #000 0.48cqw) top/100% 0.7cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.65cqw no-repeat; mask: radial-gradient(circle at 50% 0.38cqw, transparent 0.46cqw, #000 0.48cqw) top/100% 0.7cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.65cqw no-repeat; }
 .browser-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #070d18; }
 .browser-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
@@ -1118,15 +1118,15 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   .showcase { grid-template-columns: minmax(0, 1fr); gap: 26px; }
   .showcase-stage, .devices, .laptop-device { min-width: 0; }
   .devices { width: 100%; margin: 0 auto 8%; }
-  /* Telephone A COTE (a droite) du laptop */
-  .laptop-device { width: 72%; }
-  .phone { position: absolute; right: 0; bottom: -7%; width: 30%; margin: 0; }
+  /* Telephone A COTE (a droite) du laptop, plus petit */
+  .laptop-device { width: 74%; }
+  .phone { position: absolute; right: 0; bottom: -5%; width: 23%; margin: 0; }
   .showcase-tabs { flex-direction: row; flex-wrap: wrap; margin-top: 1.2rem; }
   .sc-tab { flex: 1 1 40%; }
 }
 @media (max-width: 560px) {
-  .laptop-device { width: 70%; }
-  .phone { width: 33%; bottom: -6%; }
+  .laptop-device { width: 73%; }
+  .phone { width: 25%; bottom: -4%; }
   .showcase-title { font-size: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {

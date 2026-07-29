@@ -550,13 +550,13 @@
           const rx = clamp((e.clientX - r.left) / r.width - 0.5);
           const ry = clamp((e.clientY - r.top) / r.height - 0.5);
           browser.style.transform =
-            "perspective(1500px) rotateY(" + (rx * 5).toFixed(2) + "deg) rotateX(" +
-            (-ry * 5).toFixed(2) + "deg) translate3d(" + (rx * 10).toFixed(1) + "px, " +
-            (ry * 10).toFixed(1) + "px, 0)";
+            "perspective(1200px) rotateY(" + (rx * 12).toFixed(2) + "deg) rotateX(" +
+            (-ry * 12).toFixed(2) + "deg) translate3d(" + (rx * 16).toFixed(1) + "px, " +
+            (ry * 16).toFixed(1) + "px, 0)";
           phone.style.transform =
-            "perspective(1500px) rotateY(" + (rx * 9).toFixed(2) + "deg) rotateX(" +
-            (-ry * 9).toFixed(2) + "deg) translate3d(" + (rx * 30).toFixed(1) + "px, " +
-            (ry * 24).toFixed(1) + "px, 0)";
+            "perspective(1200px) rotateY(" + (rx * 18).toFixed(2) + "deg) rotateX(" +
+            (-ry * 18).toFixed(2) + "deg) translate3d(" + (rx * 36).toFixed(1) + "px, " +
+            (ry * 30).toFixed(1) + "px, 0)";
         });
         section.addEventListener("pointerleave", () => {
           browser.style.transform = "";
