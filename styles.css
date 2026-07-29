@@ -298,10 +298,10 @@ a.browser:hover { border-color: var(--primary); transform: translateY(-4px); }
 .footer-build { margin-top: 6px; font-size: 0.76rem; opacity: 0.6; font-family: var(--font-display); }
 
 /* Back to top */
-/* Bouton flottant WhatsApp (toujours visible, en bas a droite) */
+/* Bouton flottant WhatsApp (toujours visible, en bas a gauche, meme taille que .to-top) */
 .wa-fab {
-  position: fixed; right: 22px; bottom: 22px; z-index: 91;
-  width: 56px; height: 56px; border-radius: 50%;
+  position: fixed; left: 22px; bottom: 22px; z-index: 91;
+  width: 46px; height: 46px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   background: #25d366; color: #fff; text-decoration: none;
   box-shadow: 0 10px 26px -6px rgba(37, 211, 102, 0.55), 0 4px 10px rgba(0, 0, 0, 0.35);
@@ -319,7 +319,7 @@ a.browser:hover { border-color: var(--primary); transform: translateY(-4px); }
 }
 
 .to-top {
-  position: fixed; right: 27px; bottom: 90px; z-index: 90;
+  position: fixed; right: 22px; bottom: 22px; z-index: 90;
   width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border);
   background: var(--bg-card); color: var(--text); font-size: 1.2rem; cursor: pointer;
   box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(12px);
