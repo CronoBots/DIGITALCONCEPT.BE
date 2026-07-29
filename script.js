@@ -551,10 +551,10 @@
           const r = stage.getBoundingClientRect();
           const rx = clamp((lastE.clientX - r.left) / r.width - 0.5);
           const ry = clamp((lastE.clientY - r.top) / r.height - 0.5);
-          // L'ENSEMBLE pivote comme un seul bloc (meme effet sur laptop + telephone)
+          // On incline l'ENSEMBLE ; le telephone (place plus en avant en 3D via
+          // translateZ) parallaxe alors tout seul -> on voit l'espace/profondeur.
           devices.style.transform =
-            "perspective(1300px) rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" +
-            (-ry * 11).toFixed(2) + "deg)";
+            "rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 13).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
