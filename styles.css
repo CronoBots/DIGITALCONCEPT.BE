@@ -1026,12 +1026,31 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .showcase-stage { position: relative; perspective: 1600px; }
 .devices { position: relative; width: min(100%, 720px); margin-inline: auto; }
 
-.browser {
-  position: relative; z-index: 1; width: 74%; border-radius: 13px; overflow: hidden;
+/* Laptop (MacBook) qui contient l'aperçu PC */
+.laptop-device {
+  position: relative; z-index: 1; width: 76%;
   transition: transform 0.18s var(--ease); will-change: transform;
-  background: linear-gradient(160deg, #1c2c44, #0b1422);
+}
+.laptop-lid {
+  position: relative; border-radius: 12px 12px 6px 6px; padding: 2.3%;
+  background: linear-gradient(160deg, #243141, #0b1320);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.laptop-deck {
+  position: relative; height: 14px; width: 116%; margin: -1px -8% 0;
+  border-radius: 0 0 13px 13px; background: linear-gradient(#1c2b40, #0a1320);
+  box-shadow: 0 26px 36px -20px rgba(0, 0, 0, 0.8);
+}
+.laptop-deck::after {
+  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 20%; height: 5px; border-radius: 0 0 7px 7px; background: #0a1120;
+}
+
+.browser {
+  position: relative; width: 100%; border-radius: 5px; overflow: hidden;
+  background: linear-gradient(160deg, #1c2c44, #0b1422);
+  border: 1px solid #05070c;
 }
 .browser-bar { position: relative; display: flex; align-items: center; gap: 7px; padding: 10px 13px; background: linear-gradient(180deg, #14223a, #0c1525); border-bottom: 1px solid var(--border-soft); }
 .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: #2c4a72; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }

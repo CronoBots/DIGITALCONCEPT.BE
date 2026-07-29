@@ -541,7 +541,7 @@
     // se decalent differemment (effet 2 elements/profondeur), comme Defaweux.
     if (finePointer && !prefersReduced) {
       const section = showcase.closest("section") || showcase;
-      const browser = showcase.querySelector(".browser");
+      const browser = showcase.querySelector(".laptop-device");
       const phone = showcase.querySelector(".phone");
       if (browser && phone) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
