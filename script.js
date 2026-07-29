@@ -542,7 +542,9 @@
     if (finePointer && !prefersReduced) {
       const stage = showcase.querySelector(".showcase-stage");
       const devices = showcase.querySelector(".devices");
-      if (stage && devices) {
+      const laptop = showcase.querySelector(".laptop-device");
+      const phone = showcase.querySelector(".phone");
+      if (stage && devices && laptop && phone) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
         let lastE = null, ticking = false;
         const update = () => {
@@ -551,20 +553,25 @@
           const r = stage.getBoundingClientRect();
           const rx = clamp((lastE.clientX - r.left) / r.width - 0.5);
           const ry = clamp((lastE.clientY - r.top) / r.height - 0.5);
-          // 1) Tout le groupe se deplace legerement contre le fond -> profondeur
-          //    "PC vs site" (translation uniforme = pas de glissement entre les 2).
-          // 2) Il s'incline ; le telephone (plus en avant en 3D) parallaxe seul
-          //    par rapport au laptop -> profondeur "mobile vs PC".
+          // Chaque appareil suit la souris INDEPENDAMMENT : le telephone tourne
+          // plus que le laptop (profondeur). + leger deplacement d'ensemble vs le fond.
           devices.style.transform =
-            "translate3d(" + (rx * 22).toFixed(1) + "px, " + (ry * 16).toFixed(1) + "px, 0) " +
-            "rotateY(" + (rx * 16).toFixed(2) + "deg) rotateX(" + (-ry * 16).toFixed(2) + "deg)";
+            "translate3d(" + (rx * 14).toFixed(1) + "px, " + (ry * 10).toFixed(1) + "px, 0)";
+          laptop.style.transform =
+            "rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" + (-ry * 11).toFixed(2) + "deg)";
+          phone.style.transform =
+            "translateZ(62px) rotateY(" + (rx * 22).toFixed(2) + "deg) rotateX(" + (-ry * 22).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
           lastE = e;
           if (!ticking) { ticking = true; requestAnimationFrame(update); }
         }, { passive: true });
-        document.addEventListener("mouseleave", () => { devices.style.transform = ""; });
+        document.addEventListener("mouseleave", () => {
+          devices.style.transform = "";
+          laptop.style.transform = "";
+          phone.style.transform = "";
+        });
       }
     }
   })();

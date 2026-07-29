@@ -1034,6 +1034,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .laptop-device {
   position: relative; z-index: 1; width: 74%;
   container-type: inline-size;
+  transition: transform 0.18s var(--ease); will-change: transform;
 }
 /* Capot : cadre alu fin + ecran a bezel noir */
 .laptop-lid {
