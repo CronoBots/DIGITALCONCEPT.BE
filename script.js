@@ -557,7 +557,7 @@
           //    par rapport au laptop -> profondeur "mobile vs PC".
           devices.style.transform =
             "translate3d(" + (rx * 22).toFixed(1) + "px, " + (ry * 16).toFixed(1) + "px, 0) " +
-            "rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 13).toFixed(2) + "deg)";
+            "rotateY(" + (rx * 16).toFixed(2) + "deg) rotateX(" + (-ry * 16).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
