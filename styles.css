@@ -1028,7 +1028,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   content: ""; position: absolute; inset: -8% -6% 2%; z-index: -1; pointer-events: none;
   background: radial-gradient(56% 60% at 50% 44%, rgba(56, 189, 248, 0.10), rgba(99, 102, 241, 0.05) 46%, transparent 72%);
 }
-.devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transform-style: preserve-3d; transition: transform 0.18s var(--ease); will-change: transform; }
+.devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transition: transform 0.18s var(--ease); will-change: transform; }
 
 /* Laptop (MacBook) qui contient l'aperçu PC */
 .laptop-device {
@@ -1084,7 +1084,6 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   position: absolute; right: 1%; bottom: -3%; width: 23%; z-index: 5;
   border-radius: 13.5% / 6.3%; padding: 0.6%;
   transition: transform 0.18s var(--ease); will-change: transform;
-  transform: translateZ(62px); /* plus en avant -> parallaxe visible (bouge "separement") */
   background: linear-gradient(145deg, #34394557 0%, #14171e 40%, #05070b 100%), #0a0c11;
   box-shadow: 0 44px 66px -18px rgba(0, 0, 0, 0.9), 0 12px 28px -8px rgba(0, 0, 0, 0.7),
     inset 0 0 0 1px rgba(255, 255, 255, 0.06);
