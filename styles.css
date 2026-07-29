@@ -1033,9 +1033,9 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Ecran moderne (type tablette / moniteur plat) qui contient l'aperçu PC */
 .laptop-device {
   position: relative; z-index: 1; width: 74%;
-  /* Le telephone deborde de 8% a droite : on decale la tablette de 8% a gauche
+  /* Le telephone deborde de 5% a droite : on decale la tablette de 5% a gauche
      pour que l'ensemble (PC + mobile) soit centre, meme espace a gauche qu'a droite. */
-  margin-left: 8%;
+  margin-left: 5%;
   container-type: inline-size;
   transition: transform 0.18s var(--ease); will-change: transform;
 }
@@ -1071,7 +1071,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
 
 .phone {
-  position: absolute; right: 8%; bottom: -6%; width: 23%; z-index: 5;
+  position: absolute; right: 5%; bottom: -9%; width: 21%; z-index: 5;
   border-radius: 13.5% / 6.3%; padding: 0.6%;
   transition: transform 0.18s var(--ease); will-change: transform;
   background: linear-gradient(145deg, #34394557 0%, #14171e 40%, #05070b 100%), #0a0c11;
