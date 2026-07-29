@@ -1030,42 +1030,29 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 }
 .devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transition: transform 0.18s var(--ease); will-change: transform; }
 
-/* Laptop (MacBook) qui contient l'aperçu PC */
+/* Ecran moderne (type tablette / moniteur plat) qui contient l'aperçu PC */
 .laptop-device {
   position: relative; z-index: 1; width: 74%;
   container-type: inline-size;
   transition: transform 0.18s var(--ease); will-change: transform;
 }
-/* Capot : cadre alu fin + ecran a bezel noir */
+/* Cadre : bezel noir fin et uniforme, coins arrondis (look tablette/ecran moderne) */
 .laptop-lid {
-  position: relative; border-radius: 2.4cqw 2.4cqw 0.5cqw 0.5cqw; padding: 2.2% 2% 2.6%;
-  background: linear-gradient(160deg, #2a3444 0%, #10161f 8%, #0a0e15 100%);
+  position: relative; border-radius: 2cqw; padding: 1.4%;
+  background: linear-gradient(160deg, #2a3444 0%, #10161f 10%, #0a0e15 100%);
   box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.32),
     inset 0 0 0 1px #3b4658, inset 0 1.5px 0 rgba(255, 255, 255, 0.16);
 }
 /* Camera au centre haut du bezel */
 .laptop-lid::before {
-  content: ""; position: absolute; top: 1cqw; left: 50%; transform: translateX(-50%);
-  width: 0.9cqw; height: 0.9cqw; border-radius: 50%;
+  content: ""; position: absolute; top: 0.7cqw; left: 50%; transform: translateX(-50%);
+  width: 0.8cqw; height: 0.8cqw; border-radius: 50%;
   background: radial-gradient(circle at 40% 35%, #26405c, #06090e 75%);
-}
-/* Facade avant du chassis alu (MacBook) : liseret clair en haut, encoche d'ouverture */
-.laptop-deck {
-  position: relative; height: 2.6cqw; min-height: 10px; width: 116%; margin: 0 -8%;
-  border-radius: 1px 1px 2.4cqw 2.4cqw;
-  background: linear-gradient(180deg, #5b667c 0%, #2a3444 15%, #141b26 58%, #080d15 100%);
-  box-shadow: 0 32px 44px -18px rgba(0, 0, 0, 0.92), inset 0 1.8px 0 rgba(255, 255, 255, 0.32), inset 0 -1px 1px rgba(0, 0, 0, 0.5);
-}
-/* Encoche d'ouverture centrale (le "sourire" MacBook) */
-.laptop-deck::after {
-  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 13%; height: 60%;
-  background: linear-gradient(#0a0f18, #131c2a);
-  border-radius: 0 0 60px 60px / 0 0 20px 20px;
+  z-index: 2;
 }
 
 .browser {
-  position: relative; width: 100%; border-radius: 5px; overflow: hidden;
+  position: relative; width: 100%; border-radius: 1.3cqw; overflow: hidden;
   container-type: inline-size;
   background: linear-gradient(160deg, #1c2c44, #0b1422);
   border: 1px solid #05070c;

@@ -558,11 +558,11 @@
           // telephone devant (le parent n'est plus en preserve-3d).
           // + leger deplacement d'ensemble vs le fond.
           devices.style.transform =
-            "translate3d(" + (rx * 14).toFixed(1) + "px, " + (ry * 10).toFixed(1) + "px, 0)";
+            "translate3d(" + (rx * 10).toFixed(1) + "px, " + (ry * 7).toFixed(1) + "px, 0)";
           laptop.style.transform =
-            "perspective(1100px) rotateY(" + (rx * 15).toFixed(2) + "deg) rotateX(" + (-ry * 15).toFixed(2) + "deg)";
+            "perspective(1100px) rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" + (-ry * 8).toFixed(2) + "deg)";
           phone.style.transform =
-            "perspective(1100px) rotateY(" + (rx * 28).toFixed(2) + "deg) rotateX(" + (-ry * 28).toFixed(2) + "deg)";
+            "perspective(1100px) rotateY(" + (rx * 16).toFixed(2) + "deg) rotateX(" + (-ry * 10).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
