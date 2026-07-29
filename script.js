@@ -546,35 +546,19 @@
       const phone = showcase.querySelector(".phone");
       if (stage && devices && laptop && phone) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
-        // Inclinaison PROPRE au centre de chaque element : 0 quand le curseur
-        // est pile au centre de l'element, puis croit a mesure qu'il s'en eloigne.
-        // Chaque appareil pivote donc autour de son propre axe (plus de rotation
-        // "prematuree" du telephone parce qu'il est place a droite).
-        const tilt = (el, e) => {
-          const b = el.getBoundingClientRect();
-          return {
-            rx: clamp((e.clientX - (b.left + b.width / 2)) / b.width),
-            ry: clamp((e.clientY - (b.top + b.height / 2)) / b.height),
-          };
-        };
         let lastE = null, ticking = false;
         const update = () => {
           ticking = false;
           if (!lastE) return;
-          // Leger deplacement d'ensemble vs le fond (parallaxe douce), base sur la scene.
+          // Point de rotation CENTRAL commun aux 2 supports : tout le groupe
+          // (PC + mobile) pivote d'un bloc autour de son centre, selon la
+          // position du curseur par rapport au centre de la scene. La perspective
+          // vient du parent (.showcase-stage) -> meme point de fuite pour les deux.
           const sr = stage.getBoundingClientRect();
-          const sx = clamp((lastE.clientX - sr.left) / sr.width - 0.5);
-          const sy = clamp((lastE.clientY - sr.top) / sr.height - 0.5);
+          const rx = clamp((lastE.clientX - sr.left) / sr.width - 0.5);
+          const ry = clamp((lastE.clientY - sr.top) / sr.height - 0.5);
           devices.style.transform =
-            "translate3d(" + (sx * 8).toFixed(1) + "px, " + (sy * 5).toFixed(1) + "px, 0)";
-          // Rotation independante, centree sur chaque element. Meme intensite pour
-          // le PC et le mobile (le mobile ne bascule plus plus fort que l'ecran).
-          const lt = tilt(laptop, lastE);
-          laptop.style.transform =
-            "perspective(1100px) rotateY(" + (lt.rx * 13).toFixed(2) + "deg) rotateX(" + (-lt.ry * 9).toFixed(2) + "deg)";
-          const pt = tilt(phone, lastE);
-          phone.style.transform =
-            "perspective(1100px) rotateY(" + (pt.rx * 13).toFixed(2) + "deg) rotateX(" + (-pt.ry * 9).toFixed(2) + "deg)";
+            "rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 9).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
@@ -583,8 +567,6 @@
         }, { passive: true });
         document.addEventListener("mouseleave", () => {
           devices.style.transform = "";
-          laptop.style.transform = "";
-          phone.style.transform = "";
         });
       }
     }
