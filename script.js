@@ -550,15 +550,18 @@
         const update = () => {
           ticking = false;
           if (!lastE) return;
-          // Point de rotation CENTRAL commun aux 2 supports : tout le groupe
-          // (PC + mobile) pivote d'un bloc autour de son centre, selon la
-          // position du curseur par rapport au centre de la scene. La perspective
-          // vient du parent (.showcase-stage) -> meme point de fuite pour les deux.
+          // Vrai effet 3D (preserve-3d) : le groupe respire d'un pivot central,
+          // MAIS le telephone AVANCE en profondeur (translateZ) et tourne un peu
+          // plus que le PC -> parallaxe + relief, ils ne sont plus "colles".
           const sr = stage.getBoundingClientRect();
           const rx = clamp((lastE.clientX - sr.left) / sr.width - 0.5);
           const ry = clamp((lastE.clientY - sr.top) / sr.height - 0.5);
           devices.style.transform =
-            "rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 9).toFixed(2) + "deg)";
+            "rotateY(" + (rx * 9).toFixed(2) + "deg) rotateX(" + (-ry * 6).toFixed(2) + "deg)";
+          laptop.style.transform =
+            "translateZ(-24px) rotateY(" + (rx * 4).toFixed(2) + "deg) rotateX(" + (-ry * 3).toFixed(2) + "deg)";
+          phone.style.transform =
+            "translateZ(72px) rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 8).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
@@ -567,6 +570,8 @@
         }, { passive: true });
         document.addEventListener("mouseleave", () => {
           devices.style.transform = "";
+          laptop.style.transform = "";
+          phone.style.transform = "";
         });
       }
     }

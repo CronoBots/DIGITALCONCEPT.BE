@@ -1076,7 +1076,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   content: ""; position: absolute; inset: -8% -6% 2%; z-index: -1; pointer-events: none;
   background: radial-gradient(56% 60% at 50% 44%, rgba(56, 189, 248, 0.10), rgba(99, 102, 241, 0.05) 46%, transparent 72%);
 }
-.devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transition: transform 0.18s var(--ease); will-change: transform; }
+.devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transform-style: preserve-3d; transition: transform 0.18s var(--ease); will-change: transform; }
 
 /* Ecran moderne (type tablette / moniteur plat) qui contient l'aperçu PC */
 .laptop-device {
@@ -1251,8 +1251,59 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Chiffres-cles du hero : blanc franc (fini le degrade cyan) */
 .hero-stats strong { background: none; -webkit-text-fill-color: currentColor; color: var(--text); }
 
+/* Hero — ecran d'app epure (remplace le dashboard analytics charge) */
+.laptop-screen { box-shadow: var(--shadow), 0 0 60px -26px rgba(56, 189, 248, 0.34); }
+.dash-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 11px; }
+.dash-title { font-family: var(--font-display); font-weight: 600; font-size: 0.72rem; color: var(--text); }
+.dash-live { display: inline-flex; align-items: center; gap: 5px; font-size: 0.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.dash-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.16); }
+.dash-feature {
+  position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px;
+  background: linear-gradient(150deg, rgba(56, 189, 248, 0.10), rgba(99, 102, 241, 0.05));
+  border: 1px solid var(--border-soft); border-radius: 10px; padding: 12px 14px; overflow: hidden; margin-bottom: 11px;
+}
+.dash-feature-txt small { display: block; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-muted); margin-bottom: 3px; }
+.dash-feature-txt b { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1; color: var(--text); }
+.dash-feature-txt b em { font-style: normal; color: var(--primary); }
+.dash-spark { width: 52%; height: 38px; align-self: center; }
+.dash-rows { display: flex; flex-direction: column; gap: 7px; }
+.dash-rows span { height: 9px; border-radius: 5px; background: #0e1a2e; }
+.dash-rows span:nth-child(1) { width: 100%; } .dash-rows span:nth-child(2) { width: 76%; } .dash-rows span:nth-child(3) { width: 88%; }
+
 /* 7 — FAQ : marqueur +/- plus discret */
 .faq-item summary::after { color: var(--text-muted); font-weight: 400; }
 
 /* 8 — Puce accent des sur-titres au centre : reste alignee avec le texte */
 .eyebrow.center::before { opacity: 0.85; }
+
+/* 9 — Avatar "A propos" : monogramme sobre (fini le cercle degrade brillant) */
+.about-avatar {
+  width: 74px; height: 74px; border-radius: 20px; margin-bottom: 1.1rem;
+  background: linear-gradient(160deg, #17263f, #0c1524);
+  border: 1px solid var(--border); color: var(--text); font-size: 1.85rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+.about-avatar::after {
+  content: ""; position: absolute; right: 9px; bottom: 9px;
+  width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg-card);
+}
+.about-glow { background: radial-gradient(closest-side, rgba(56, 189, 248, 0.13), transparent 70%); animation: none; }
+.about-card { background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), var(--bg-card)); border-color: var(--border-soft); }
+
+/* 10 — En-tetes editoriaux (alignes a gauche) : services, methode, expertises */
+.features .eyebrow, .how .eyebrow, .logos .eyebrow { text-align: left; }
+.features .section-title, .how .section-title, .logos .section-title {
+  text-align: left; margin-left: 0; margin-right: 0; max-width: 20ch;
+}
+.features .section-subtitle {
+  text-align: left; margin-left: 0; margin-right: 0; max-width: 52ch; margin-bottom: 2.6rem;
+}
+
+/* 11 — Profondeur : liseret haut subtil sur les sections sombres alternees */
+.features, .how, .faq { position: relative; }
+.features::before, .how::before, .faq::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--border-soft) 22%, var(--border-soft) 78%, transparent);
+}
