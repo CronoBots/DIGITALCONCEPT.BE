@@ -1024,7 +1024,11 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Vitrine réalisations : carrousel PC + mobile */
 .showcase { display: grid; grid-template-columns: 1.48fr 0.72fr; gap: 26px; align-items: center; }
 .showcase-stage { position: relative; perspective: 1600px; }
-.devices { position: relative; width: min(100%, 720px); margin-inline: auto; }
+.showcase-stage::before {
+  content: ""; position: absolute; inset: -6% -4%; z-index: -1; pointer-events: none;
+  background: radial-gradient(58% 56% at 48% 44%, rgba(56, 189, 248, 0.09), rgba(99, 102, 241, 0.05) 45%, transparent 72%);
+}
+.devices { position: relative; z-index: 1; width: min(100%, 720px); margin-inline: auto; transition: transform 0.18s var(--ease); will-change: transform; }
 
 /* Laptop (MacBook) qui contient l'aperçu PC */
 .laptop-device {

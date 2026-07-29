@@ -541,9 +541,8 @@
     // se decalent differemment (effet 2 elements/profondeur), comme Defaweux.
     if (finePointer && !prefersReduced) {
       const stage = showcase.querySelector(".showcase-stage");
-      const browser = showcase.querySelector(".laptop-device");
-      const phone = showcase.querySelector(".phone");
-      if (stage && browser && phone) {
+      const devices = showcase.querySelector(".devices");
+      if (stage && devices) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
         let lastE = null, ticking = false;
         const update = () => {
@@ -552,23 +551,17 @@
           const r = stage.getBoundingClientRect();
           const rx = clamp((lastE.clientX - r.left) / r.width - 0.5);
           const ry = clamp((lastE.clientY - r.top) / r.height - 0.5);
-          // Rotation seule autour du centre (pas de translation -> centre fixe)
-          browser.style.transform =
-            "perspective(1200px) rotateY(" + (rx * 12).toFixed(2) + "deg) rotateX(" +
-            (-ry * 12).toFixed(2) + "deg)";
-          phone.style.transform =
-            "perspective(1200px) rotateY(" + (rx * 18).toFixed(2) + "deg) rotateX(" +
-            (-ry * 18).toFixed(2) + "deg)";
+          // L'ENSEMBLE pivote comme un seul bloc (meme effet sur laptop + telephone)
+          devices.style.transform =
+            "perspective(1300px) rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" +
+            (-ry * 11).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
           lastE = e;
           if (!ticking) { ticking = true; requestAnimationFrame(update); }
         }, { passive: true });
-        document.addEventListener("mouseleave", () => {
-          browser.style.transform = "";
-          phone.style.transform = "";
-        });
+        document.addEventListener("mouseleave", () => { devices.style.transform = ""; });
       }
     }
   })();
