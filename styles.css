@@ -1033,6 +1033,9 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Ecran moderne (type tablette / moniteur plat) qui contient l'aperçu PC */
 .laptop-device {
   position: relative; z-index: 1; width: 74%;
+  /* Le telephone deborde de 8% a droite : on decale la tablette de 8% a gauche
+     pour que l'ensemble (PC + mobile) soit centre, meme espace a gauche qu'a droite. */
+  margin-left: 8%;
   container-type: inline-size;
   transition: transform 0.18s var(--ease); will-change: transform;
 }
@@ -1058,17 +1061,17 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   border: 1px solid #05070c;
 }
 /* Barre du navigateur : tailles relatives a la largeur du laptop (cqw) */
-.browser-bar { position: relative; display: flex; align-items: center; gap: 1cqw; padding: 1cqw 1.7cqw; background: linear-gradient(180deg, #14223a, #0c1525); border-bottom: 1px solid var(--border-soft); }
-.browser-dot { width: 1.4cqw; height: 1.4cqw; border-radius: 50%; background: #2c4a72; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }
+.browser-bar { position: relative; display: flex; align-items: center; gap: 0.9cqw; padding: 0.55cqw 1.6cqw; background: linear-gradient(180deg, #14223a, #0c1525); border-bottom: 1px solid var(--border-soft); }
+.browser-dot { width: 1.1cqw; height: 1.1cqw; border-radius: 50%; background: #2c4a72; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }
 .browser-dot:nth-child(1) { background: #ff5f57; } .browser-dot:nth-child(2) { background: #febc2e; } .browser-dot:nth-child(3) { background: #28c840; }
-.browser-url { display: inline-flex; align-items: center; gap: 1cqw; margin-left: 1.8cqw; font-family: var(--font-mono); font-size: 1.9cqw; color: var(--text-muted); background: #0a1322; padding: 0.7cqw 2.6cqw; border-radius: 999px; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); }
+.browser-url { display: inline-flex; align-items: center; gap: 0.9cqw; margin-left: 1.6cqw; font-family: var(--font-mono); font-size: 1.55cqw; color: var(--text-muted); background: #0a1322; padding: 0.35cqw 2.2cqw; border-radius: 999px; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03); }
 .browser-url::before { content: ""; flex: none; width: 1.3cqw; height: 1.15cqw; border-radius: 0.3cqw; background: #35507a; box-shadow: inset 0 0 0 10cqw #35507a; -webkit-mask: radial-gradient(circle at 50% 0.38cqw, transparent 0.46cqw, #000 0.48cqw) top/100% 0.7cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.65cqw no-repeat; mask: radial-gradient(circle at 50% 0.38cqw, transparent 0.46cqw, #000 0.48cqw) top/100% 0.7cqw no-repeat, linear-gradient(#000 0 0) bottom/100% 0.65cqw no-repeat; }
 .browser-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #070d18; }
 .browser-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
 
 .phone {
-  position: absolute; right: 8%; bottom: 0%; width: 23%; z-index: 5;
+  position: absolute; right: 8%; bottom: -6%; width: 23%; z-index: 5;
   border-radius: 13.5% / 6.3%; padding: 0.6%;
   transition: transform 0.18s var(--ease); will-change: transform;
   background: linear-gradient(145deg, #34394557 0%, #14171e 40%, #05070b 100%), #0a0c11;
