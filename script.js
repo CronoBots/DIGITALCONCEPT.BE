@@ -537,21 +537,31 @@
       else if (started && !showcase.matches(":hover")) { restartFill(index); arm(); }
     });
 
-    // Suivi souris (parallaxe 3D gauche/droite/haut/bas), comme Defaweux
+    // Suivi souris (parallaxe 3D) sur TOUTE la section — le mobile et le PC
+    // se decalent differemment (effet 2 elements/profondeur), comme Defaweux.
     if (finePointer && !prefersReduced) {
-      const stage = showcase.querySelector(".showcase-stage");
-      const devices = showcase.querySelector(".devices");
-      if (stage && devices) {
-        stage.addEventListener("pointermove", (e) => {
-          const r = stage.getBoundingClientRect();
-          const rx = (e.clientX - r.left) / r.width - 0.5;
-          const ry = (e.clientY - r.top) / r.height - 0.5;
-          devices.style.transform =
-            "perspective(1300px) rotateY(" + (rx * 7).toFixed(2) + "deg) rotateX(" +
-            (-ry * 7).toFixed(2) + "deg) translate3d(" + (rx * 18).toFixed(1) + "px, " +
-            (ry * 18).toFixed(1) + "px, 0)";
+      const section = showcase.closest("section") || showcase;
+      const browser = showcase.querySelector(".browser");
+      const phone = showcase.querySelector(".phone");
+      if (browser && phone) {
+        const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
+        section.addEventListener("pointermove", (e) => {
+          const r = section.getBoundingClientRect();
+          const rx = clamp((e.clientX - r.left) / r.width - 0.5);
+          const ry = clamp((e.clientY - r.top) / r.height - 0.5);
+          browser.style.transform =
+            "perspective(1500px) rotateY(" + (rx * 5).toFixed(2) + "deg) rotateX(" +
+            (-ry * 5).toFixed(2) + "deg) translate3d(" + (rx * 10).toFixed(1) + "px, " +
+            (ry * 10).toFixed(1) + "px, 0)";
+          phone.style.transform =
+            "perspective(1500px) rotateY(" + (rx * 9).toFixed(2) + "deg) rotateX(" +
+            (-ry * 9).toFixed(2) + "deg) translate3d(" + (rx * 30).toFixed(1) + "px, " +
+            (ry * 24).toFixed(1) + "px, 0)";
         });
-        stage.addEventListener("pointerleave", () => { devices.style.transform = ""; });
+        section.addEventListener("pointerleave", () => {
+          browser.style.transform = "";
+          phone.style.transform = "";
+        });
       }
     }
   })();
