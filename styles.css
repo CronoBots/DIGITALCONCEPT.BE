@@ -1117,16 +1117,16 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 @media (max-width: 900px) {
   .showcase { grid-template-columns: minmax(0, 1fr); gap: 26px; }
   .showcase-stage, .devices, .laptop-device { min-width: 0; }
-  .devices { width: 100%; margin: 0 auto 3%; }
-  .laptop-device { width: 90%; margin-inline: auto; }
-  /* Telephone EMPILE sous le laptop, centre et en flux -> aucun debordement */
-  .phone { position: relative; right: auto; bottom: auto; width: 40%; margin: -7% auto 0; }
+  .devices { width: 100%; margin: 0 auto 8%; }
+  /* Telephone A COTE (a droite) du laptop */
+  .laptop-device { width: 72%; }
+  .phone { position: absolute; right: 0; bottom: -7%; width: 30%; margin: 0; }
   .showcase-tabs { flex-direction: row; flex-wrap: wrap; margin-top: 1.2rem; }
   .sc-tab { flex: 1 1 40%; }
 }
 @media (max-width: 560px) {
-  .laptop-device { width: 96%; }
-  .phone { width: 52%; margin-top: -9%; }
+  .laptop-device { width: 70%; }
+  .phone { width: 33%; bottom: -6%; }
   .showcase-title { font-size: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
