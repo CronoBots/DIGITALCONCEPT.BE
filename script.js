@@ -559,10 +559,12 @@
           const ry = clamp((lastE.clientY - sr.top) / sr.height - 0.5);
           devices.style.transform =
             "rotateY(" + (rx * 9).toFixed(2) + "deg) rotateX(" + (-ry * 6).toFixed(2) + "deg)";
+          // Profondeur Z tres legere (evite l'effet de "zoom" du telephone au survol) :
+          // le relief vient surtout de la parallaxe de rotation entre les 2 supports.
           laptop.style.transform =
-            "translateZ(-24px) rotateY(" + (rx * 4).toFixed(2) + "deg) rotateX(" + (-ry * 3).toFixed(2) + "deg)";
+            "translateZ(-8px) rotateY(" + (rx * 4).toFixed(2) + "deg) rotateX(" + (-ry * 3).toFixed(2) + "deg)";
           phone.style.transform =
-            "translateZ(72px) rotateY(" + (rx * 13).toFixed(2) + "deg) rotateX(" + (-ry * 8).toFixed(2) + "deg)";
+            "translateZ(22px) rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" + (-ry * 7).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
