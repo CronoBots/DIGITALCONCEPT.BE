@@ -546,23 +546,35 @@
       const phone = showcase.querySelector(".phone");
       if (stage && devices && laptop && phone) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
+        // Inclinaison PROPRE au centre de chaque element : 0 quand le curseur
+        // est pile au centre de l'element, puis croit a mesure qu'il s'en eloigne.
+        // Chaque appareil pivote donc autour de son propre axe (plus de rotation
+        // "prematuree" du telephone parce qu'il est place a droite).
+        const tilt = (el, e) => {
+          const b = el.getBoundingClientRect();
+          return {
+            rx: clamp((e.clientX - (b.left + b.width / 2)) / b.width),
+            ry: clamp((e.clientY - (b.top + b.height / 2)) / b.height),
+          };
+        };
         let lastE = null, ticking = false;
         const update = () => {
           ticking = false;
           if (!lastE) return;
-          const r = stage.getBoundingClientRect();
-          const rx = clamp((lastE.clientX - r.left) / r.width - 0.5);
-          const ry = clamp((lastE.clientY - r.top) / r.height - 0.5);
-          // Chaque appareil suit la souris INDEPENDAMMENT (perspective propre) :
-          // le telephone tourne bien plus que le laptop. Le z-index garde le
-          // telephone devant (le parent n'est plus en preserve-3d).
-          // + leger deplacement d'ensemble vs le fond.
+          // Leger deplacement d'ensemble vs le fond (parallaxe douce), base sur la scene.
+          const sr = stage.getBoundingClientRect();
+          const sx = clamp((lastE.clientX - sr.left) / sr.width - 0.5);
+          const sy = clamp((lastE.clientY - sr.top) / sr.height - 0.5);
           devices.style.transform =
-            "translate3d(" + (rx * 10).toFixed(1) + "px, " + (ry * 7).toFixed(1) + "px, 0)";
+            "translate3d(" + (sx * 8).toFixed(1) + "px, " + (sy * 5).toFixed(1) + "px, 0)";
+          // Rotation independante, centree sur chaque element. Meme intensite pour
+          // le PC et le mobile (le mobile ne bascule plus plus fort que l'ecran).
+          const lt = tilt(laptop, lastE);
           laptop.style.transform =
-            "perspective(1100px) rotateY(" + (rx * 11).toFixed(2) + "deg) rotateX(" + (-ry * 8).toFixed(2) + "deg)";
+            "perspective(1100px) rotateY(" + (lt.rx * 13).toFixed(2) + "deg) rotateX(" + (-lt.ry * 9).toFixed(2) + "deg)";
+          const pt = tilt(phone, lastE);
           phone.style.transform =
-            "perspective(1100px) rotateY(" + (rx * 16).toFixed(2) + "deg) rotateX(" + (-ry * 10).toFixed(2) + "deg)";
+            "perspective(1100px) rotateY(" + (pt.rx * 13).toFixed(2) + "deg) rotateX(" + (-pt.ry * 9).toFixed(2) + "deg)";
         };
         // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
         window.addEventListener("pointermove", (e) => {
