@@ -540,15 +540,18 @@
     // Suivi souris (parallaxe 3D) sur TOUTE la section — le mobile et le PC
     // se decalent differemment (effet 2 elements/profondeur), comme Defaweux.
     if (finePointer && !prefersReduced) {
-      const section = showcase.closest("section") || showcase;
+      const stage = showcase.querySelector(".showcase-stage");
       const browser = showcase.querySelector(".laptop-device");
       const phone = showcase.querySelector(".phone");
-      if (browser && phone) {
+      if (stage && browser && phone) {
         const clamp = (v) => (v < -0.5 ? -0.5 : v > 0.5 ? 0.5 : v);
-        section.addEventListener("pointermove", (e) => {
-          const r = section.getBoundingClientRect();
-          const rx = clamp((e.clientX - r.left) / r.width - 0.5);
-          const ry = clamp((e.clientY - r.top) / r.height - 0.5);
+        let lastE = null, ticking = false;
+        const update = () => {
+          ticking = false;
+          if (!lastE) return;
+          const r = stage.getBoundingClientRect();
+          const rx = clamp((lastE.clientX - r.left) / r.width - 0.5);
+          const ry = clamp((lastE.clientY - r.top) / r.height - 0.5);
           // Rotation seule autour du centre (pas de translation -> centre fixe)
           browser.style.transform =
             "perspective(1200px) rotateY(" + (rx * 12).toFixed(2) + "deg) rotateX(" +
@@ -556,8 +559,13 @@
           phone.style.transform =
             "perspective(1200px) rotateY(" + (rx * 18).toFixed(2) + "deg) rotateX(" +
             (-ry * 18).toFixed(2) + "deg)";
-        });
-        section.addEventListener("pointerleave", () => {
+        };
+        // Sur TOUTE la fenetre : l'effet ne s'arrete pas quand la souris sort de la section
+        window.addEventListener("pointermove", (e) => {
+          lastE = e;
+          if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        document.addEventListener("mouseleave", () => {
           browser.style.transform = "";
           phone.style.transform = "";
         });

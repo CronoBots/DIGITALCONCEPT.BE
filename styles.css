@@ -1032,19 +1032,24 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   transition: transform 0.18s var(--ease); will-change: transform;
 }
 .laptop-lid {
-  position: relative; border-radius: 12px 12px 6px 6px; padding: 2.3%;
-  background: linear-gradient(160deg, #243141, #0b1320);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  position: relative; border-radius: 14px 14px 5px 5px; padding: 2.2% 2.2% 3%;
+  background: linear-gradient(160deg, #1a2536, #080d17);
+  border: 1px solid #2a3a55;
+  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }
+/* Base alu facon MacBook : degrade metallique + charniere (liseret haut) */
 .laptop-deck {
-  position: relative; height: 14px; width: 110%; margin: -1px -5% 0;
-  border-radius: 0 0 13px 13px; background: linear-gradient(#1c2b40, #0a1320);
-  box-shadow: 0 26px 36px -20px rgba(0, 0, 0, 0.8);
+  position: relative; height: 15px; width: 113%; margin: -1px -6.5% 0;
+  border-radius: 2px 2px 11px 11px;
+  background: linear-gradient(180deg, #35485f 0%, #1b2840 26%, #0b1424 100%);
+  box-shadow: 0 30px 42px -18px rgba(0, 0, 0, 0.9), inset 0 1.5px 0 rgba(255, 255, 255, 0.14);
 }
+/* Encoche d'ouverture centrale (le "sourire" MacBook) */
 .laptop-deck::after {
   content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 20%; height: 5px; border-radius: 0 0 7px 7px; background: #0a1120;
+  width: 15%; height: 62%;
+  background: linear-gradient(#0a1220, #0f1a2d);
+  border-radius: 0 0 40px 40px / 0 0 22px 22px;
 }
 
 .browser {
