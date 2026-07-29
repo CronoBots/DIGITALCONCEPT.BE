@@ -1024,10 +1024,10 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 /* Vitrine réalisations : carrousel PC + mobile */
 .showcase { display: grid; grid-template-columns: 1.48fr 0.72fr; gap: 26px; align-items: center; }
 .showcase-stage { position: relative; perspective: 1600px; }
-.devices { position: relative; width: min(100%, 720px); margin-inline: auto; transition: transform 0.2s var(--ease); transform-style: preserve-3d; will-change: transform; }
+.devices { position: relative; width: min(100%, 720px); margin-inline: auto; }
 
 .browser {
-  position: relative; width: 74%; border-radius: 13px; overflow: hidden;
+  position: relative; z-index: 1; width: 74%; border-radius: 13px; overflow: hidden;
   transition: transform 0.18s var(--ease); will-change: transform;
   background: linear-gradient(160deg, #1c2c44, #0b1422);
   border: 1px solid var(--border);
@@ -1043,8 +1043,8 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .browser-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 12%, transparent 26%); }
 
 .phone {
-  position: absolute; right: 0; bottom: -6%; width: 27%;
-  border-radius: 14% / 6.5%; padding: 1.1%;
+  position: absolute; right: 0; bottom: -6%; width: 27%; z-index: 5;
+  border-radius: 13.5% / 6.3%; padding: 0.6%;
   transition: transform 0.18s var(--ease); will-change: transform;
   background: linear-gradient(145deg, #34394557 0%, #14171e 40%, #05070b 100%), #0a0c11;
   box-shadow: 0 36px 60px -20px rgba(0, 0, 0, 0.85), 0 8px 22px -10px rgba(0, 0, 0, 0.6),
