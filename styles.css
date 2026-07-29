@@ -610,6 +610,22 @@ html.js:not(.no-intro) .intro {
 /* Section partenaire (texte + grille de stats) */
 .clients { background: var(--bg-soft); }
 
+/* Realisations : titre + CTA en tete (desktop) ; sur mobile le CTA passe EN BAS,
+   sous les explications (voir media query 640px). */
+.clients .container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  grid-template-areas:
+    "head cta"
+    "showcase showcase"
+    "note note";
+}
+.clients .section-head { grid-area: head; }
+.clients .section-head-btn { grid-area: cta; }
+.clients .showcase { grid-area: showcase; }
+.clients .project-note { grid-area: note; }
+
 @media (max-width: 900px) {
   .highlights-grid { grid-template-columns: 1fr 1fr; gap: 22px 18px; }
   .partner-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -760,6 +776,18 @@ html.js:not(.no-intro) .intro {
 @media (max-width: 640px) {
   .section-head { flex-direction: column; align-items: flex-start; }
   .section-title-left { text-align: left; }
+  /* CTA "Demarrer un projet" renvoye tout en bas, sous les explications */
+  .clients .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "head"
+      "showcase"
+      "note"
+      "cta";
+  }
+  .clients .section-head-btn { justify-self: center; width: min(100%, 340px); margin-top: 2.4rem; }
+  /* Appareils un peu plus grands : on grignote la marge laterale du conteneur */
+  .showcase-stage { margin-inline: -12px; }
 }
 @media (max-width: 560px) {
   .footer-grid { grid-template-columns: 1fr; }
