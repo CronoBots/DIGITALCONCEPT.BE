@@ -1021,39 +1021,46 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   mask: radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
 }
 
-/* Vitrine réalisations : carrousel PC + mobile */
-.showcase { display: grid; grid-template-columns: 1.48fr 0.72fr; gap: 26px; align-items: center; }
-.showcase-stage { position: relative; perspective: 1600px; }
+/* Vitrine réalisations : appareils en grand, infos centrees dessous */
+.showcase { display: block; }
+.showcase-stage { position: relative; perspective: 1700px; }
 .showcase-stage::before {
-  content: ""; position: absolute; inset: -6% -4%; z-index: -1; pointer-events: none;
-  background: radial-gradient(58% 56% at 48% 44%, rgba(56, 189, 248, 0.09), rgba(99, 102, 241, 0.05) 45%, transparent 72%);
+  content: ""; position: absolute; inset: -8% -6% 2%; z-index: -1; pointer-events: none;
+  background: radial-gradient(56% 60% at 50% 44%, rgba(56, 189, 248, 0.10), rgba(99, 102, 241, 0.05) 46%, transparent 72%);
 }
-.devices { position: relative; z-index: 1; width: min(100%, 720px); margin-inline: auto; transform-style: preserve-3d; transition: transform 0.18s var(--ease); will-change: transform; }
+.devices { position: relative; z-index: 1; width: min(100%, 960px); margin-inline: auto; transform-style: preserve-3d; transition: transform 0.18s var(--ease); will-change: transform; }
 
 /* Laptop (MacBook) qui contient l'aperçu PC */
 .laptop-device {
-  position: relative; z-index: 1; width: 76%;
-  transition: transform 0.18s var(--ease); will-change: transform;
+  position: relative; z-index: 1; width: 74%;
+  container-type: inline-size;
 }
+/* Capot : cadre alu fin + ecran a bezel noir */
 .laptop-lid {
-  position: relative; border-radius: 14px 14px 5px 5px; padding: 2.2% 2.2% 3%;
-  background: linear-gradient(160deg, #1a2536, #080d17);
-  border: 1px solid #2a3a55;
-  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  position: relative; border-radius: 2.4cqw 2.4cqw 0.5cqw 0.5cqw; padding: 2.2% 2% 2.6%;
+  background: linear-gradient(160deg, #2a3444 0%, #10161f 8%, #0a0e15 100%);
+  box-shadow: var(--shadow), 0 0 70px -22px rgba(56, 189, 248, 0.32),
+    inset 0 0 0 1px #3b4658, inset 0 1.5px 0 rgba(255, 255, 255, 0.16);
 }
-/* Base alu facon MacBook : degrade metallique + charniere (liseret haut) */
+/* Camera au centre haut du bezel */
+.laptop-lid::before {
+  content: ""; position: absolute; top: 1cqw; left: 50%; transform: translateX(-50%);
+  width: 0.9cqw; height: 0.9cqw; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #26405c, #06090e 75%);
+}
+/* Facade avant du chassis alu (MacBook) : liseret clair en haut, encoche d'ouverture */
 .laptop-deck {
-  position: relative; height: 15px; width: 113%; margin: -1px -6.5% 0;
-  border-radius: 2px 2px 11px 11px;
-  background: linear-gradient(180deg, #35485f 0%, #1b2840 26%, #0b1424 100%);
-  box-shadow: 0 30px 42px -18px rgba(0, 0, 0, 0.9), inset 0 1.5px 0 rgba(255, 255, 255, 0.14);
+  position: relative; height: 2.6cqw; min-height: 10px; width: 116%; margin: 0 -8%;
+  border-radius: 1px 1px 2.4cqw 2.4cqw;
+  background: linear-gradient(180deg, #5b667c 0%, #2a3444 15%, #141b26 58%, #080d15 100%);
+  box-shadow: 0 32px 44px -18px rgba(0, 0, 0, 0.92), inset 0 1.8px 0 rgba(255, 255, 255, 0.32), inset 0 -1px 1px rgba(0, 0, 0, 0.5);
 }
 /* Encoche d'ouverture centrale (le "sourire" MacBook) */
 .laptop-deck::after {
   content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 15%; height: 62%;
-  background: linear-gradient(#0a1220, #0f1a2d);
-  border-radius: 0 0 40px 40px / 0 0 22px 22px;
+  width: 13%; height: 60%;
+  background: linear-gradient(#0a0f18, #131c2a);
+  border-radius: 0 0 60px 60px / 0 0 20px 20px;
 }
 
 .browser {
@@ -1076,7 +1083,7 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
   position: absolute; right: 0; bottom: -6%; width: 27%; z-index: 5;
   border-radius: 13.5% / 6.3%; padding: 0.6%;
   transition: transform 0.18s var(--ease); will-change: transform;
-  transform: translateZ(52px); /* flotte en avant du laptop -> profondeur + parallaxe propre */
+  transform: translateZ(70px); /* flotte en avant du laptop -> profondeur + parallaxe propre */
   background: linear-gradient(145deg, #34394557 0%, #14171e 40%, #05070b 100%), #0a0c11;
   box-shadow: 0 44px 66px -18px rgba(0, 0, 0, 0.9), 0 12px 28px -8px rgba(0, 0, 0, 0.7),
     inset 0 0 0 1px rgba(255, 255, 255, 0.06);
@@ -1099,18 +1106,21 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 .showcase.is-swapping .browser-screen img, .showcase.is-swapping .phone-screen img { opacity: 0; transform: scale(1.03); }
 .showcase.is-swapping .showcase-copy { opacity: 0; transform: translateY(10px); }
 
-.showcase-title { font-family: var(--font-display); font-size: 1.5rem; margin: 0.45rem 0 0.55rem; }
-.showcase-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+/* Bloc infos centre SOUS les appareils */
+.showcase-info { max-width: 860px; margin: 4.6rem auto 0; text-align: center; }
+.showcase-title { font-family: var(--font-display); font-size: 1.9rem; margin: 0.5rem 0 0.6rem; }
+.showcase-desc { color: var(--text-muted); font-size: 1rem; margin: 0 auto 1rem; max-width: 560px; }
 .showcase-copy .project-kind { color: var(--accent-ink); }
-.showcase-link { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-ink); text-decoration: none; }
+.showcase-link { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-ink); text-decoration: none; }
 .showcase-link:hover { text-decoration: underline; }
 
-.showcase-tabs { display: flex; flex-direction: column; gap: 9px; margin-top: 1.7rem; }
+.showcase-tabs { display: flex; flex-flow: row wrap; justify-content: center; gap: 12px; margin-top: 2rem; }
 .sc-tab {
-  position: relative; overflow: hidden; text-align: left; cursor: pointer;
+  position: relative; overflow: hidden; text-align: center; cursor: pointer;
+  flex: 0 1 250px;
   background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius-sm);
-  padding: 11px 15px; color: var(--text-muted);
-  font-family: var(--font-display); font-size: 0.9rem; font-weight: 500;
+  padding: 12px 18px; color: var(--text-muted);
+  font-family: var(--font-display); font-size: 0.92rem; font-weight: 500;
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .sc-tab:hover { color: var(--text); border-color: var(--border); }
@@ -1124,19 +1134,14 @@ a.project:hover .project-thumb::after, a.project:focus-visible .project-thumb::a
 @keyframes scFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @media (max-width: 900px) {
-  .showcase { grid-template-columns: minmax(0, 1fr); gap: 26px; }
-  .showcase-stage, .devices, .laptop-device { min-width: 0; }
-  .devices { width: 100%; margin: 0 auto 8%; }
-  /* Telephone A COTE (a droite) du laptop, plus petit */
-  .laptop-device { width: 74%; }
-  .phone { position: absolute; right: 0; bottom: -5%; width: 23%; margin: 0; transform: none; }
-  .showcase-tabs { flex-direction: row; flex-wrap: wrap; margin-top: 1.2rem; }
-  .sc-tab { flex: 1 1 40%; }
+  .devices { width: 100%; }
+  .phone { transform: none; }
+  .showcase-info { margin-top: 2.4rem; }
+  .sc-tab { flex: 1 1 42%; }
 }
 @media (max-width: 560px) {
-  .laptop-device { width: 73%; }
-  .phone { width: 25%; bottom: -4%; }
-  .showcase-title { font-size: 1.3rem; }
+  .showcase-title { font-size: 1.5rem; }
+  .sc-tab { flex: 1 1 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .devices { animation: none; }
