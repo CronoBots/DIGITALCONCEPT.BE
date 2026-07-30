@@ -1371,3 +1371,45 @@ body {
 
 /* 23 — Boutons : lettrage un rien resserre (plus "type") */
 .btn { letter-spacing: -0.01em; }
+
+/* ===================================================================
+   A PROPOS — refonte : recit du fondateur + carte "identite" premium
+   =================================================================== */
+.about-grid { grid-template-columns: 1.18fr 0.82fr; gap: 56px; align-items: center; }
+.about-title { font-size: clamp(1.9rem, 3.4vw, 2.65rem); line-height: 1.14; margin-bottom: 1.2rem; }
+.about-text .lead { color: var(--text); font-size: 1.16rem; margin-bottom: 1.15rem; }
+.about-text p { line-height: 1.7; }
+.about-sign { margin-top: 1.6rem; font-family: var(--font-display); font-style: normal; font-weight: 600; color: var(--text) !important; letter-spacing: -0.01em; }
+
+.about-portrait {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), var(--bg-card));
+  border: 1px solid var(--border-soft); border-radius: var(--radius);
+  padding: 30px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 34px 64px -42px rgba(0, 0, 0, 0.85);
+}
+.about-id { display: flex; align-items: center; gap: 15px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--border-soft); }
+.about-monogram {
+  flex: none; width: 58px; height: 58px; border-radius: 17px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.55rem; color: var(--text);
+  background: linear-gradient(160deg, #17263f, #0c1524); border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.about-monogram::after {
+  content: ""; position: absolute; right: 6px; bottom: 6px; width: 9px; height: 9px;
+  border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--bg-card);
+}
+.about-id-txt { display: flex; flex-direction: column; }
+.about-id-txt strong { font-family: var(--font-display); font-size: 1.14rem; }
+.about-id-txt span { color: var(--text-muted); font-size: 0.84rem; }
+.about-facts { list-style: none; margin: 0; display: flex; flex-direction: column; gap: 15px; }
+.about-facts li { display: flex; align-items: baseline; gap: 14px; }
+.about-facts b { flex: none; min-width: 2.6ch; font-family: var(--font-display); font-weight: 700; font-size: 1.55rem; color: var(--primary); line-height: 1; }
+.about-facts span { color: var(--text-muted); font-size: 0.92rem; line-height: 1.35; }
+.about-cta { margin-top: 26px; width: 100%; }
+
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-portrait { max-width: 440px; margin: 0 auto; text-align: left; }
+  .about-facts { align-items: flex-start; }
+}
