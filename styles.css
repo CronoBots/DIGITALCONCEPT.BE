@@ -1449,3 +1449,31 @@ body {
 @media (max-width: 560px) {
   .trusted-logos { gap: 22px 30px; }
 }
+
+/* ===================================================================
+   REVELE 3D DES ELEMENTS — entree en profondeur au scroll
+   Les cartes s'inclinent vers l'arriere puis se redressent en montant.
+   =================================================================== */
+.feature-grid, .steps, .logo-grid, .trusted-logos, .about-grid, .faq-list { perspective: 1300px; }
+
+.js .feature-card[data-reveal], .js .step[data-reveal], .js .logo-cell[data-reveal],
+.js .about-portrait[data-reveal], .js .faq-item[data-reveal], .js .trusted-logos [data-reveal] {
+  opacity: 0; transform: translateY(38px) rotateX(14deg) scale(0.965); transform-origin: 50% 100%;
+  transition: opacity 0.7s var(--ease), transform 0.85s var(--ease);
+}
+.js .feature-card[data-reveal].is-visible, .js .step[data-reveal].is-visible,
+.js .logo-cell[data-reveal].is-visible, .js .about-portrait[data-reveal].is-visible,
+.js .faq-item[data-reveal].is-visible, .js .trusted-logos [data-reveal].is-visible {
+  opacity: 1; transform: translateY(0) rotateX(0) scale(1);
+}
+
+/* Cascade des logos "trusted" */
+.trusted-logos [data-reveal].is-visible:nth-child(2) { transition-delay: 0.08s; }
+.trusted-logos [data-reveal].is-visible:nth-child(3) { transition-delay: 0.16s; }
+.trusted-logos [data-reveal].is-visible:nth-child(4) { transition-delay: 0.24s; }
+/* Cascade des questions FAQ */
+.faq-list [data-reveal].is-visible:nth-child(2) { transition-delay: 0.06s; }
+.faq-list [data-reveal].is-visible:nth-child(3) { transition-delay: 0.12s; }
+.faq-list [data-reveal].is-visible:nth-child(4) { transition-delay: 0.18s; }
+.faq-list [data-reveal].is-visible:nth-child(5) { transition-delay: 0.24s; }
+.faq-list [data-reveal].is-visible:nth-child(6) { transition-delay: 0.30s; }

@@ -337,7 +337,7 @@
   // Inclinaison 3D des cartes + lueur qui suit le curseur (pointeur précis uniquement)
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (finePointer && !prefersReduced) {
-    document.querySelectorAll(".feature-card, .step").forEach((card) => {
+    document.querySelectorAll(".feature-card, .step, .about-portrait").forEach((card) => {
       card.addEventListener("pointermove", (e) => {
         const r = card.getBoundingClientRect();
         const lx = e.clientX - r.left, ly = e.clientY - r.top;
