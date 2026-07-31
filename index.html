@@ -55,40 +55,26 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["ProfessionalService", "Organization"],
         "@id": "https://digitalconcept.be/#organization",
         "name": "Digital Concept",
+        "alternateName": "Digital Concept — Vincent",
         "url": "https://digitalconcept.be/",
         "email": "contact@digitalconcept.be",
         "telephone": "+32460962146",
-        "address": { "@type": "PostalAddress", "streetAddress": "Rue Chapéchêne 10", "postalCode": "4120", "addressLocality": "Neupré", "addressCountry": "BE" },
-        "hasMap": "https://www.google.com/maps?cid=16935510628113497470",
         "logo": "https://digitalconcept.be/favicon.svg",
         "image": "https://digitalconcept.be/og-image.png",
-        "description": "Agence digitale en Belgique : sites web, applications mobiles, intelligence artificielle, solutions crypto/blockchain et bots pour réseaux sociaux.",
-        "areaServed": { "@type": "Country", "name": "Belgique" }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://digitalconcept.be/#website",
-        "url": "https://digitalconcept.be/",
-        "name": "Digital Concept",
-        "inLanguage": "fr-BE",
-        "publisher": { "@id": "https://digitalconcept.be/#organization" }
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://digitalconcept.be/#service",
-        "name": "Digital Concept",
-        "url": "https://digitalconcept.be/",
-        "email": "contact@digitalconcept.be",
-        "telephone": "+32460962146",
-        "address": { "@type": "PostalAddress", "streetAddress": "Rue Chapéchêne 10", "postalCode": "4120", "addressLocality": "Neupré", "addressCountry": "BE" },
+        "description": "Studio digital en Belgique : sites web, applications mobiles, intelligence artificielle, crypto/blockchain et bots réseaux sociaux — conçus sur mesure par un expert de plus de 25 ans d'expérience.",
+        "slogan": "Le digital sur mesure, conçu par un expert.",
+        "priceRange": "€€",
+        "address": { "@type": "PostalAddress", "streetAddress": "Rue Chapéchêne 10", "postalCode": "4120", "addressLocality": "Neupré", "addressRegion": "Liège", "addressCountry": "BE" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 50.51, "longitude": 5.51 },
         "hasMap": "https://www.google.com/maps?cid=16935510628113497470",
-        "image": "https://digitalconcept.be/og-image.png",
-        "description": "Solutions digitales sur mesure pour faire grandir votre entreprise : création de sites web, développement d'applications mobiles, intelligence artificielle, crypto/blockchain et bots pour réseaux sociaux.",
         "areaServed": { "@type": "Country", "name": "Belgique" },
-        "parentOrganization": { "@id": "https://digitalconcept.be/#organization" },
+        "availableLanguage": ["fr", "nl", "en"],
+        "founder": { "@id": "https://digitalconcept.be/#vincent" },
+        "knowsAbout": ["Création de sites web", "Développement d'applications mobiles", "Intelligence artificielle", "Blockchain", "Smart contracts", "Automatisation", "Référencement SEO", "E-commerce"],
+        "contactPoint": { "@type": "ContactPoint", "telephone": "+32460962146", "email": "contact@digitalconcept.be", "contactType": "customer support", "areaServed": "BE", "availableLanguage": ["fr", "nl", "en"] },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Services Digital Concept",
@@ -102,15 +88,31 @@
         }
       },
       {
+        "@type": "Person",
+        "@id": "https://digitalconcept.be/#vincent",
+        "name": "Vincent",
+        "jobTitle": "Fondateur & développeur",
+        "worksFor": { "@id": "https://digitalconcept.be/#organization" },
+        "description": "Fondateur de Digital Concept. Plus de 25 ans d'expérience en conception de sites web, d'applications mobiles et de solutions d'intelligence artificielle."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://digitalconcept.be/#website",
+        "url": "https://digitalconcept.be/",
+        "name": "Digital Concept",
+        "inLanguage": "fr-BE",
+        "publisher": { "@id": "https://digitalconcept.be/#organization" }
+      },
+      {
         "@type": "FAQPage",
         "@id": "https://digitalconcept.be/#faq",
         "mainEntity": [
-          { "@type": "Question", "name": "Combien coûte un projet ?", "acceptedAnswer": { "@type": "Answer", "text": "Chaque projet est unique. On établit un devis gratuit et transparent après un premier échange, en fonction de vos besoins et de votre budget. Aucune surprise." } },
-          { "@type": "Question", "name": "En combien de temps mon projet est-il livré ?", "acceptedAnswer": { "@type": "Answer", "text": "Un site vitrine prend généralement quelques jours à deux semaines. Une application ou une solution sur mesure, quelques semaines. On vous donne un planning clair dès le départ." } },
-          { "@type": "Question", "name": "Je ne suis pas technique, est-ce un problème ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas du tout : c'est tout l'intérêt. On vulgarise, on vous guide et on s'occupe de toute la technique. Vous gardez le contrôle, sans la complexité." } },
-          { "@type": "Question", "name": "Faites-vous aussi le suivi après la mise en ligne ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Hébergement, mises à jour, corrections et évolutions : on reste votre partenaire dans la durée, avec des formules de maintenance adaptées." } },
-          { "@type": "Question", "name": "Travaillez-vous avec des clients hors de Belgique ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. On travaille à distance partout, avec des échanges réguliers en visio. La distance n'est pas un frein à un projet réussi." } },
-          { "@type": "Question", "name": "Pouvez-vous reprendre un projet existant ?", "acceptedAnswer": { "@type": "Answer", "text": "Bien sûr. On peut auditer, améliorer ou moderniser un site, une app ou un outil déjà en place, puis en assurer le suivi." } }
+          { "@type": "Question", "name": "Combien coûte un projet ?", "acceptedAnswer": { "@type": "Answer", "text": "Ça dépend de votre besoin — un site vitrine et une plateforme sur mesure ne jouent pas dans la même cour. Après un premier échange, je vous envoie un devis clair et détaillé, gratuit et sans engagement. Aucun coût caché." } },
+          { "@type": "Question", "name": "En combien de temps mon projet est-il livré ?", "acceptedAnswer": { "@type": "Answer", "text": "Un site vitrine : de quelques jours à deux semaines. Une application ou un outil sur mesure : quelques semaines. Vous avez un planning précis dès le départ, et je m'y tiens." } },
+          { "@type": "Question", "name": "Je ne suis pas technique, est-ce un problème ?", "acceptedAnswer": { "@type": "Answer", "text": "Au contraire, c'est mon rôle. Je traduis la technique en langage clair, je vous guide et je m'occupe de tout. Vous décidez, sans jamais être noyé sous le jargon." } },
+          { "@type": "Question", "name": "Faites-vous aussi le suivi après la mise en ligne ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, et j'y tiens. Hébergement, mises à jour, corrections, évolutions : je reste votre interlocuteur dans la durée, avec une formule de maintenance adaptée à vos besoins." } },
+          { "@type": "Question", "name": "Travaillez-vous avec des clients hors de Belgique ?", "acceptedAnswer": { "@type": "Answer", "text": "Bien sûr. Je travaille à distance partout, avec des points réguliers en visio. La distance n'a jamais empêché un projet de réussir." } },
+          { "@type": "Question", "name": "Pouvez-vous reprendre un projet existant ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. J'audite, améliore ou modernise un site, une app ou un outil déjà en place — puis j'en assure le suivi. Pas besoin de tout recommencer de zéro." } }
         ]
       }
     ]
