@@ -174,6 +174,23 @@
   const heroContent = document.querySelector(".hero-content");
   if (heroContent) requestAnimationFrame(() => heroContent.classList.add("is-visible"));
 
+  // Bande vidéo "code" : ne se charge/joue que lorsqu'elle est visible (perf), pause sinon
+  const codeVid = document.querySelector(".codeband-video");
+  if (codeVid) {
+    if (prefersReduced) {
+      codeVid.removeAttribute("autoplay");
+      try { codeVid.pause(); } catch (e) {}
+    } else if ("IntersectionObserver" in window) {
+      const vio = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) { codeVid.play().catch(() => {}); }
+          else { codeVid.pause(); }
+        });
+      }, { threshold: 0.12 });
+      vio.observe(codeVid);
+    }
+  }
+
   // Compteurs animés
   function animateCount(el) {
     const target = parseFloat(el.dataset.count || "0");
@@ -468,7 +485,7 @@
     const showcase = document.querySelector("[data-showcase]");
     if (!showcase) return;
     const PROJECTS = [
-      { host: "cronobots.github.io/YUMEA", url: "https://cronobots.github.io/YUMEA/", desktop: "img/yumea-desktop.jpg?v=2", mobile: "img/yumea-mobile.jpg?v=2", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Site vitrine élégant pour Yuméa Wellness, institut dédié au Head Spa japonais et aux soins du visage et du cuir chevelu." },
+      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=2", mobile: "img/yumea-mobile.jpg?v=2", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Site vitrine élégant pour Yuméa Wellness, institut dédié au Head Spa japonais et aux soins du visage et du cuir chevelu." },
       { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes, publiée sur la marketplace Crypto.com NFT." },
       { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
       { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
