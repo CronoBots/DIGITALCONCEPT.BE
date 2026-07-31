@@ -1504,3 +1504,43 @@ body {
 .about-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; z-index: 1; }
 .about-monogram-letter { position: relative; z-index: 0; }
 .about-monogram::after { z-index: 2; }   /* pastille "en ligne" au-dessus de la photo */
+
+/* ===================================================================
+   VITRINE : navigation par FLECHES laterales + points (au lieu d'onglets)
+   =================================================================== */
+.sc-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+  width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(12, 20, 34, 0.62); border: 1px solid var(--border); color: var(--text);
+  cursor: pointer; opacity: 0.7; box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.8);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.sc-arrow svg { width: 22px; height: 22px; }
+.sc-arrow--prev { left: 2px; }
+.sc-arrow--next { right: 2px; }
+.showcase-stage:hover .sc-arrow { opacity: 1; }
+.sc-arrow:hover { background: rgba(12, 20, 34, 0.9); border-color: var(--primary); color: var(--primary); }
+.sc-arrow--prev:hover { transform: translateY(-50%) translateX(-2px); }
+.sc-arrow--next:hover { transform: translateY(-50%) translateX(2px); }
+.sc-arrow:focus-visible { opacity: 1; }
+
+/* Points de progression (l'actif se remplit pendant la rotation auto) */
+.sc-dots { gap: 10px !important; margin-top: 2.2rem; }
+.sc-dot {
+  position: relative; overflow: hidden; width: 34px; height: 6px; padding: 0; border: none;
+  border-radius: 999px; background: var(--border-soft); cursor: pointer;
+  transition: background 0.25s var(--ease); flex: 0 0 auto;
+}
+.sc-dot:hover { background: var(--border); }
+.sc-dot.active { background: var(--border); }
+.sc-dot-fill {
+  position: absolute; inset: 0; transform: scaleX(0); transform-origin: left;
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+}
+.showcase.is-live .sc-dot.active .sc-dot-fill { animation: scFill var(--sc-int, 3600ms) linear forwards; }
+.showcase.is-live.is-paused .sc-dot.active .sc-dot-fill { animation-play-state: paused; }
+
+@media (max-width: 640px) {
+  .sc-arrow { width: 40px; height: 40px; background: rgba(12, 20, 34, 0.8); }
+  .sc-arrow--prev { left: -4px; } .sc-arrow--next { right: -4px; }
+}

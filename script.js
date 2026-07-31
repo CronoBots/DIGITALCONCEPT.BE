@@ -486,13 +486,15 @@
       currentLang !== "fr" && key && I18N[currentLang] && I18N[currentLang][key] != null
         ? I18N[currentLang][key] : fr;
 
+    // Navigation par points (au lieu d'onglets nommés) + rotation auto
+    tabsWrap.classList.add("sc-dots");
     const tabs = PROJECTS.map((p, i) => {
       const b = document.createElement("button");
       b.type = "button";
-      b.className = "sc-tab";
+      b.className = "sc-dot";
       b.setAttribute("role", "tab");
-      b.innerHTML = '<span class="sc-tab-fill" aria-hidden="true"></span><span class="sc-tab-label"></span>';
-      b.querySelector(".sc-tab-label").textContent = p.name;
+      b.setAttribute("aria-label", p.name);
+      b.innerHTML = '<span class="sc-dot-fill" aria-hidden="true"></span>';
       b.addEventListener("click", () => {
         if (!started) { started = true; showcase.classList.add("is-live"); }
         go(i, true); arm();
@@ -501,9 +503,18 @@
       return b;
     });
 
+    // Flèches latérales (précédent / suivant)
+    const prevBtn = q("[data-sc-prev]"), nextBtn = q("[data-sc-next]");
+    function nav(dir) {
+      if (!started) { started = true; showcase.classList.add("is-live"); }
+      go(index + dir, true); arm();
+    }
+    if (prevBtn) prevBtn.addEventListener("click", () => nav(-1));
+    if (nextBtn) nextBtn.addEventListener("click", () => nav(1));
+
     function restartFill(i) {
       if (prefersReduced) return;
-      const fill = tabs[i] && tabs[i].querySelector(".sc-tab-fill");
+      const fill = tabs[i] && tabs[i].querySelector(".sc-dot-fill");
       if (!fill) return;
       fill.style.animation = "none";
       void fill.offsetWidth; // reflow -> relance l'animation de progression
