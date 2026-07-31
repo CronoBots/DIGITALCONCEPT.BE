@@ -1498,3 +1498,9 @@ body {
 @media (max-width: 640px) {
   .hero--showcase .hero-stats { gap: 1.4rem; }
 }
+
+/* ===== Avatar fondateur : emplacement pour une vraie photo de profil ===== */
+.about-monogram { width: 66px; height: 66px; }
+.about-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; z-index: 1; }
+.about-monogram-letter { position: relative; z-index: 0; }
+.about-monogram::after { z-index: 2; }   /* pastille "en ligne" au-dessus de la photo */
