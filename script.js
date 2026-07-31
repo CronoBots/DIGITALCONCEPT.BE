@@ -388,6 +388,35 @@
       });
       btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
     });
+
+    // Puces d'expertise magnétiques (attraction douce vers le curseur)
+    document.querySelectorAll(".logo-cell").forEach((chip) => {
+      chip.addEventListener("pointermove", (e) => {
+        const r = chip.getBoundingClientRect();
+        const mx = e.clientX - r.left - r.width / 2;
+        const my = e.clientY - r.top - r.height / 2;
+        chip.style.transform = "translate(" + (mx * 0.14).toFixed(1) + "px, " + (my * 0.2).toFixed(1) + "px)";
+      });
+      chip.addEventListener("pointerleave", () => { chip.style.transform = ""; });
+    });
+
+    // Aurore réactive : la nappe de lumière du fond dérive doucement avec le curseur
+    const bgfx = document.querySelector(".bg-fx");
+    if (bgfx) {
+      let ticking = false, mvx = 0, mvy = 0;
+      window.addEventListener("pointermove", (e) => {
+        mvx = e.clientX / window.innerWidth - 0.5;
+        mvy = e.clientY / window.innerHeight - 0.5;
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            ticking = false;
+            bgfx.style.transform =
+              "translate3d(" + (mvx * 28).toFixed(1) + "px, " + (mvy * 28).toFixed(1) + "px, 0)";
+          });
+        }
+      }, { passive: true });
+    }
   }
 
   // Terminal qui s'écrit

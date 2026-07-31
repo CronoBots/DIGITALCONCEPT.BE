@@ -817,7 +817,7 @@ html.js:not(.no-intro) .intro {
 /* ===================================================================
    Fond animé ambiant lié au thème (blobs dégradés qui dérivent)
    =================================================================== */
-.bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-fx { position: fixed; inset: -4%; z-index: -1; overflow: hidden; pointer-events: none; transition: transform 0.55s var(--ease); will-change: transform; }
 .bg-fx::before {
   content: ""; position: absolute; inset: 0;
   background-image: linear-gradient(var(--border-soft) 1px, transparent 1px),
