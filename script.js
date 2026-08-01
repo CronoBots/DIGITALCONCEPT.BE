@@ -490,6 +490,8 @@
       { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
       { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
     ];
+    // Précharge tous les aperçus (PC + mobile) -> changement instantané, plus de "flash"
+    PROJECTS.forEach((p) => { new Image().src = p.desktop; new Image().src = p.mobile; });
     const q = (s) => showcase.querySelector(s);
     const elDesktop = q("[data-sc-desktop]"), elMobile = q("[data-sc-mobile]");
     const elUrl = q("[data-sc-url]"), elKind = q("[data-sc-kind]"), elTitle = q("[data-sc-title]");
