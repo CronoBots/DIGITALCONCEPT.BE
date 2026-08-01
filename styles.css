@@ -1585,3 +1585,16 @@ body {
   .codeband-video { display: none; }
   .codeband { background: #070b14 url("img/coding-poster.jpg") center / cover; }
 }
+
+/* ===== Formulaire de contact : ajout du champ message ===== */
+.cta-form { max-width: 620px; margin-left: auto; margin-right: auto; }
+.cta-form textarea {
+  flex: 1 1 100%; width: 100%; min-height: 120px; resize: vertical;
+  padding: 0.95rem 1.25rem; border-radius: 16px; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text); font-size: 1rem; font-family: var(--font-body);
+  line-height: 1.55; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cta-form textarea::placeholder { color: var(--text-muted); }
+.cta-form textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
+.cta-form textarea.invalid { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18); }
+.cta-form #contact-submit { flex: 1 1 100%; }

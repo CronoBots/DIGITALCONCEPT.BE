@@ -395,28 +395,6 @@
       });
     }
 
-    // Boutons magnétiques (les CTA suivent légèrement le curseur)
-    document.querySelectorAll(".btn:not(.btn-ghost)").forEach((btn) => {
-      btn.addEventListener("pointermove", (e) => {
-        const r = btn.getBoundingClientRect();
-        const mx = e.clientX - r.left - r.width / 2;
-        const my = e.clientY - r.top - r.height / 2;
-        btn.style.transform = "translate(" + (mx * 0.22).toFixed(1) + "px, " + (my * 0.32).toFixed(1) + "px)";
-      });
-      btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
-    });
-
-    // Puces d'expertise magnétiques (attraction douce vers le curseur)
-    document.querySelectorAll(".logo-cell").forEach((chip) => {
-      chip.addEventListener("pointermove", (e) => {
-        const r = chip.getBoundingClientRect();
-        const mx = e.clientX - r.left - r.width / 2;
-        const my = e.clientY - r.top - r.height / 2;
-        chip.style.transform = "translate(" + (mx * 0.14).toFixed(1) + "px, " + (my * 0.2).toFixed(1) + "px)";
-      });
-      chip.addEventListener("pointerleave", () => { chip.style.transform = ""; });
-    });
-
     // Aurore réactive : la nappe de lumière du fond dérive doucement avec le curseur
     const bgfx = document.querySelector(".bg-fx");
     if (bgfx) {

@@ -146,7 +146,6 @@
         <li><a href="#realisations" data-i18n="nav.realisations">Réalisations</a></li>
         <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
         <li><a href="#methode" data-i18n="nav.method">Méthode</a></li>
-        <li><a href="#expertises" data-i18n="nav.expertise">Expertises</a></li>
         <li><a href="#faq" data-i18n="nav.faq">Questions</a></li>
         <li><a href="#contact" class="btn btn-ghost" data-i18n="nav.cta">Démarrer un projet</a></li>
         <li class="nav-extras">
@@ -223,11 +222,6 @@
         </div>
         
         <p class="project-note" data-reveal data-i18n="rea.note">Quelques projets r&eacute;cents &mdash; survolez, cliquez pour explorer.</p>
-        <ul class="hero-stats" data-counters>
-          <li><strong data-count="25" data-suffix="+">0+</strong><span data-i18n="stats.exp">ans d'exp&eacute;rience</span></li>
-          <li><strong data-count="80" data-suffix="+">0+</strong><span data-i18n="stats.projects">projets livr&eacute;s</span></li>
-          <li><strong data-count="30" data-suffix="+">0+</strong><span data-i18n="stats.clients">clients accompagn&eacute;s</span></li>
-        </ul>
         <div class="hero-actions hero-actions--below" data-reveal>
           <a href="#contact" class="btn btn-primary" data-i18n="hero.cta1">D&eacute;marrer un projet</a>
           <a href="#services" class="btn btn-secondary" data-i18n="hero.cta2">D&eacute;couvrir mes services</a>
@@ -276,20 +270,8 @@
       </video>
       <div class="codeband-overlay" aria-hidden="true"></div>
       <div class="container codeband-inner" data-reveal>
-        <p class="codeband-eyebrow" data-i18n="code.eyebrow">L'expertise avant l'outil</p>
-        <p class="codeband-text" data-i18n="code.text">Je maîtrise chaque étape — et j'utilise les bons outils, l'IA comprise, pour gagner du temps sans jamais rogner sur la qualité. Les décisions et le savoir-faire, eux, restent 100 % humains.</p>
-      </div>
-    </section>
-
-    <section class="trusted" aria-label="Références clients">
-      <div class="container">
-        <p class="trusted-label" data-reveal data-i18n="trust.label">Ils m'ont fait confiance</p>
-        <ul class="trusted-logos">
-          <li class="tlogo tlogo--crypto" data-reveal title="Crypto.com NFT">crypto<span class="tlogo-dot">.</span>com<em>NFT</em></li>
-          <li class="tlogo" data-reveal title="Oryxia Design">ORYXIA</li>
-          <li class="tlogo" data-reveal title="Toukin Physiothérapie">TOUKIN</li>
-          <li class="tlogo tlogo--yumea" data-reveal title="Yuméa Wellness">YUMÉA</li>
-        </ul>
+        <p class="codeband-eyebrow" data-i18n="code.eyebrow">L'expertise avant tout</p>
+        <p class="codeband-text" data-i18n="code.text">Je maîtrise chaque étape de votre projet, du design au code. Un travail soigné, réfléchi, pensé pour durer — porté par 25 ans de métier.</p>
       </div>
     </section>
 
@@ -410,23 +392,6 @@
       </div>
     </section>
 
-    <section class="logos section" id="expertises">
-      <div class="container">
-        <p class="eyebrow center" data-reveal data-i18n="exp.eyebrow">Mes outils</p>
-        <h2 class="section-title" data-reveal data-i18n="exp.title">Les technologies que je maîtrise</h2>
-        <div class="logo-grid">
-          <div class="logo-cell" data-reveal>React</div>
-          <div class="logo-cell" data-reveal>Next.js</div>
-          <div class="logo-cell" data-reveal>Node.js</div>
-          <div class="logo-cell" data-reveal>Flutter</div>
-          <div class="logo-cell" data-reveal data-i18n="exp.python">Python &amp; IA</div>
-          <div class="logo-cell" data-reveal>Solidity / Web3</div>
-          <div class="logo-cell" data-reveal>Stripe</div>
-          <div class="logo-cell" data-reveal>Supabase</div>
-        </div>
-      </div>
-    </section>
-
 
 
     <section class="faq section" id="faq">
@@ -469,12 +434,16 @@
         <div class="cta-inner">
         <h2 data-i18n="cta.title">Un projet en tête&nbsp;? Parlons-en.</h2>
         <p data-i18n="cta.p">Décrivez-moi votre idée en deux lignes. Je vous réponds sous 24&nbsp;h avec un premier avis honnête et une proposition claire — gratuitement et sans engagement.</p>
-        <form class="cta-form" id="contact-form" data-endpoint="" data-mailto="contact@digitalconcept.be" novalidate>
+        <form class="cta-form" id="contact-form" data-endpoint="https://formsubmit.co/ajax/contact@digitalconcept.be" data-mailto="contact@digitalconcept.be" novalidate>
           <label class="sr-only" for="name">Nom / entreprise</label>
           <input type="text" id="name" name="name" placeholder="Votre nom ou entreprise" data-i18n-ph="form.name.ph" autocomplete="organization" required />
           <label class="sr-only" for="email">Adresse e-mail</label>
           <input type="email" id="email" name="email" placeholder="vous@exemple.be" data-i18n-ph="form.email.ph" autocomplete="email" required />
-          <input type="hidden" name="_subject" value="Nouvelle demande de projet — Digital Concept" />
+          <label class="sr-only" for="message">Votre projet</label>
+          <textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet (quelques lignes)…" data-i18n-ph="form.msg.ph"></textarea>
+          <input type="hidden" name="_subject" value="Nouvelle demande — digitalconcept.be" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
           <button type="submit" class="btn btn-primary" id="contact-submit" data-i18n="form.submit">Demander un devis gratuit</button>
         </form>
@@ -491,6 +460,18 @@
         </p>
         </div>
        </div>
+      </div>
+    </section>
+
+    <section class="trusted" aria-label="Références clients">
+      <div class="container">
+        <p class="trusted-label" data-reveal data-i18n="trust.label">Ils m'ont fait confiance</p>
+        <ul class="trusted-logos">
+          <li class="tlogo tlogo--crypto" data-reveal title="Crypto.com NFT">crypto<span class="tlogo-dot">.</span>com<em>NFT</em></li>
+          <li class="tlogo" data-reveal title="Oryxia Design">ORYXIA</li>
+          <li class="tlogo" data-reveal title="Toukin Physiothérapie">TOUKIN</li>
+          <li class="tlogo tlogo--yumea" data-reveal title="Yuméa Wellness">YUMÉA</li>
+        </ul>
       </div>
     </section>
   </main>
