@@ -463,10 +463,10 @@
     const showcase = document.querySelector("[data-showcase]");
     if (!showcase) return;
     const PROJECTS = [
-      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=2", mobile: "img/yumea-mobile.jpg?v=2", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Site vitrine élégant pour Yuméa Wellness, institut dédié au Head Spa japonais et aux soins du visage et du cuir chevelu." },
-      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes, publiée sur la marketplace Crypto.com NFT." },
-      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Site vitrine premium pour Oryxia Design, studio de gravure laser et création sur mesure." },
-      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Site vitrine pour un cabinet de physiothérapie à Tolochenaz." }
+      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=2", mobile: "img/yumea-mobile.jpg?v=2", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Institut de Head Spa japonais et de soins du visage." },
+      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
+      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Studio de gravure laser et création sur mesure." },
+      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Cabinet de physiothérapie à Tolochenaz." }
     ];
     // Précharge tous les aperçus (PC + mobile) -> changement instantané, plus de "flash"
     PROJECTS.forEach((p) => { new Image().src = p.desktop; new Image().src = p.mobile; });
@@ -475,9 +475,25 @@
     const elUrl = q("[data-sc-url]"), elKind = q("[data-sc-kind]"), elTitle = q("[data-sc-title]");
     const elDesc = q("[data-sc-desc]"), elLink = q("[data-sc-link]"), elHost = q("[data-sc-host]");
     const tabsWrap = q("[data-sc-tabs]");
+    const devicesEl = q(".devices");
     const INT = prefersReduced ? 0 : 3600;
     showcase.style.setProperty("--sc-int", INT + "ms");
     let index = 0, timer = null, started = false;
+
+    // Cliquer sur les appareils ouvre le site du projet affiché
+    if (devicesEl) {
+      devicesEl.classList.add("is-clickable");
+      devicesEl.setAttribute("role", "link");
+      devicesEl.setAttribute("tabindex", "0");
+      const openProject = () => {
+        const u = PROJECTS[index] && PROJECTS[index].url;
+        if (u) window.open(u, "_blank", "noopener");
+      };
+      devicesEl.addEventListener("click", openProject);
+      devicesEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openProject(); }
+      });
+    }
 
     const txt = (key, fr) =>
       currentLang !== "fr" && key && I18N[currentLang] && I18N[currentLang][key] != null
@@ -528,6 +544,7 @@
       if (elKind) elKind.textContent = txt(p.kindKey, p.kindFr);
       if (elTitle) elTitle.textContent = p.name;
       if (elDesc) elDesc.textContent = txt(p.descKey, p.descFr);
+      if (devicesEl) devicesEl.setAttribute("aria-label", "Ouvrir le site " + p.name + " (" + p.host + ")");
       tabs.forEach((t, k) => {
         t.classList.toggle("active", k === i);
         t.setAttribute("aria-selected", k === i ? "true" : "false");

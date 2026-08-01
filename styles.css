@@ -762,9 +762,10 @@ html.js:not(.no-intro) .intro {
 }
 .cta .cta-inner { position: relative; z-index: 1; margin: 0 auto; max-width: 660px; }
 
-/* Footer 4 colonnes + réseaux sociaux */
-.footer-grid { grid-template-columns: 1.7fr 1fr 1fr 1.3fr; gap: 40px; }
-.footer-brand .footer-tagline { max-width: 34ch; }
+/* Footer épuré : marque + contact */
+.footer-grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.footer-brand .footer-tagline { max-width: 40ch; }
+.footer-contact { align-items: flex-start; }
 .footer-col { display: flex; flex-direction: column; gap: 0.6rem; }
 .footer-col h4 { font-family: var(--font-display); font-size: 0.95rem; margin-bottom: 0.35rem; color: var(--text); }
 .footer-col a, .footer-col span { color: var(--text-muted); font-size: 0.9rem; transition: color 0.18s; }
@@ -789,8 +790,7 @@ html.js:not(.no-intro) .intro {
 .feature-card:hover::before { transform: scaleX(1); }
 
 @media (max-width: 900px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-brand { grid-column: 1 / -1; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .project-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
@@ -1598,3 +1598,10 @@ body {
 .cta-form textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
 .cta-form textarea.invalid { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18); }
 .cta-form #contact-submit { flex: 1 1 100%; }
+
+/* ===== Vitrine : appareils cliquables + description sur une seule ligne ===== */
+.devices.is-clickable { cursor: pointer; }
+.showcase-desc {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
