@@ -463,6 +463,7 @@
     const showcase = document.querySelector("[data-showcase]");
     if (!showcase) return;
     const PROJECTS = [
+      { host: "jaydenmusic.com", url: "https://jaydenmusic.com/", desktop: "img/jaydenmusic-desktop.jpg?v=2", mobile: "img/jaydenmusic-mobile.jpg?v=2", name: "Jayden", kindKey: "kind.jayden", kindFr: "Site web · Artiste musical", descKey: "desc.jayden", descFr: "Site officiel du chanteur Jayden — rock, soul et poésie." },
       { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=2", mobile: "img/yumea-mobile.jpg?v=2", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Institut de Head Spa japonais et de soins du visage." },
       { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
       { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Studio de gravure laser et création sur mesure." },
