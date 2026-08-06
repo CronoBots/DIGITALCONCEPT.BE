@@ -1827,3 +1827,131 @@ body {
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* ===================================================================
+   PALETTE MONOCHROME — blanc / gris / noir, moderne & épuré.
+   (posé en fin de fichier : écrase les valeurs colorées précédentes)
+   =================================================================== */
+
+/* Base : BLANC éditorial */
+:root, :root[data-theme="light"], :root[data-theme="dark"] {
+  --bg: #ffffff;
+  --bg-soft: #f4f4f5;
+  --bg-card: #ffffff;
+  --border: #e4e4e7;
+  --border-soft: #ececee;
+  --text: #0a0a0b;
+  --text-muted: #71717a;
+  --primary: #0a0a0b;
+  --primary-2: #52525b;
+  --accent: #0a0a0b;
+  --danger: #dc2626;
+  --accent-ink: #0a0a0b;
+  --header-bg-scrolled: rgba(255, 255, 255, 0.82);
+  --btn-secondary-bg: rgba(10, 10, 11, 0.035);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.28);
+  --shadow-glow: 0 16px 44px -16px rgba(0, 0, 0, 0.3);
+  --espresso: #0a0a0b;
+}
+
+/* Sections SOMBRES cinématographiques : noir profond */
+.tone-dark {
+  --bg: #0a0a0b;
+  --bg-soft: #141416;
+  --bg-card: #1b1b1e;
+  --border: #2b2b30;
+  --border-soft: #202024;
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --primary: #fafafa;
+  --primary-2: #d4d4d8;
+  --accent: #fafafa;
+  --accent-ink: #fafafa;
+  --btn-secondary-bg: rgba(255, 255, 255, 0.06);
+  --shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 16px 44px -16px rgba(255, 255, 255, 0.12);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Fond de page : blanc net, lumière neutre imperceptible */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(130% 90% at 50% -6%, rgba(0, 0, 0, 0.03), transparent 44%),
+    radial-gradient(120% 120% at 50% 118%, rgba(0, 0, 0, 0.025), transparent 55%);
+}
+/* Halos ambiants : gris neutres, quasi invisibles */
+.bg-fx span { mix-blend-mode: multiply; opacity: 0.05; filter: blur(120px); }
+.bg-fx span:nth-child(1) { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), transparent 70%); }
+.bg-fx span:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), transparent 70%); }
+.bg-fx span:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 0, 0, 0.35), transparent 70%); }
+.bg-fx::before { opacity: 0.42; }
+.grain { opacity: 0.022; mix-blend-mode: multiply; }
+
+/* Intro : carton noir */
+.intro { background: #0a0a0b !important; }
+
+/* HERO cinématographique noir + halo blanc discret */
+.hero--showcase.tone-dark {
+  background:
+    radial-gradient(110% 90% at 50% -12%, #1c1c1f 0%, transparent 55%),
+    radial-gradient(90% 80% at 82% 6%, rgba(255, 255, 255, 0.05), transparent 55%),
+    linear-gradient(180deg, #0c0c0e 0%, #08080a 100%);
+}
+.tone-dark .hero-bg::before {
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03) 45%, transparent 72%);
+}
+.tone-dark .hero-spotlight {
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.08), transparent 65%);
+}
+
+/* Header : clair sur le hero noir, blanc translucide au scroll */
+.site-header:not(.scrolled) .brand,
+.site-header:not(.scrolled) .brand-web { color: #fafafa; }
+.site-header:not(.scrolled) .nav-menu:not(.open) a { color: rgba(250, 250, 250, 0.78); }
+.site-header:not(.scrolled) .nav-menu:not(.open) a:hover,
+.site-header:not(.scrolled) .nav-menu:not(.open) a.active { color: #fff; }
+.site-header:not(.scrolled) .nav-menu:not(.open) a.active::after { background: #fafafa; }
+.site-header:not(.scrolled) .nav-toggle span { background: #fafafa; }
+.site-header:not(.scrolled) .lang-current { color: #fafafa; border-color: rgba(250, 250, 250, 0.28); }
+.site-header:not(.scrolled) .btn-ghost { color: #fafafa; border-color: rgba(250, 250, 250, 0.4); }
+.site-header:not(.scrolled) .btn-ghost:hover { background: rgba(250, 250, 250, 0.1); }
+
+/* Manifeste : halo et filigrane blancs discrets */
+.manifesto {
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(255, 255, 255, 0.05), transparent 55%),
+    linear-gradient(180deg, var(--bg-soft), var(--bg));
+}
+.manifesto-watermark { -webkit-text-stroke-color: rgba(255, 255, 255, 0.06); }
+
+/* Appel final (CTA) : carte anthracite, halo blanc discret */
+.cta-band { background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), var(--bg-card); }
+.cta-band-glow { background: radial-gradient(closest-side, rgba(255, 255, 255, 0.14), transparent 70%); }
+.cta-form input:focus, .cta-form textarea:focus { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18); }
+
+/* Marquee : séparateurs gris */
+.marquee-track .sep { color: var(--text-muted); opacity: 0.7; }
+
+/* Texte en dégradé : reflet argenté monochrome */
+.gradient-text {
+  background: linear-gradient(94deg, var(--primary) 0%, var(--primary-2) 58%, var(--primary) 120%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Boutons : contraste franc noir/blanc */
+.btn-primary { background: var(--text); color: var(--bg); }
+.tone-dark .btn-primary { background: #fafafa; color: #0a0a0b; }
+.cta-form input:focus, .cta-form textarea:focus { border-color: var(--primary); }
+
+/* Marque « DC » et avatar « V » en monochrome */
+.brand-mark {
+  background: linear-gradient(150deg, #1c1c1f, #0a0a0b);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 22px -12px rgba(0, 0, 0, 0.6);
+}
+.about-monogram { background: #0a0a0b; color: #fff; }
+
+/* « Concept » (dégradé) forcé en blanc au-dessus du hero sombre */
+.site-header:not(.scrolled) .brand-web { -webkit-text-fill-color: #fafafa; color: #fafafa; }
