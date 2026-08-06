@@ -1,43 +1,51 @@
-:root {
-  --bg: #070b14;
-  --bg-soft: #0b1220;
-  --bg-card: #111c30;
-  --border: #21385a;
-  --border-soft: #1a2a44;
-  --text: #eef3fb;
-  --text-muted: #9fb2cc;
-  --primary: #38bdf8;
-  --primary-2: #6366f1;
-  --accent: #34d399;
-  --danger: #f87171;
-  --accent-ink: #56c7fb;
+/* ===== Identité bi-ton « studio éditorial » ===== */
+/* Base : CRÈME éditoriale (corps de page) */
+:root, :root[data-theme="light"], :root[data-theme="dark"] {
+  --bg: #f4efe3;
+  --bg-soft: #ece3d2;
+  --bg-card: #fbf7ee;
+  --border: #d9cfb9;
+  --border-soft: #e6ddca;
+  --text: #191510;
+  --text-muted: #6d6350;
+  --primary: #1f6f4f;      /* vert profond */
+  --primary-2: #2f9068;    /* vert clair (dégradés) */
+  --accent: #c9a227;       /* or */
+  --danger: #b4472e;
+  --accent-ink: #1a5f43;
   --header-bg: transparent;
-  --header-bg-scrolled: rgba(8, 13, 24, 0.96);
-  --btn-secondary-bg: rgba(255, 255, 255, 0.03);
+  --header-bg-scrolled: rgba(244, 239, 227, 0.9);
+  --btn-secondary-bg: rgba(25, 21, 16, 0.04);
   --radius: 18px;
   --radius-sm: 12px;
-  --shadow: 0 24px 70px -24px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 14px 40px -12px rgba(56, 189, 248, 0.45);
+  --shadow: 0 26px 60px -30px rgba(60, 45, 20, 0.34);
+  --shadow-glow: 0 16px 44px -14px rgba(31, 111, 79, 0.4);
   --container: 1140px;
+  --espresso: #17130d;
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-:root[data-theme="light"] {
-  --bg: #f6f8fc;
-  --bg-soft: #eef2f9;
-  --bg-card: #ffffff;
-  --border: #d4ddec;
-  --border-soft: #e5ebf5;
-  --text: #0c1626;
-  --text-muted: #51617a;
-  --accent-ink: #0369a1;
-  --header-bg: transparent;
-  --header-bg-scrolled: rgba(248, 250, 253, 0.96);
-  --btn-secondary-bg: rgba(12, 22, 38, 0.025);
-  --shadow: 0 24px 60px -28px rgba(23, 43, 77, 0.25);
+/* Sections SOMBRES cinématographiques (hero, manifeste, appel final, footer) */
+.tone-dark {
+  --bg: #17130d;
+  --bg-soft: #1e1811;
+  --bg-card: #241d14;
+  --border: #3c3123;
+  --border-soft: #2c2419;
+  --text: #f4ecdb;
+  --text-muted: #b7a98c;
+  --primary: #e8c56a;      /* sur fond sombre, l'or devient l'accent principal */
+  --primary-2: #d9a441;
+  --accent: #8fce9f;       /* vert clair en secondaire */
+  --accent-ink: #e8c56a;
+  --btn-secondary-bg: rgba(255, 250, 235, 0.05);
+  --shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 16px 44px -14px rgba(232, 197, 106, 0.4);
+  background: var(--bg);
+  color: var(--text);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1732,3 +1740,90 @@ details[open] .svc-panel { animation: svcReveal 0.45s var(--ease); }
 /* Marquee plus affirmé */
 .marquee-track span:not(.sep) { font-family: var(--font-display); font-weight: 600; }
 .marquee-track .sep { color: var(--primary); opacity: 0.8; }
+
+/* ===================================================================
+   ADAPTATION BI-TON « studio éditorial » — crème + espresso, vert & or.
+   Surcharge finale : neutralise les cyans hérités et gère le contraste
+   du header au-dessus du hero sombre. (sans toucher à la vitrine 3D)
+   =================================================================== */
+
+/* Fond de page crème, lumière chaude discrète */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(130% 90% at 50% -6%, rgba(201, 162, 39, 0.06), transparent 46%),
+    radial-gradient(120% 120% at 50% 116%, rgba(31, 111, 79, 0.05), transparent 55%);
+}
+
+/* Halos ambiants : chauds et très discrets sur le crème */
+.bg-fx span { mix-blend-mode: multiply; opacity: 0.14; filter: blur(120px); }
+.bg-fx span:nth-child(1) { background: radial-gradient(closest-side, rgba(31, 111, 79, 0.4), transparent 70%); }
+.bg-fx span:nth-child(2) { background: radial-gradient(closest-side, rgba(201, 162, 39, 0.34), transparent 70%); }
+.bg-fx span:nth-child(3) { background: radial-gradient(closest-side, rgba(31, 111, 79, 0.28), transparent 70%); }
+.bg-fx::before { opacity: 0.5; }
+.grain { opacity: 0.03; mix-blend-mode: multiply; }
+
+/* Intro : carton espresso */
+.intro { background: var(--espresso) !important; }
+
+/* HERO cinématographique espresso + halo chaud */
+.hero--showcase.tone-dark {
+  background:
+    radial-gradient(120% 100% at 50% -10%, #221a10 0%, transparent 55%),
+    radial-gradient(90% 80% at 82% 8%, rgba(201, 162, 39, 0.14), transparent 55%),
+    linear-gradient(180deg, #17130d 0%, #120f0a 100%);
+}
+.tone-dark .hero-bg::before {
+  background: radial-gradient(closest-side, rgba(201, 162, 39, 0.16), rgba(143, 206, 159, 0.06) 45%, transparent 72%);
+}
+.tone-dark .hero-spotlight {
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 30%), rgba(232, 197, 106, 0.16), transparent 65%);
+}
+
+/* Header : clair au-dessus du hero sombre, encre une fois déroulé sur le crème */
+.site-header:not(.scrolled) .brand,
+.site-header:not(.scrolled) .brand-web { color: #f4ecdb; }
+.site-header:not(.scrolled) .nav-menu:not(.open) a { color: rgba(244, 236, 219, 0.82); }
+.site-header:not(.scrolled) .nav-menu:not(.open) a:hover,
+.site-header:not(.scrolled) .nav-menu:not(.open) a.active { color: #fff; }
+.site-header:not(.scrolled) .nav-menu:not(.open) a.active::after { background: var(--accent); }
+.site-header:not(.scrolled) .nav-toggle span { background: #f4ecdb; }
+.site-header:not(.scrolled) .lang-current { color: #f4ecdb; border-color: rgba(244, 236, 219, 0.28); }
+.site-header:not(.scrolled) .btn-ghost { color: #f4ecdb; border-color: rgba(244, 236, 219, 0.4); }
+.site-header:not(.scrolled) .btn-ghost:hover { background: rgba(244, 236, 219, 0.1); }
+.site-header.scrolled { border-bottom: 1px solid var(--border-soft); }
+
+/* Manifeste : halo et filigrane dorés (au lieu du cyan) */
+.manifesto {
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(201, 162, 39, 0.1), transparent 55%),
+    linear-gradient(180deg, var(--bg-soft), var(--bg));
+}
+.manifesto-watermark { -webkit-text-stroke-color: rgba(232, 197, 106, 0.08); }
+
+/* Appel final (CTA) : bande dorée sur espresso, halo doré */
+.cta { background: none; }
+.cta-band { background: linear-gradient(135deg, rgba(232, 197, 106, 0.12), rgba(143, 206, 159, 0.08)), var(--bg-card); }
+.cta-band-glow { background: radial-gradient(closest-side, rgba(232, 197, 106, 0.3), transparent 70%); }
+.cta-form input:focus, .cta-form textarea:focus { box-shadow: 0 0 0 3px rgba(232, 197, 106, 0.25); }
+
+/* Marquee : séparateurs verts sur crème */
+.marquee-track .sep { color: var(--primary); opacity: 0.75; }
+
+/* Boutons primaires : texte encre sur vert/or pour rester lisible */
+.btn-primary { color: #14110c; }
+
+/* Header transparent au-dessus du hero sombre, crème translucide au scroll */
+.site-header { background-color: transparent; border-bottom-color: transparent; }
+.site-header.scrolled {
+  background-color: var(--header-bg-scrolled);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* Texte en dégradé : or → vert → crème (fini le cyan) */
+.gradient-text {
+  background: linear-gradient(94deg, var(--primary) 0%, var(--accent) 55%, var(--text) 120%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
