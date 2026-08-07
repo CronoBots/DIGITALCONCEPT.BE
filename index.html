@@ -15,6 +15,8 @@
   <meta name="description" content="Digital Concept est une agence digitale en Belgique : création de sites web, applications mobiles, intelligence artificielle, solutions crypto/blockchain et bots pour réseaux sociaux. Des solutions sur mesure pour faire grandir votre entreprise. Devis gratuit." />
   <meta name="theme-color" content="#0a0a0b" />
   <meta name="google-site-verification" content="AOwTb-MmZ-WHOYJZg68jTofqsi45taLaHDBgZR3Zmu0" />
+  <meta http-equiv="content-language" content="fr-BE" />
+  <link rel="preload" as="image" href="img/jaydenmusic-desktop.jpg?v=3" fetchpriority="high" />
   <link rel="canonical" href="https://digitalconcept.be/" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
@@ -31,11 +33,14 @@
   <!-- Open Graph / réseaux sociaux -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_BE" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:locale:alternate" content="nl_BE" />
   <meta property="og:site_name" content="Digital Concept" />
   <meta property="og:title" content="Digital Concept — Solutions digitales sur mesure" />
   <meta property="og:description" content="Sites web, applications mobiles, IA, crypto et bots réseaux sociaux. Des solutions sur mesure pour faire grandir votre entreprise." />
   <meta property="og:url" content="https://digitalconcept.be/" />
   <meta property="og:image" content="https://digitalconcept.be/og-image.png" />
+  <meta property="og:image:secure_url" content="https://digitalconcept.be/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -67,6 +72,9 @@
         "image": "https://digitalconcept.be/og-image.png",
         "description": "Studio digital en Belgique : sites web, applications mobiles, intelligence artificielle, crypto/blockchain et bots réseaux sociaux — conçus sur mesure par un expert de plus de 25 ans d'expérience.",
         "slogan": "Le digital sur mesure, conçu par un expert.",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 1 },
+        "knowsLanguage": ["fr", "nl", "en"],
+        "currenciesAccepted": "EUR",
         "priceRange": "€€",
         "address": { "@type": "PostalAddress", "streetAddress": "Rue Chapéchêne 10", "postalCode": "4120", "addressLocality": "Neupré", "addressRegion": "Liège", "addressCountry": "BE" },
         "geo": { "@type": "GeoCoordinates", "latitude": 50.51, "longitude": 5.51 },
@@ -80,11 +88,12 @@
           "@type": "OfferCatalog",
           "name": "Services Digital Concept",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création de sites web" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement d'applications mobiles" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Intelligence artificielle" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Crypto et blockchain" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bots pour réseaux sociaux" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création de sites web", "description": "Sites vitrines, e-commerce et plateformes sur mesure, rapides et optimisés pour le mobile et la conversion." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement d'applications mobiles", "description": "Applications iOS et Android sur mesure, de la maquette à la publication sur les stores." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Intelligence artificielle", "description": "Chatbots, assistants et automatisations IA pour gagner du temps et automatiser les tâches répétitives." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Crypto et blockchain", "description": "Smart contracts, tokens, dashboards et intégrations Web3, avec sécurité et audit à chaque étape." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bots pour réseaux sociaux", "description": "Bots Instagram, Telegram, Discord et WhatsApp pour animer, modérer et faire grandir vos communautés." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Solutions digitales sur mesure", "description": "Outils métiers et solutions personnalisées, du cahier des charges au suivi et à la maintenance." } }
           ]
         }
       },
@@ -103,6 +112,19 @@
         "name": "Digital Concept",
         "inLanguage": "fr-BE",
         "publisher": { "@id": "https://digitalconcept.be/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://digitalconcept.be/#webpage",
+        "url": "https://digitalconcept.be/",
+        "name": "Digital Concept — Solutions digitales sur mesure : sites web, applications, IA, crypto & bots",
+        "description": "Studio digital en Belgique : sites web, applications mobiles, intelligence artificielle, crypto/blockchain et bots réseaux sociaux, conçus sur mesure par un expert de plus de 25 ans d'expérience.",
+        "inLanguage": "fr-BE",
+        "isPartOf": { "@id": "https://digitalconcept.be/#website" },
+        "about": { "@id": "https://digitalconcept.be/#organization" },
+        "primaryImageOfPage": { "@type": "ImageObject", "url": "https://digitalconcept.be/og-image.png", "width": 1200, "height": 630 },
+        "datePublished": "2026-06-14",
+        "dateModified": "2026-08-07"
       },
       {
         "@type": "FAQPage",
@@ -197,7 +219,7 @@
                       <span class="browser-url" data-sc-url>jaydenmusic.com</span>
                     </div>
                     <div class="browser-screen">
-                      <img data-sc-desktop src="img/jaydenmusic-desktop.jpg?v=3" alt="Jayden — aperçu du projet" loading="lazy" />
+                      <img data-sc-desktop src="img/jaydenmusic-desktop.jpg?v=3" alt="Jayden — aperçu du projet" width="1600" height="1000" loading="eager" fetchpriority="high" decoding="async" />
                     </div>
                   </div>
                 </div>
