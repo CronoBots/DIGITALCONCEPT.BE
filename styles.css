@@ -2099,3 +2099,22 @@ details[open] .svc-toggle::before { background: var(--brand); }
 
 /* Halo ambiant : une pointe de bleu très discrète */
 .bg-fx span:nth-child(2) { background: radial-gradient(closest-side, rgba(46, 91, 255, 0.16), transparent 70%); }
+
+/* ===================================================================
+   Mobile : barre de menu opaque dès le départ (fini le fond transparent
+   au-dessus du hero qui laissait le titre passer sous le menu).
+   =================================================================== */
+@media (max-width: 720px) {
+  .site-header {
+    background: var(--header-bg-scrolled) !important;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-soft) !important;
+  }
+  .site-header .brand { color: var(--text) !important; }
+  .site-header .brand-web { -webkit-text-fill-color: var(--brand) !important; color: var(--brand) !important; }
+  .site-header .nav-toggle span { background: var(--text) !important; }
+  .site-header .lang-current { color: var(--text) !important; border-color: var(--border) !important; }
+  .site-header .nav-menu:not(.open) a { color: var(--text-muted) !important; }
+  /* un peu d'air sous la barre pour dégager le titre du hero */
+  .hero--showcase { padding-top: clamp(104px, 15vh, 150px); }
+}
