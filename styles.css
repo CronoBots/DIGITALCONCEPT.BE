@@ -2118,3 +2118,38 @@ details[open] .svc-toggle::before { background: var(--brand); }
   /* un peu d'air sous la barre pour dégager le titre du hero */
   .hero--showcase { padding-top: clamp(104px, 15vh, 150px); }
 }
+
+/* ===================================================================
+   POLISH 2026 — passe a11y & cohérence (identité monochrome + accent bleu)
+   Surcouche volontairement chirurgicale : ne change pas la direction,
+   corrige lisibilité, focus et cibles tactiles.
+   =================================================================== */
+
+/* Focus visible : anneau bleu de marque (plus visible qu'un contour
+   noir/blanc selon la bande, et raccord avec l'accent du site). */
+:focus-visible { outline: 2px solid var(--brand, #4d78ff); outline-offset: 3px; }
+.svc-sum:focus-visible,
+.sc-arrow:focus-visible,
+.faq-item summary:focus-visible { outline: 2px solid var(--brand, #4d78ff); outline-offset: 4px; }
+
+/* Manifeste : le contour « fantôme » de la 1re ligne était limite lisible
+   (contraste trop faible sur le noir). On le remonte légèrement sans
+   casser la hiérarchie ghost -> ligne accent. */
+.manifesto-huge .outline {
+  -webkit-text-stroke-color: rgba(250, 250, 250, 0.46);
+  text-stroke-color: rgba(250, 250, 250, 0.46);
+}
+:root[data-theme="light"] .manifesto-huge .outline {
+  -webkit-text-stroke-color: rgba(10, 10, 11, 0.34);
+  text-stroke-color: rgba(10, 10, 11, 0.34);
+}
+
+/* Carrousel : teinte des flèches alignée sur le monochrome (au lieu du
+   bleu-navy résiduel), et cibles tactiles ≥ 44px sur mobile (WCAG 2.5.5). */
+.sc-arrow { background: rgba(10, 10, 11, 0.6); }
+.sc-arrow:hover { background: rgba(10, 10, 11, 0.9); }
+@media (max-width: 640px) {
+  .sc-arrow { width: 44px; height: 44px; background: rgba(10, 10, 11, 0.82); }
+  .sc-arrow--prev { left: 4px; }
+  .sc-arrow--next { right: 4px; }
+}
