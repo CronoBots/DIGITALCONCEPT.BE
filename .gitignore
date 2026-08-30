@@ -1,3 +1,6 @@
 # Artefacts de revue design (impeccable) — non versionnés
 .impeccable/review/
 .impeccable/mocks/
+
+# Skills installées localement (UI/UX Pro Max & co.) — récupérées depuis leur dépôt
+.claude/skills/
