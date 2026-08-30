@@ -402,4 +402,103 @@
       btn.addEventListener("pointerleave", function () { btn.style.transform = ""; });
     });
   }
+
+  /* ---- Réseau de fond global (multi-sections, parallaxe par superposition) ---- */
+  (function () {
+    var canvas = document.getElementById("net-bg");
+    if (!canvas) return;
+    var ctx; try { ctx = canvas.getContext("2d"); } catch (e) {}
+    if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, N = 0, nodes = [];
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      N = W < 720 ? 0 : Math.min(42, Math.round(W * H / 42000));
+      nodes = [];
+      for (var i = 0; i < N; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, z: Math.random(), vx: (Math.random() * 2 - 1) * 0.13, vy: (Math.random() * 2 - 1) * 0.13 });
+    }
+    resize();
+    var mx = -999, my = -999;
+    if (finePointer && !prefersReduced) window.addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    var CONN = 155, raf = 0, run = true, vis = true;
+    function frame() {
+      raf = 0; if (!run || !vis || N === 0) return;
+      for (var i = 0; i < N; i++) { var n = nodes[i]; n.x += n.vx; n.y += n.vy; if (n.x < 0) n.x += W; if (n.x > W) n.x -= W; if (n.y < 0) n.y += H; if (n.y > H) n.y -= H; }
+      ctx.clearRect(0, 0, W, H);
+      for (var a = 0; a < N; a++) for (var b = a + 1; b < N; b++) {
+        var A = nodes[a], B = nodes[b], dx = A.x - B.x, dy = A.y - B.y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < CONN) { var al = (1 - d / CONN) * 0.10; ctx.strokeStyle = "rgba(99,102,241," + al.toFixed(3) + ")"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y); ctx.stroke(); }
+      }
+      for (var k = 0; k < N; k++) {
+        var p = nodes[k], near = 0;
+        if (mx > -900) { var ex = p.x - mx, ey = p.y - my, dm = Math.sqrt(ex * ex + ey * ey); if (dm < 170) near = 1 - dm / 170; }
+        ctx.fillStyle = near > 0.1 ? "rgba(196,181,253," + (0.4 + near * 0.5).toFixed(3) + ")" : "rgba(139,124,255," + (0.10 + p.z * 0.16).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.1 + p.z * 1.4 + near * 1.4, 0, 6.283); ctx.fill();
+      }
+      if (!prefersReduced) raf = requestAnimationFrame(frame);
+    }
+    function loop() { if (!raf && run && vis && N > 0) raf = requestAnimationFrame(frame); }
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { resize(); if (prefersReduced) frame(); else loop(); }, 180); });
+    document.addEventListener("visibilitychange", function () { if (document.hidden) run = false; else { run = true; loop(); } });
+    if (prefersReduced) frame(); else loop();
+  })();
+
+  /* ---- Scroll : fil conducteur + dissolution du hero ---- */
+  (function () {
+    var fill = $(".spine-fill"), node = $(".spine-node");
+    var cover = $(".cover"), heroWrap = cover && cover.querySelector(".wrap"), heroCanvas = $("[data-forge]");
+    if (prefersReduced) { if (fill) fill.style.transform = "scaleY(0)"; return; }
+    var ticking = false;
+    function upd() {
+      ticking = false;
+      var s = window.pageYOffset || 0;
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      var prog = docH > 0 ? Math.min(1, Math.max(0, s / docH)) : 0;
+      if (fill) fill.style.transform = "scaleY(" + prog.toFixed(4) + ")";
+      if (node) node.style.top = (prog * 100).toFixed(2) + "%";
+      var h = window.innerHeight, t = Math.min(1, s / h);
+      if (heroWrap) { if (t > 0.004) { heroWrap.style.transform = "translateY(" + (t * 46).toFixed(1) + "px)"; heroWrap.style.opacity = (1 - t * 0.92).toFixed(3); } else { heroWrap.style.transform = ""; heroWrap.style.opacity = ""; } }
+      if (heroCanvas) { if (t > 0.004) heroCanvas.style.opacity = (1 - t * 0.85).toFixed(3); else heroCanvas.style.opacity = ""; }
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    upd();
+  })();
+
+  /* ---- Chiffres animés (count-up) ---- */
+  (function () {
+    if (prefersReduced || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return; var el = e.target; io.unobserve(el);
+        var m = /^(\d+)([\s\S]*)$/.exec(el.textContent); if (!m) return;
+        var target = parseInt(m[1], 10), suffix = m[2], t0 = null;
+        function step(ts) { if (t0 === null) t0 = ts; var p = Math.min(1, (ts - t0) / 1300), eased = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(eased * target) + suffix; if (p < 1) requestAnimationFrame(step); }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    $$(".fact b, .maker-facts b").forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---- Projecteur curseur sur les cartes ---- */
+  if (finePointer && !prefersReduced) {
+    $$(".step, .commission-side").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      });
+    });
+  }
+
+  /* ---- Lueur qui suit le curseur ---- */
+  (function () {
+    if (!finePointer || prefersReduced) return;
+    var g = $(".cursor-glow"); if (!g) return;
+    var x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y, raf = 0, shown = false;
+    function run() { raf = 0; x += (tx - x) * 0.16; y += (ty - y) * 0.16; g.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)"; if (Math.abs(tx - x) > 0.4 || Math.abs(ty - y) > 0.4) raf = requestAnimationFrame(run); }
+    window.addEventListener("pointermove", function (e) { tx = e.clientX; ty = e.clientY; if (!shown) { shown = true; g.style.opacity = "1"; } if (!raf) raf = requestAnimationFrame(run); }, { passive: true });
+  })();
 })();
