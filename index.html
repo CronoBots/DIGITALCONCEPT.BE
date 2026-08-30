@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Digital Concept — Le studio digital d'un seul artisan (Belgique)</title>
   <meta name="description" content="Sites web, applications, IA, crypto et bots — conçus et développés sur mesure par un seul expert de 25 ans. Vous parlez directement à la personne qui fabrique. Devis gratuit sous 24 h." />
-  <meta name="theme-color" content="#171C26" />
+  <meta name="theme-color" content="#0A0C10" />
   <meta name="google-site-verification" content="AOwTb-MmZ-WHOYJZg68jTofqsi45taLaHDBgZR3Zmu0" />
   <meta http-equiv="content-language" content="fr-BE" />
   <link rel="canonical" href="https://digitalconcept.be/" />
@@ -114,12 +114,12 @@
 </head>
 <body>
 <!--
-  DIRECTION CONTRACT — seed 43bdd545 (impeccable, mode persuade, code-led)
-  THESIS: Ce site est une monographie d'atelier signée : un seul artisan pense, dessine et code, et le visiteur s'adresse directement à lui. Refuse le hero sombre à dégradé + grille de cartes de services du studio-digital générique.
-  OWN-WORLD: Papier chaud (#ECE7DA), encre bleu-noir (#171C26), ocre-marque (#B9762A). Bricolage Grotesque (titres/folios géants), Libre Franklin (corps), Spline Sans Mono (folios, données). Planches d'encre pleines alternant avec des doubles-pages papier ; signature tracée + marque de maître récurrentes ; micro-décalage de registre à l'interaction. Aucun eyebrow, aucun gradient-text, aucune grille de cartes.
-  STORY: Le visiteur comprend qu'un seul maître (25 ans) fabrique lui-même, de bout en bout, du sur-mesure ; il croit qu'il traitera en direct avec un expert rare et fiable ; il agit en démarrant un projet.
-  FIRST VIEWPORT: Planche de couverture encrée — titre Bricolage géant « Le studio digital d'un seul artisan », thèse, signature à l'encre ocre qui se trace, action « Démarrer un projet » + téléphone, folio d'édition ; faits 25/1/0 en pied.
-  FORM: monographie d'atelier signée (candidat ancré n°7, assigné par le tirage). Seed 43bdd545.
+  DIRECTION CONTRACT — seed 02e1f084 (impeccable, mode persuade, code-led ; monde épinglé par le client)
+  THESIS: L'atelier en fusion. Un studio filmé dans le noir où une matière métallique en fusion (WebGL vivant) est forgée à la main en produit fini. Refuse à la fois l'ancienne monographie papier ET le « near-black + un néon » générique du studio-tech : la chaleur est bronze/ambre, dans la continuité de la marque, pas un néon froid.
+  OWN-WORLD: Obsidienne #0A0C10 / #0D1017, verre élevé #12161F (vitrines à backdrop-blur réel), texte blanc chaud #F2EEE6, chaleur de forge bronze→ambre (#B9762A → #FF9D3D → cœur #FFD89A) comme unique accent porteur. Bricolage Grotesque (display géant), Libre Franklin (corps), Spline Sans Mono (données). Shader de métal en fusion plein écran, vitrines de verre, halo de forge, révélations « chaleur qui monte ».
+  STORY: Un seul maître (25 ans) forge lui-même, de bout en bout, du sur-mesure ; le visiteur traite en direct avec un expert rare et fiable ; il démarre un projet.
+  FIRST VIEWPORT: Scène obsidienne plein écran — métal en fusion WebGL vivant derrière le titre Bricolage géant « Le studio digital d'un seul artisan », thèse, actions « Démarrer un projet » + téléphone, faits 25/1/24 h et signature à l'encre chaude qui se trace ; repère de défilement.
+  FORM: atelier en fusion / studio nocturne cinématographique (monde épinglé par le client). Seed 02e1f084.
   FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 -->
   <a href="#works" class="skip-link">Aller au contenu</a>
@@ -152,28 +152,27 @@
   </nav>
 
   <main id="top">
-    <!-- ===== COVER PLATE ===== -->
+    <!-- ===== HERO / SCÈNE EN FUSION ===== -->
     <section class="cover" id="atelier">
+      <canvas class="forge-canvas" data-forge aria-hidden="true"></canvas>
+      <div class="forge-veil" aria-hidden="true"></div>
       <div class="wrap">
         <div class="cover-grid">
-          <div class="cover-top">
-            <p class="folio"><b>Éd. 2026</b> Digital Concept · Neupré, Belgique</p>
-            <p class="folio">Sur mesure · <b>Aucun template</b></p>
-          </div>
-          <h1 class="display reveal">
+          <p class="cover-tag reveal">Studio digital · Neupré, Belgique · <span class="mark-ink">Éd. 2026</span></p>
+          <h1 class="display reveal d1">
             <span class="set">Le studio digital</span>
             <span class="set">d'un seul <span class="mark-ink">artisan.</span></span>
           </h1>
-          <p class="cover-lead reveal d1">
+          <p class="cover-lead reveal d2">
             Sites web, applications, intelligence artificielle, crypto et bots.
             Vous ne parlez pas à une agence : vous parlez directement à la personne
             qui pense, dessine <em>et</em> code votre projet.
           </p>
-          <div class="cover-actions reveal d2">
-            <a href="#commande" class="btn btn--mark">Démarrer un projet <span class="btn-ar" aria-hidden="true">→</span></a>
+          <div class="cover-actions reveal d3">
+            <a href="#commande" class="btn btn--mark" data-magnetic>Démarrer un projet <span class="btn-ar" aria-hidden="true">→</span></a>
             <a href="tel:+32460962146" class="cover-phone">Ou appelez&nbsp;: <b>0460&nbsp;96&nbsp;21&nbsp;46</b></a>
           </div>
-          <div class="cover-foot reveal d3">
+          <div class="cover-foot reveal d4">
             <div class="facts">
               <div class="fact"><b>25</b><span>ans de métier</span></div>
               <div class="fact"><b>1</b><span>seul interlocuteur</span></div>
@@ -188,37 +187,41 @@
           </div>
         </div>
       </div>
+      <a href="#thesis" class="scroll-cue" aria-label="Défiler vers le contenu">
+        <span class="scroll-cue-txt">Descendre dans l'atelier</span>
+        <span class="scroll-cue-line" aria-hidden="true"></span>
+      </a>
     </section>
 
-    <!-- ===== THÈSE ===== -->
-    <section class="spread wrap" aria-label="Un seul interlocuteur">
+    <!-- ===== THÈSE / TROIS GESTES ===== -->
+    <section class="spread wrap" id="thesis" aria-label="Un seul interlocuteur">
       <div class="thesis">
         <div class="reveal">
-          <p class="folio"><b>I</b> L'engagement</p>
+          <p class="folio"><span class="folio-n">I</span> L'engagement</p>
           <p class="statement">Un seul artisan, <em>du premier échange à la mise en ligne.</em></p>
         </div>
-        <div class="triad reveal d1">
-          <div class="step">
+        <div class="triad">
+          <article class="step reveal">
             <span class="n">01</span>
             <div>
               <h3>Je pense</h3>
               <p class="d">J'écoute votre besoin sans jargon, et je vous dis honnêtement ce qui vaut la peine d'être fait, ce qui ne l'est pas, et par où commencer.</p>
             </div>
-          </div>
-          <div class="step">
+          </article>
+          <article class="step reveal d1">
             <span class="n">02</span>
             <div>
               <h3>Je dessine</h3>
               <p class="d">Chaque projet est dessiné sur mesure pour votre marque. Aucun thème acheté, aucune page recyclée. Vous validez une maquette réelle avant la moindre ligne de code.</p>
             </div>
-          </div>
-          <div class="step">
+          </article>
+          <article class="step reveal d2">
             <span class="n">03</span>
             <div>
               <h3>Je code</h3>
               <p class="d">Je développe avec des technologies solides, soignées jusqu'au dernier pixel. Ensuite, je reste votre interlocuteur pour l'hébergement, les évolutions et la maintenance.</p>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -227,7 +230,7 @@
     <section class="works plate" id="works">
       <div class="spread wrap">
         <div class="spread-head reveal">
-          <p class="folio"><b>II</b> Les travaux</p>
+          <p class="folio"><span class="folio-n">II</span> Les travaux</p>
           <h2 class="h-sect">Des projets réels, en ligne aujourd'hui.</h2>
         </div>
 
@@ -275,7 +278,7 @@
     <section class="maker plate spread" id="artisan">
       <div class="wrap maker-grid">
         <div class="maker-copy reveal">
-          <p class="folio"><b>III</b> L'artisan</p>
+          <p class="folio"><span class="folio-n">III</span> L'artisan</p>
           <h2 class="h-sect">Vous parlez à l'expert qui fabrique, pas à un commercial.</h2>
           <div class="prose">
             <p>Je m'appelle <strong>Vincent</strong>. J'ai fondé Digital Concept après plus de <strong>25 ans</strong> à concevoir des sites, des applications et des systèmes sur mesure. J'ai vu naître le web, puis le mobile, puis l'IA — et j'ai construit avec chacun d'eux.</p>
@@ -306,7 +309,7 @@
     <!-- ===== LE CHAMP (services, index typographique) ===== -->
     <section class="spread wrap" id="champ" aria-label="Le champ d'intervention">
       <div class="spread-head reveal">
-        <p class="folio"><b>IV</b> Le champ</p>
+        <p class="folio"><span class="folio-n">IV</span> Le champ</p>
         <h2 class="h-sect">Du site vitrine au smart contract, une seule main.</h2>
         <p class="lead">Une palette qu'aucune agence locale ne réunit chez une seule personne.</p>
       </div>
@@ -365,7 +368,7 @@
     <!-- ===== QUESTIONS ===== -->
     <section class="spread wrap" id="questions" aria-label="Questions fréquentes">
       <div class="spread-head reveal">
-        <p class="folio"><b>V</b> Questions</p>
+        <p class="folio"><span class="folio-n">V</span> Questions</p>
         <h2 class="h-sect">Ce qu'on me demande le plus souvent.</h2>
       </div>
       <div class="qa">
@@ -396,7 +399,7 @@
     <section class="commission plate spread" id="commande">
       <div class="wrap commission-grid">
         <div class="reveal">
-          <p class="folio"><b>VI</b> La commande</p>
+          <p class="folio"><span class="folio-n">VI</span> La commande</p>
           <h2 class="h-sect">Un projet en tête ? Parlons-en.</h2>
           <p class="lead">Décrivez-moi votre idée en deux lignes. Je vous réponds sous 24 h avec un premier avis honnête et une proposition claire — gratuitement et sans engagement.</p>
           <form class="cta-form" id="contact-form" data-endpoint="https://formsubmit.co/ajax/contact@digitalconcept.be" data-mailto="contact@digitalconcept.be" novalidate>
@@ -416,7 +419,7 @@
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
-            <button type="submit" class="btn btn--mark" id="contact-submit">Demander un devis gratuit <span class="btn-ar" aria-hidden="true">→</span></button>
+            <button type="submit" class="btn btn--mark" id="contact-submit" data-magnetic>Demander un devis gratuit <span class="btn-ar" aria-hidden="true">→</span></button>
           </form>
           <p class="form-rgpd">En soumettant ce formulaire, vous acceptez d'être recontacté par Digital Concept. Vos données restent confidentielles et ne sont jamais partagées.</p>
           <div class="form-check" id="form-check" aria-hidden="true">
@@ -494,7 +497,7 @@
   </footer>
 
   <a class="wa-fab" href="https://wa.me/32460962146?text=Bonjour%2C%20je%20viens%20de%20votre%20site%20digitalconcept.be%20et%20j%27aimerais%20discuter%20d%27un%20projet." target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp" title="Discuter sur WhatsApp">
-    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M16 3.2c-7.06 0-12.79 5.73-12.79 12.79 0 2.26.59 4.46 1.71 6.4L3.2 28.8l6.6-1.73a12.74 12.74 0 0 0 6.2 1.58c7.06 0 12.79-5.73 12.79-12.79S23.06 3.2 16 3.2zm0 23.31a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.92 1.03 1.05-3.82-.25-.4A10.56 10.56 0 1 1 16 26.51zm5.83-7.96c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.72-.97-2.35-.26-.62-.52-.54-.71-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.21 2 .13.61-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37z"/></svg>
+    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M16 3.2c-7.06 0-12.79 5.73-12.79 12.79 0 2.26.59 4.46 1.71 6.4L3.2 28.8l6.6-1.73a12.74 12.74 0 0 0 6.2 1.58c7.06 0 12.79-5.73 12.79-12.79S23.06 3.2 16 3.2zm0 23.31a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-3.92 1.03 1.05-3.82-.25-.4A10.56 10.56 0 1 1 16 26.51zm5.83-7.96c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.72-.97-2.35-.26-.62-.52-.54-.71-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65 0 1.56 1.14 3.07 1.3 3.28.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.21 2 .13.61-.09 1.89-.77 2.16-1.52.2-.6.2-1 .1-1.1z"/></svg>
   </a>
   <button class="to-top" id="to-top" aria-label="Revenir en haut" title="Revenir en haut">↑</button>
 

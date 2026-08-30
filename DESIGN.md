@@ -5,54 +5,56 @@
 
 ## Direction
 
-**Monographie d'atelier signée** (seed 43bdd545, mode persuade, code-led). Le site d'accueil se comporte comme un livre d'auteur auto-édité : un seul artisan pense, dessine et code, et le visiteur s'adresse directement à lui. Refuse le hero sombre à dégradé + grille de cartes de services du studio-digital générique.
+**Atelier en fusion** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une matière métallique en fusion (WebGL vivant) est forgée à la main en produit fini. Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon froid » du studio-tech générique. La chaleur est **bronze/ambre**, dans la continuité de la marque, jamais un néon.
 
 ## Palette
 
-Stratégie : **engagée** — l'encre porte les planches pleines (couverture, artisan, contact, ~40 % de la surface), le papier porte la lecture, l'ocre est l'unique accent (marque de maître, signature, filets, états).
+Stratégie : **committed / drenched** — l'obsidienne noie toute la surface, la chaleur de forge (bronze→ambre) est l'unique accent porteur (hero, CTA, filets, états, incandescence du mot-marque).
 
 | Rôle | Token | Valeur |
 |---|---|---|
-| Papier (fond) | `--paper` | `#ECE7DA` |
-| Papier panneau | `--paper-2` | `#E4DDCC` |
-| Papier liseré | `--paper-3` | `#DAD2BF` |
-| Encre (fond plein + texte) | `--ink` | `#171C26` |
-| Encre levée | `--ink-2` | `#232A38` |
-| Texte secondaire /papier | `--ink-soft` | `#5A5346` (teinté, jamais gris neutre) |
-| Texte secondaire /encre | `--paper-soft` | `#B3AC9B` |
-| Ocre — grand affichage, filets, fills | `--mark` | `#B9762A` |
-| Ocre — petit texte /papier (AA) | `--mark-txt` | `#8A5316` |
-| Ocre — petit texte /encre (AA) | `--mark-txt` (scopé) | `#E2A455` |
-| Filet /papier · /encre | `--line` `--line-ink` | `#CBC3B0` · `#333B4B` |
+| Obsidienne (fond) | `--bg` | `#0A0C10` |
+| Obsidienne 2 / 3 | `--bg-2` `--bg-3` | `#0D1017` · `#0F131B` |
+| Panneau élevé | `--panel` `--panel-2` | `#12161F` · `#171C28` |
+| Verre (vitrines, backdrop-blur réel) | `--glass` `--glass-2` | `rgba(18,22,31,.62)` · `rgba(24,29,41,.7)` |
+| Encre claire chaude (texte) | `--ink` | `#F2EEE6` |
+| Secondaire /obsidienne (teinté froid) | `--ink-soft` | `#9AA2B4` |
+| Légendes, tampons (teinté chaud) | `--ink-warm` | `#CBBEA9` |
+| Texte discret (AA ≥4.5:1) | `--ink-dim` | `#878FA1` |
+| Chaleur — grand affichage, fills, filets | `--heat` | `#FF9D3D` |
+| Bronze / continuité de marque | `--heat-2` `--heat-deep` | `#C6772E` · `#B9762A` |
+| Cœur incandescent, hautes lumières | `--heat-core` | `#FFD89A` |
+| Petit texte ocre sur obsidienne (AA) | `--heat-txt` | `#FFAB55` |
+| Filet · filet chaud | `--line` `--line-2` `--line-heat` | `rgba(242,238,230,.10)` · `.17` · `rgba(255,157,61,.28)` |
 
-Règle de contraste : l'ocre vif (`--mark`) est réservé au grand affichage (≥ large), aux filets et aux aplats ; tout **petit texte ocre** passe par `--mark-txt`, qui s'assombrit sur papier et s'éclaircit sur encre pour tenir l'AA 4.5:1.
+Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat`) + halo (`text-shadow`), jamais un gradient-text. L'ocre vif porte le grand affichage et les aplats ; le petit texte ocre passe par `--heat-txt`.
 
 ## Typographie
 
-- **Bricolage Grotesque** (`--f-display`) — titres, folios, mots-marque. Caractère « fait main ». `.display` clamp jusqu'à 5.4rem (poids 800), `.h-sect` jusqu'à 3.5rem (700). Tracking -0.025 à -0.035em.
-- **Libre Franklin** (`--f-body`) — corps, boutons, lead. Mesure de lecture 62ch (`.prose`), lead 38ch.
-- **Spline Sans Mono** (`--f-mono`) — folios, numéros, labels de formulaire, téléphone, tampons. Réservé aux **données/mesures**, jamais comme costume « technique ».
+- **Bricolage Grotesque** (`--f-display`) — titres, wordmark, chiffres géants. `.display` clamp 2.3→6rem (poids 800), tracking -0.04em. Caractère « fait main » conservé de l'ADN de marque.
+- **Libre Franklin** (`--f-body`) — corps, boutons, lead. Mesure 62–68ch.
+- **Spline Sans Mono** (`--f-mono`) — folios, labels de formulaire, URL navigateur, téléphone, tampons. Réservé aux **données/mesures**.
 
 ## Composants
 
-- **Planche (`.plate`, `.plate--ink`)** : unité de mise en page. Alternance encre/papier au fil du scroll.
-- **Folio (`.folio`)** : marqueur de sommaire (chiffre romain I–VI + libellé) porté par le monde-livre ; porte une vraie séquence (ordre du menu). Ce n'est pas un eyebrow décoratif.
-- **Boutons (`.btn`, `.btn--mark`, `.btn--ghost`)** : rectangulaires, à décalage d'ombre ocre au survol (translate -2/-2 + ombre pleine) — cohérent avec le clin d'œil imprimerie, jamais l'ombre dure neobrutaliste hors-monde.
-- **Signature (`.sig`)** : tracé SVG (getTotalLength) qui s'écrit à l'entrée dans le viewport ; fil rouge « la main qui fabrique ». Instantané en `prefers-reduced-motion`.
-- **Showcase (`.showcase`)** : maquette navigateur + téléphone, parallaxe 3D à la souris, rotation auto 3.8s, points de progression ocre. **Élément conservé** de l'ancien site (demande explicite du client), restylé pour le monde.
-- **Index services (`.field-list` / `.field-row`)** : liste typographique numérotée avec flèche ocre sur les lignes liées (pages SEO) ; **pas de grille de cartes**.
+- **Scène en fusion (`.cover` + `canvas[data-forge]`)** : hero plein écran (`100svh`, colonne, contenu ancré en bas). Shader WebGL fragment (fbm + domain-warp + rampe de chaleur, réactif au pointeur) ; repli CSS (dégradé de forge) si WebGL/`reduced-motion` absent. Voile (`.forge-veil`) pour la lisibilité du texte à gauche.
+- **Vitrines de verre (`.step`, `.showcase-stage`, `.commission-side`, `.portrait`)** : panneaux à `backdrop-filter`, filet haut chauffé, profondeur par ombres à offset + blur (`--sh-glass`, `--bloom`).
+- **Showcase (`.showcase`)** : maquette navigateur + téléphone dans une vitrine à halo de chaleur, parallaxe 3D à la souris, rotation auto 3.8 s, points de progression ocre. **Élément conservé** (demande explicite du client).
+- **Signature (`.sig`)** : tracé SVG (getTotalLength) qui s'écrit à l'entrée, filtre `drop-shadow` chaud — le fil humain « la main qui forge ». Instantané en `reduced-motion`.
+- **Index services (`.field-list` / `.field-row`)** : liste typographique numérotée, barre de chaleur qui monte + décalage du contenu (`translateX`) au survol des lignes liées. **Pas de grille de cartes.**
 - **FAQ (`.qa`)** : `<details>` à filets, marqueur « + » ocre.
-- **Formulaire (`.cta-form`)** : champs à filet bas (registre ledger), labels mono, validation + envoi AJAX (formsubmit.co) sans quitter la page, coche animée.
-- **Colophon (`.colophon`)** : pied « de livre » — wordmark, colonnes Le champ / L'atelier / Contact, mentions légales, signature « Conçu & développé par Vincent Buron ».
+- **Formulaire (`.cta-form`)** : champs à filet bas (registre ledger), labels mono, validation + envoi AJAX (formsubmit.co) sans quitter la page, coche SVG animée.
+- **Boutons (`.btn--mark`)** : remplissage chaleur (dégradé bronze→ambre), bloom, aimantés au curseur (`[data-magnetic]`) sur pointeur fin.
+- **Colophon (`.colophon`)** : pied — wordmark, colonnes Le champ / L'atelier / Contact, mentions légales, signature « Conçu & développé par Vincent Buron ».
 
 ## Motion
 
-Un seul moment orchestré : la **signature qui se trace** + les révélations douces (`.reveal`, translateY 26px → 0, ease-out `cubic-bezier(0.2,0.7,0.2,1)`, depuis un défaut déjà lisible). Micro-décalage de registre au survol (text-shadow ocre 2px) sur titres de sections/lignes. Tout respecte `prefers-reduced-motion`.
+Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translateY 28px → 0, ease-out `cubic-bezier(.2,.7,.2,1)`, délais d1–d4), signature qui se trace, shader qui respire (temps réel, en pause hors-viewport / onglet caché), boutons magnétiques, barre de chaleur au survol. Toutes les transitions d'interaction passent par `transform`/`opacity` (aucune animation de propriété de layout). Tout respecte `prefers-reduced-motion` (shader figé sur une image, révélations désactivées).
 
 ## Surfaces navigateur
 
-`::selection` (ocre/papier), scrollbar (ocre sur papier-2), focus visible (contour ocre 2px), caret hérité. Themées depuis la palette.
+`::selection` (ambre/obsidienne), scrollbar (dégradé bronze sur obsidienne), focus visible (contour ocre 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
 
 ## Périmètre
 
-Ce monde couvre **index.html** (via `home.css` + `home.js`). Les pages légales et les 4 pages SEO (Liège, crypto, IA, bots) restent sur `styles.css` + le chrome `legal-page` ; l'accueil les lie (services + colophon). `styles.css`, `script.js`, `i18n.js` ne sont plus chargés par l'accueil mais servent encore ces pages.
+Ce monde couvre **index.html** (via `home.css` + `home.js`, autonomes, FR). Un hook de capture (`?still` → classe `.capture`) fige les entrées et borne le hero pour la revue plein-page ; inerte en usage normal. Les pages légales et les 4 pages SEO restent sur `styles.css` + le chrome `legal-page` ; l'accueil les lie (services + colophon). `styles.css`, `script.js`, `i18n.js` ne sont plus chargés par l'accueil mais servent encore ces pages. Contraintes respectées : statique GitHub Pages (aucun backend), SEO/schema/Core Web Vitals préservés, `theme-color` `#0A0C10`.
