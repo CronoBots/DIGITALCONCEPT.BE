@@ -505,4 +505,71 @@
     function run() { raf = 0; x += (tx - x) * 0.16; y += (ty - y) * 0.16; g.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)"; if (Math.abs(tx - x) > 0.4 || Math.abs(ty - y) > 0.4) raf = requestAnimationFrame(run); }
     window.addEventListener("pointermove", function (e) { tx = e.clientX; ty = e.clientY; if (!shown) { shown = true; g.style.opacity = "1"; } if (!raf) raf = requestAnimationFrame(run); }, { passive: true });
   })();
+
+  /* ---- Moment signature : les particules se reforment en « DC » ---- */
+  (function () {
+    var section = document.getElementById("signature");
+    if (!section) return;
+    var canvas = section.querySelector("[data-signet]");
+    var copy = section.querySelector(".signature-copy");
+    if (!canvas) return;
+    var ctx; try { ctx = canvas.getContext("2d"); } catch (e) {}
+    if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, parts = [], ready = false;
+    function resize() { W = canvas.clientWidth; H = canvas.clientHeight; canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function build() {
+      var ow = 900, oh = 520, off = document.createElement("canvas"); off.width = ow; off.height = oh;
+      var o = off.getContext("2d");
+      o.fillStyle = "#fff"; o.textAlign = "center"; o.textBaseline = "middle";
+      o.font = "800 " + Math.min(ow * 0.5, oh * 0.92) + 'px "Bricolage Grotesque", system-ui, sans-serif';
+      o.fillText("DC", ow / 2, oh / 2);
+      var img = o.getImageData(0, 0, ow, oh).data, pts = [], step = 6;
+      for (var y = 0; y < oh; y += step) for (var x = 0; x < ow; x += step) { if (img[(y * ow + x) * 4 + 3] > 128) pts.push([x, y]); }
+      var sc = Math.min(W / ow, H / oh) * 0.82, offx = (W - ow * sc) / 2, offy = (H - oh * sc) / 2;
+      var cap = W < 700 ? 150 : 300, targets = [];
+      if (pts.length > cap) { var st = pts.length / cap; for (var i = 0; i < cap; i++) targets.push(pts[Math.floor(i * st)]); } else targets = pts;
+      parts = targets.map(function (t) {
+        return { tx: offx + t[0] * sc, ty: offy + t[1] * sc, sx: Math.random() * W, sy: Math.random() * H, vx: (Math.random() * 2 - 1) * 0.25, vy: (Math.random() * 2 - 1) * 0.25, z: Math.random() };
+      });
+    }
+    function initAll() { resize(); build(); }
+    function ease(t) { return t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t); }
+    function draw(p) {
+      if (!ready) return;
+      var form = ease((p - 0.15) / 0.55);
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "lighter";
+      for (var i = 0; i < parts.length; i++) {
+        var q = parts[i];
+        q.sx += q.vx; q.sy += q.vy; if (q.sx < 0 || q.sx > W) q.vx *= -1; if (q.sy < 0 || q.sy > H) q.vy *= -1;
+        var x = q.sx + (q.tx - q.sx) * form, y = q.sy + (q.ty - q.sy) * form;
+        var r = 1.1 + q.z * 1.3 + form * 0.7;
+        ctx.fillStyle = "rgba(120,108,240," + (0.05 + q.z * 0.07 + form * 0.10).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(x, y, r * 3.4, 0, 6.283); ctx.fill();
+        ctx.fillStyle = "rgba(172,160,246," + (0.35 + form * 0.45).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+      }
+      ctx.globalCompositeOperation = "source-over";
+      if (copy) {
+        var co = Math.max(0, Math.min(1, (p - 0.04) / 0.13)) * (1 - ease((p - 0.34) / 0.24));
+        copy.style.opacity = co.toFixed(3);
+        copy.style.transform = "translateY(" + ((1 - Math.min(1, p / 0.2)) * 22).toFixed(1) + "px)";
+      }
+    }
+    function progress() { var r = section.getBoundingClientRect(); var total = r.height - window.innerHeight; return total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0; }
+    var raf = 0, vis = false, run = true;
+    function frame() { raf = 0; if (!run || !vis) return; draw(progress()); if (!prefersReduced) raf = requestAnimationFrame(frame); }
+    function loop() { if (!raf && run && vis && ready && !prefersReduced) raf = requestAnimationFrame(frame); }
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+      initAll(); ready = true;
+      if (prefersReduced) { draw(1); if (copy) copy.style.opacity = "1"; }
+      else loop();
+    });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { vis = e.isIntersecting; if (vis) loop(); }); }, {});
+      io.observe(section);
+    } else { vis = true; }
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (ready) { initAll(); if (prefersReduced) draw(1); } }, 200); });
+    document.addEventListener("visibilitychange", function () { if (document.hidden) run = false; else { run = true; loop(); } });
+  })();
 })();

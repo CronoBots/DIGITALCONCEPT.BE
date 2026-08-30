@@ -547,8 +547,19 @@ a.field-row:hover .arrow { opacity: 1; transform: none; }
   #champ .spread-head { position: sticky; top: 110px; margin-bottom: 0; }
 }
 
+/* Moment signature — particules qui se reforment en « DC » (épinglé) */
+.signature { position: relative; height: 210vh; }
+.signature-inner { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+.sig-net { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.signature-copy { position: relative; z-index: 2; text-align: center; max-width: 42ch; padding: 0 var(--pad); opacity: 0; will-change: opacity, transform; }
+.signature-copy .folio { justify-content: center; }
+.signature-copy .h-sect { font-size: clamp(2.2rem, 1.4rem + 3.4vw, 4.2rem); }
+@media (max-width: 700px) { .signature { height: 168vh; } }
+
 /* Mode capture (revue plein-page uniquement, activé par ?still) */
 .capture .cover { min-height: 620px; }
+.capture .signature { height: auto !important; }
+.capture .signature-inner { position: static !important; height: 640px !important; }
 .capture .cookie-consent, .capture .wa-fab, .capture .to-top, .capture .spine, .capture .cursor-glow { display: none !important; }
 
 /* =====================================================================
