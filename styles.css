@@ -2207,3 +2207,8 @@ details[open] .svc-toggle::before { background: var(--brand); }
 .svc-local-link { margin: 10px 0 0; font-size: 0.9rem; color: var(--text-muted); }
 .svc-local-link a { color: var(--accent-ink, var(--accent)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .svc-local-link a:hover { opacity: 0.8; }
+
+.cross-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 22px; }
+.cross-links a { display: block; padding: 16px 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft); color: var(--text); text-decoration: none; font-weight: 600; line-height: 1.35; transition: border-color 0.2s var(--ease), transform 0.2s var(--ease); }
+.cross-links a:hover { border-color: var(--primary); transform: translateY(-2px); }
+.cross-links a span { display: block; font-weight: 400; font-size: 0.83rem; color: var(--text-muted); margin-top: 5px; }
