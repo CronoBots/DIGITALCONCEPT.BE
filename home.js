@@ -329,6 +329,7 @@
       }
 
       ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "lighter"; /* bloom additif — les lueurs s'additionnent */
 
       /* connexions entre nœuds proches */
       for (var a = 0; a < P.length; a++) {
@@ -336,7 +337,7 @@
           var dx = P[a].sx - P[b].sx, dy = P[a].sy - P[b].sy;
           var d = Math.sqrt(dx * dx + dy * dy);
           if (d < CONN) {
-            var al = (1 - d / CONN) * 0.45 * Math.min(P[a].sc, P[b].sc);
+            var al = (1 - d / CONN) * 0.32 * Math.min(P[a].sc, P[b].sc);
             if (al > 0.015) {
               ctx.strokeStyle = "rgba(99,102,241," + al.toFixed(3) + ")";
               ctx.lineWidth = 1;
@@ -361,13 +362,16 @@
         }
         var r = (1.0 + p.sc * 1.5) * (1 + near * 1.3);
         /* halo doux (2 arcs, sans shadowBlur global pour la perf) */
-        ctx.fillStyle = "rgba(139,124,255," + (0.08 + 0.12 * p.sc + near * 0.28).toFixed(3) + ")";
-        ctx.beginPath(); ctx.arc(p.sx, p.sy, r * 2.6, 0, 6.283); ctx.fill();
+        ctx.fillStyle = "rgba(120,108,240," + (0.05 + 0.08 * p.sc + near * 0.32).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r * 3.2, 0, 6.283); ctx.fill(); /* halo bloom */
+        ctx.fillStyle = "rgba(150,138,235," + (0.10 + 0.14 * p.sc).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r * 1.7, 0, 6.283); ctx.fill(); /* lueur médiane */
         ctx.fillStyle = near > 0.15
-          ? "rgba(210,190,255," + (0.78 + near * 0.22).toFixed(3) + ")"
-          : "rgba(150,140,240," + (0.35 + p.sc * 0.5).toFixed(3) + ")";
-        ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, 6.283); ctx.fill();
+          ? "rgba(224,208,255," + (0.85 + near * 0.15).toFixed(3) + ")"
+          : "rgba(170,158,245," + (0.4 + p.sc * 0.5).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, 6.283); ctx.fill(); /* cœur */
       }
+      ctx.globalCompositeOperation = "source-over";
 
       if (!started) { started = true; canvas.classList.add("is-live"); }
       if (!prefersReduced) raf = requestAnimationFrame(frame);

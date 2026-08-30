@@ -143,3 +143,11 @@ body.legal-page .legal-footer .sep { color: var(--ink-dim) !important; }
 
 /* Cookies (aligné accent) */
 body.legal-page .cookie-consent .c-accept { color: #14100a !important; background: linear-gradient(135deg, var(--heat-core), var(--heat)) !important; border: none !important; }
+
+/* Transitions de page (View Transitions API — accueil ↔ catégories) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vtOut .3s cubic-bezier(.2,.7,.2,1) both; }
+::view-transition-new(root) { animation: vtIn .42s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes vtOut { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes vtIn { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
