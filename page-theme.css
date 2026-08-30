@@ -1,0 +1,145 @@
+/* =====================================================================
+   Digital Concept — page-theme.css
+   Surcharge « Studio obsidienne — réseau vivant » pour les pages SEO
+   (chrome legal-page). Chargée APRÈS styles.css. Harmonise les pages
+   catégories au monde de l'accueil (indigo/violet neural).
+   ===================================================================== */
+
+body.legal-page {
+  --bg: #0B0B16; --bg-2: #0D0E1B; --panel: #141527; --panel-2: #1A1B30;
+  --glass: rgba(20,21,40,.7);
+  --line: rgba(237,235,247,.10); --line-2: rgba(237,235,247,.17); --line-heat: rgba(139,124,255,.30);
+  --ink: #ECEAF6; --ink-soft: #9B9AB8; --ink-dim: #8A8AA6;
+  --heat: #8B7CFF; --heat-2: #6366F1; --heat-core: #C4B5FD; --heat-txt: #A99CFF;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Libre Franklin", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "Spline Sans Mono", ui-monospace, monospace;
+
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+  font-family: var(--f-body) !important;
+}
+body.legal-page::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(120% 80% at 50% -10%, #14142c 0%, #0B0B16 55%, #06060e 100%);
+}
+
+/* Sélections & barres */
+body.legal-page ::selection { background: var(--heat); color: #12101e; }
+body.legal-page * { scrollbar-color: var(--heat-2) var(--bg-2); }
+body.legal-page :focus-visible { outline: 2px solid var(--heat); outline-offset: 3px; }
+
+/* Typo */
+body.legal-page h1, body.legal-page h2, body.legal-page h3, body.legal-page h4 { font-family: var(--f-display) !important; color: var(--ink) !important; letter-spacing: -0.03em; }
+body.legal-page p, body.legal-page li, body.legal-page a { color: var(--ink-soft); }
+body.legal-page strong { color: var(--ink); }
+body.legal-page a { color: var(--heat-txt); }
+
+/* En-tête */
+body.legal-page .legal-nav {
+  background: var(--glass) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--line) !important;
+}
+body.legal-page .legal-nav__brand { color: var(--ink) !important; font-family: var(--f-display); }
+body.legal-page .legal-nav__brand .lw, body.legal-page .lw { color: var(--heat) !important; }
+body.legal-page .legal-nav__back { color: var(--ink-soft) !important; transition: color .2s ease; }
+body.legal-page .legal-nav__back:hover { color: var(--heat) !important; }
+
+/* Hero — rappel du réseau (champ de points) */
+body.legal-page .legal-hero {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(62% 72% at 72% 22%, rgba(139,124,255,.14), transparent 60%),
+    linear-gradient(180deg, #0d0d20, #0B0B16) !important;
+  border-bottom: 1px solid var(--line);
+}
+body.legal-page .legal-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .55;
+  background-image: radial-gradient(rgba(139,124,255,.22) 1px, transparent 1.6px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(70% 65% at 70% 25%, #000, transparent 72%);
+  mask-image: radial-gradient(70% 65% at 70% 25%, #000, transparent 72%);
+}
+body.legal-page .legal-hero > * { position: relative; z-index: 1; }
+
+/* Fil d'Ariane + eyebrow */
+body.legal-page .local-breadcrumb, body.legal-page .local-breadcrumb a { color: var(--ink-dim) !important; }
+body.legal-page .local-breadcrumb a:hover { color: var(--heat-txt) !important; }
+body.legal-page .eyebrow { color: var(--heat-txt) !important; font-family: var(--f-mono); letter-spacing: .14em; }
+
+/* Titre : plus de gradient-text bleu → violet plein */
+body.legal-page .gradient-text {
+  color: var(--heat) !important;
+  -webkit-text-fill-color: var(--heat) !important;
+  background: none !important;
+  text-shadow: 0 0 30px rgba(139,124,255,.45);
+}
+body.legal-page .lead { color: var(--ink-soft) !important; }
+body.legal-page .hero-note { color: var(--ink-dim) !important; }
+body.legal-page .hero-note strong { color: var(--heat-txt); }
+
+/* Sections */
+body.legal-page .section { border-color: var(--line) !important; }
+body.legal-page .section-title { color: var(--ink) !important; }
+
+/* Boutons */
+body.legal-page .btn-primary {
+  color: #14100a !important; border: none !important;
+  background: linear-gradient(135deg, var(--heat-core), var(--heat) 45%, var(--heat-2)) !important;
+  box-shadow: 0 20px 50px -18px rgba(124,110,255,.5), inset 0 1px 0 rgba(255,255,255,.35) !important;
+}
+body.legal-page .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 26px 60px -18px rgba(124,110,255,.6) !important; }
+body.legal-page .btn-secondary {
+  color: var(--ink) !important;
+  background: rgba(237,235,247,.03) !important;
+  border: 1px solid var(--line-2) !important;
+}
+body.legal-page .btn-secondary:hover { border-color: var(--line-heat) !important; background: rgba(139,124,255,.06) !important; }
+
+/* Cartes (highlights, legal-card, steps) */
+body.legal-page .highlight,
+body.legal-page .legal-card,
+body.legal-page .local-steps > *,
+body.legal-page .local-faq {
+  background: linear-gradient(180deg, rgba(26,27,48,.7), rgba(15,16,27,.55)) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink-soft) !important;
+  box-shadow: 0 18px 48px -16px rgba(0,0,0,.6);
+}
+body.legal-page .highlight:hover, body.legal-page .legal-card:hover { border-color: var(--line-heat) !important; }
+body.legal-page .highlight h3, body.legal-page .legal-card h3, body.legal-page .local-steps h3, body.legal-page .local-faq h3, body.legal-page .local-faq summary { color: var(--ink) !important; }
+body.legal-page .highlight p, body.legal-page .legal-card p, body.legal-page .local-steps p, body.legal-page .local-faq p { color: var(--ink-soft) !important; }
+body.legal-page .highlight-ic {
+  color: var(--heat) !important;
+  background: rgba(139,124,255,.10) !important;
+  border: 1px solid var(--line-heat) !important;
+}
+
+/* FAQ */
+body.legal-page .local-faq summary { cursor: pointer; background: transparent !important; }
+body.legal-page .local-faq p { background: transparent !important; border: none !important; box-shadow: none !important; }
+body.legal-page .local-faq summary::marker, body.legal-page .local-faq summary::-webkit-details-marker { color: var(--heat); }
+
+/* Maillage interne */
+body.legal-page .cross-links { border-color: var(--line) !important; }
+body.legal-page .cross-links a {
+  background: linear-gradient(180deg, rgba(26,27,48,.7), rgba(15,16,27,.55)) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+}
+body.legal-page .cross-links a span { color: var(--ink-soft) !important; }
+body.legal-page .cross-links a:hover { border-color: var(--line-heat) !important; color: var(--heat-core) !important; }
+
+/* Pied de page */
+body.legal-page .legal-footer {
+  background: linear-gradient(180deg, transparent, rgba(6,6,14,.6)) !important;
+  border-top: 1px solid var(--line-2) !important;
+  color: var(--ink-soft) !important;
+}
+body.legal-page .legal-footer__copy, body.legal-page .legal-footer__links a { color: var(--ink-soft) !important; }
+body.legal-page .legal-footer__links a:hover { color: var(--heat-txt) !important; }
+body.legal-page .legal-footer .sep { color: var(--ink-dim) !important; }
+
+/* Cookies (aligné accent) */
+body.legal-page .cookie-consent .c-accept { color: #14100a !important; background: linear-gradient(135deg, var(--heat-core), var(--heat)) !important; border: none !important; }

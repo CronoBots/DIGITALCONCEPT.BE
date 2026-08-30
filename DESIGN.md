@@ -5,15 +5,15 @@
 
 ## Direction
 
-**Studio obsidienne — réseau vivant** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une constellation de nœuds reliés en 3D (Canvas temps réel) qui respire et réagit au visiteur — elle évoque d'un seul visuel le web (connexions), l'IA (réseau de neurones), la crypto (nœuds) et les bots (automatisation). Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon bleu » du studio-tech générique. L'accent est **bronze/ambre**, dans la continuité de la marque : un réseau « tech chaud », jamais le cyan par défaut.
+**Studio obsidienne — réseau vivant** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une constellation de nœuds reliés en 3D (Canvas temps réel) qui respire et réagit au visiteur — elle évoque d'un seul visuel le web (connexions), l'IA (réseau de neurones), la crypto (nœuds) et les bots (automatisation). Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon bleu » du studio-tech générique. L'accent est **indigo/violet** (neural) sur obsidienne : le réseau prend des allures de réseau de neurones — premium, à l'écart du cyan par défaut.
 
 ## Palette
 
-Stratégie : **committed / drenched** — l'obsidienne noie toute la surface, la chaleur de forge (bronze→ambre) est l'unique accent porteur (hero, CTA, filets, états, incandescence du mot-marque).
+Stratégie : **committed / drenched** — l'obsidienne indigo noie toute la surface, l'accent indigo→violet est l'unique porteur (hero, CTA, filets, états, mot-marque du titre).
 
 | Rôle | Token | Valeur |
 |---|---|---|
-| Obsidienne (fond) | `--bg` | `#0A0C10` |
+| Obsidienne indigo (fond) | `--bg` | `#0B0B16` |
 | Obsidienne 2 / 3 | `--bg-2` `--bg-3` | `#0D1017` · `#0F131B` |
 | Panneau élevé | `--panel` `--panel-2` | `#12161F` · `#171C28` |
 | Verre (vitrines, backdrop-blur réel) | `--glass` `--glass-2` | `rgba(18,22,31,.62)` · `rgba(24,29,41,.7)` |
@@ -21,10 +21,10 @@ Stratégie : **committed / drenched** — l'obsidienne noie toute la surface, la
 | Secondaire /obsidienne (teinté froid) | `--ink-soft` | `#9AA2B4` |
 | Légendes, tampons (teinté chaud) | `--ink-warm` | `#CBBEA9` |
 | Texte discret (AA ≥4.5:1) | `--ink-dim` | `#878FA1` |
-| Chaleur — grand affichage, fills, filets | `--heat` | `#FF9D3D` |
-| Bronze / continuité de marque | `--heat-2` `--heat-deep` | `#C6772E` · `#B9762A` |
-| Cœur incandescent, hautes lumières | `--heat-core` | `#FFD89A` |
-| Petit texte ocre sur obsidienne (AA) | `--heat-txt` | `#FFAB55` |
+| Violet clair — grand affichage, fills, filets | `--heat` | `#8B7CFF` |
+| Indigo — liens / indigo profond | `--heat-2` `--heat-deep` | `#6366F1` · `#4F46E5` |
+| Cœur clair, hautes lumières | `--heat-core` | `#C4B5FD` |
+| Petit texte violet sur obsidienne (AA) | `--heat-txt` | `#A99CFF` |
 | Filet · filet chaud | `--line` `--line-2` `--line-heat` | `rgba(242,238,230,.10)` · `.17` · `rgba(255,157,61,.28)` |
 
 Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat`) + halo (`text-shadow`), jamais un gradient-text. L'ocre vif porte le grand affichage et les aplats ; le petit texte ocre passe par `--heat-txt`.
@@ -44,7 +44,7 @@ Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat
 - **Index services (`.field-list` / `.field-row`)** : liste typographique numérotée, barre de chaleur qui monte + décalage du contenu (`translateX`) au survol des lignes liées. **Pas de grille de cartes.**
 - **FAQ (`.qa`)** : `<details>` à filets, marqueur « + » ocre.
 - **Formulaire (`.cta-form`)** : champs à filet bas (registre ledger), labels mono, validation + envoi AJAX (formsubmit.co) sans quitter la page, coche SVG animée.
-- **Boutons (`.btn--mark`)** : remplissage chaleur (dégradé bronze→ambre), bloom, aimantés au curseur (`[data-magnetic]`) sur pointeur fin.
+- **Boutons (`.btn--mark`)** : remplissage violet (dégradé indigo→violet), bloom, aimantés au curseur (`[data-magnetic]`) sur pointeur fin.
 - **Colophon (`.colophon`)** : pied — wordmark, colonnes Le champ / L'atelier / Contact, mentions légales, signature « Conçu & développé par Vincent Buron ».
 
 ## Motion
@@ -53,8 +53,8 @@ Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translate
 
 ## Surfaces navigateur
 
-`::selection` (ambre/obsidienne), scrollbar (dégradé bronze sur obsidienne), focus visible (contour ocre 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
+`::selection` (violet/obsidienne), scrollbar (dégradé indigo sur obsidienne), focus visible (contour violet 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
 
 ## Périmètre
 
-Ce monde couvre **index.html** (via `home.css` + `home.js`, autonomes, FR). Un hook de capture (`?still` → classe `.capture`) fige les entrées et borne le hero pour la revue plein-page ; inerte en usage normal. Les pages légales et les 4 pages SEO restent sur `styles.css` + le chrome `legal-page` ; l'accueil les lie (services + colophon). `styles.css`, `script.js`, `i18n.js` ne sont plus chargés par l'accueil mais servent encore ces pages. Contraintes respectées : statique GitHub Pages (aucun backend), SEO/schema/Core Web Vitals préservés, `theme-color` `#0A0C10`.
+Ce monde couvre **index.html** (via `home.css` + `home.js`, autonomes, FR). Un hook de capture (`?still` → classe `.capture`) fige les entrées et borne le hero pour la revue plein-page ; inerte en usage normal. Les **4 pages SEO** (catégories) chargent désormais `page-theme.css` **après** `styles.css` : surcharge qui harmonise leur chrome `legal-page` au monde obsidienne indigo (fond, typo Bricolage/Libre Franklin/Spline, cartes verre, accent violet, hero à champ de points rappelant le réseau). Les pages légales restent sur `styles.css` seul (non prioritaire). `script.js`, `i18n.js` servent encore ces pages. Contraintes respectées : statique GitHub Pages (aucun backend), SEO/schema/Core Web Vitals préservés, `theme-color` `#0B0B16`.

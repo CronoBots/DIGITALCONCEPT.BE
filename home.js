@@ -338,7 +338,7 @@
           if (d < CONN) {
             var al = (1 - d / CONN) * 0.45 * Math.min(P[a].sc, P[b].sc);
             if (al > 0.015) {
-              ctx.strokeStyle = "rgba(201,120,44," + al.toFixed(3) + ")";
+              ctx.strokeStyle = "rgba(99,102,241," + al.toFixed(3) + ")";
               ctx.lineWidth = 1;
               ctx.beginPath(); ctx.moveTo(P[a].sx, P[a].sy); ctx.lineTo(P[b].sx, P[b].sy); ctx.stroke();
             }
@@ -354,18 +354,18 @@
           var ex = p.sx - mx, ey = p.sy - my, dm = Math.sqrt(ex * ex + ey * ey);
           if (dm < 150) {
             near = 1 - dm / 150;
-            ctx.strokeStyle = "rgba(255,216,154," + (near * 0.5 * p.sc).toFixed(3) + ")";
+            ctx.strokeStyle = "rgba(192,132,252," + (near * 0.55 * p.sc).toFixed(3) + ")";
             ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(p.sx, p.sy); ctx.stroke();
           }
         }
         var r = (1.0 + p.sc * 1.5) * (1 + near * 1.3);
         /* halo doux (2 arcs, sans shadowBlur global pour la perf) */
-        ctx.fillStyle = "rgba(255,157,61," + (0.08 + 0.12 * p.sc + near * 0.25).toFixed(3) + ")";
+        ctx.fillStyle = "rgba(139,124,255," + (0.08 + 0.12 * p.sc + near * 0.28).toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(p.sx, p.sy, r * 2.6, 0, 6.283); ctx.fill();
         ctx.fillStyle = near > 0.15
-          ? "rgba(255,220,160," + (0.75 + near * 0.25).toFixed(3) + ")"
-          : "rgba(255,177,90," + (0.35 + p.sc * 0.5).toFixed(3) + ")";
+          ? "rgba(210,190,255," + (0.78 + near * 0.22).toFixed(3) + ")"
+          : "rgba(150,140,240," + (0.35 + p.sc * 0.5).toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, 6.283); ctx.fill();
       }
 
