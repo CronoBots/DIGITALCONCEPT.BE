@@ -254,116 +254,128 @@
     }
   })();
 
-  /* ---- Hero : métal en fusion (WebGL, vrai temps réel) ---- */
+  /* ---- Hero : réseau de nœuds interactif (constellation 3D — web / IA / crypto / bots) ---- */
   (function () {
     var canvas = $("[data-forge]");
     if (!canvas) return;
     var cover = $(".cover");
+    var ctx = null;
+    try { ctx = canvas.getContext("2d"); } catch (e) {}
+    if (!ctx) return; /* repli CSS (dégradé sombre déjà en place) */
 
-    var gl = null;
-    try {
-      var opts = { alpha: true, antialias: false, depth: false, stencil: false, powerPreference: "low-power", preserveDrawingBuffer: false };
-      gl = canvas.getContext("webgl", opts) || canvas.getContext("experimental-webgl", opts);
-    } catch (e) {}
-    if (!gl) return; /* repli CSS (dégradé de forge déjà en place) */
-
-    var VERT = "attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}";
-    var FRAG = [
-      "precision highp float;",
-      "uniform vec2 u_res;uniform float u_time;uniform vec2 u_mouse;",
-      "float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}",
-      "float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);",
-      "float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));",
-      "return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);}",
-      "float fbm(vec2 p){float v=0.0,a=0.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);",
-      "for(int i=0;i<5;i++){v+=a*noise(p);p=m*p;a*=0.5;}return v;}",
-      "void main(){",
-      " vec2 uv=gl_FragCoord.xy/u_res.xy;",
-      " vec2 p=(gl_FragCoord.xy-0.5*u_res.xy)/u_res.y;",
-      " float t=u_time*0.05;",
-      " vec2 mo=(u_mouse-0.5)*0.6;",
-      " vec2 q=vec2(fbm(p*1.6+t),fbm(p*1.6+vec2(3.1,1.7)-t));",
-      " vec2 r=vec2(fbm(p*1.6+q*1.8+mo+t*1.3),fbm(p*1.6+q*1.8+vec2(8.3,2.8)-mo));",
-      " float f=fbm(p*1.7+r*2.0);",
-      " f=pow(clamp(f,0.0,1.0),1.35);",
-      " float veins=fbm(p*3.0+r*3.0-t*2.0);",
-      " f+=0.18*pow(clamp(veins,0.0,1.0),3.0);",
-      " vec3 c0=vec3(0.035,0.045,0.065);",
-      " vec3 c1=vec3(0.24,0.11,0.045);",
-      " vec3 c2=vec3(0.72,0.40,0.15);",
-      " vec3 c3=vec3(1.0,0.55,0.20);",
-      " vec3 c4=vec3(1.0,0.86,0.56);",
-      " vec3 col=mix(c0,c1,smoothstep(0.15,0.45,f));",
-      " col=mix(col,c2,smoothstep(0.42,0.68,f));",
-      " col=mix(col,c3,smoothstep(0.66,0.82,f));",
-      " col=mix(col,c4,smoothstep(0.83,0.98,f));",
-      " vec2 fc=vec2(0.70,0.40);",           /* foyer de chaleur à droite */
-      " float focal=1.0-smoothstep(0.15,1.05,length(uv-fc));",
-      " col*=mix(0.35,1.15,focal);",
-      " float glow=1.0-smoothstep(0.0,0.55,length(uv-(u_mouse*vec2(1.0,-1.0)+vec2(0.0,1.0))));",
-      " col+=c3*glow*0.22*focal;",
-      " float vig=1.0-smoothstep(0.6,1.5,length(uv-0.5));",
-      " col*=mix(0.55,1.0,vig);",
-      " col+=(hash(uv*u_time)-0.5)*0.02;",   /* grain fin */
-      " gl_FragColor=vec4(col,1.0);",
-      "}"
-    ].join("\n");
-
-    function compile(type, src) {
-      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { return null; }
-      return s;
-    }
-    var vs = compile(gl.VERTEX_SHADER, VERT), fs = compile(gl.FRAGMENT_SHADER, FRAG);
-    if (!vs || !fs) return;
-    var prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
-    gl.useProgram(prog);
-
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(prog, "p");
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-    var uRes = gl.getUniformLocation(prog, "u_res");
-    var uTime = gl.getUniformLocation(prog, "u_time");
-    var uMouse = gl.getUniformLocation(prog, "u_mouse");
-
-    var scale = 0.8, dpr = Math.min(window.devicePixelRatio || 1, 1.3);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0;
     function resize() {
-      var w = Math.max(1, Math.floor(canvas.clientWidth * dpr * scale));
-      var h = Math.max(1, Math.floor(canvas.clientHeight * dpr * scale));
-      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); }
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = Math.max(1, Math.floor(W * dpr));
+      canvas.height = Math.max(1, Math.floor(H * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
+    resize();
 
-    var mouse = [0.72, 0.42], mTarget = [0.72, 0.42];
+    var nodes = [];
+    function build() {
+      var n = Math.round((W * H) / 15000);
+      n = Math.max(26, Math.min(W < 640 ? 44 : 90, n));
+      nodes = [];
+      for (var i = 0; i < n; i++) {
+        nodes.push({
+          x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() * 2 - 1,
+          vx: (Math.random() * 2 - 1) * 0.00018, vy: (Math.random() * 2 - 1) * 0.00018, vz: (Math.random() * 2 - 1) * 0.00018
+        });
+      }
+    }
+    build();
+
+    var mouse = { x: 0.5, y: 0.5, active: false };
+    var rotX = 0.06, rotY = 0, tRotX = 0.06, tRotY = 0;
     if (finePointer && !prefersReduced) {
       window.addEventListener("pointermove", function (e) {
-        mTarget[0] = e.clientX / window.innerWidth;
-        mTarget[1] = 1 - e.clientY / window.innerHeight;
+        var r = cover.getBoundingClientRect();
+        mouse.x = (e.clientX - r.left) / r.width;
+        mouse.y = (e.clientY - r.top) / r.height;
+        mouse.active = (e.clientY - r.top) < r.height + 60 && (e.clientY - r.top) > -60;
+        tRotY = (mouse.x - 0.5) * 0.6;
+        tRotX = 0.06 + (mouse.y - 0.5) * -0.4;
       }, { passive: true });
+      window.addEventListener("pointerleave", function () { mouse.active = false; tRotY = 0; tRotX = 0.06; });
     }
 
-    var running = true, visible = true, started = false, startT = null, raf = 0;
-    function frame(now) {
+    var CONN = 130, running = true, visible = true, started = false, raf = 0, t = 0;
+    var P = [];
+
+    function frame() {
       raf = 0;
       if (!running || !visible) return;
-      if (startT === null) startT = now;
-      resize();
-      mouse[0] += (mTarget[0] - mouse[0]) * 0.05;
-      mouse[1] += (mTarget[1] - mouse[1]) * 0.05;
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, (now - startT) / 1000);
-      gl.uniform2f(uMouse, mouse[0], mouse[1]);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      t += 1;
+      rotY += (tRotY - rotY) * 0.05; rotX += (tRotX - rotX) * 0.05;
+      var ry = rotY + t * 0.0009, rx = rotX;
+      var cosY = Math.cos(ry), sinY = Math.sin(ry), cosX = Math.cos(rx), sinX = Math.sin(rx);
+      var spread = Math.min(W, H) * 0.62;
+      var cx = W * (W > 820 ? 0.6 : 0.5), cy = H * 0.5, focal = 640;
+
+      P.length = 0;
+      for (var i = 0; i < nodes.length; i++) {
+        var nd = nodes[i];
+        nd.x += nd.vx; nd.y += nd.vy; nd.z += nd.vz;
+        if (nd.x > 1 || nd.x < -1) nd.vx *= -1;
+        if (nd.y > 1 || nd.y < -1) nd.vy *= -1;
+        if (nd.z > 1 || nd.z < -1) nd.vz *= -1;
+        var x = nd.x * spread, y = nd.y * spread, z = nd.z * spread;
+        var x1 = x * cosY - z * sinY, z1 = x * sinY + z * cosY;
+        var y1 = y * cosX - z1 * sinX, z2 = y * sinX + z1 * cosX;
+        var sc = focal / (focal + z2 + spread);
+        P.push({ sx: cx + x1 * sc, sy: cy + y1 * sc, sc: sc });
+      }
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* connexions entre nœuds proches */
+      for (var a = 0; a < P.length; a++) {
+        for (var b = a + 1; b < P.length; b++) {
+          var dx = P[a].sx - P[b].sx, dy = P[a].sy - P[b].sy;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < CONN) {
+            var al = (1 - d / CONN) * 0.45 * Math.min(P[a].sc, P[b].sc);
+            if (al > 0.015) {
+              ctx.strokeStyle = "rgba(201,120,44," + al.toFixed(3) + ")";
+              ctx.lineWidth = 1;
+              ctx.beginPath(); ctx.moveTo(P[a].sx, P[a].sy); ctx.lineTo(P[b].sx, P[b].sy); ctx.stroke();
+            }
+          }
+        }
+      }
+
+      /* nœuds (+ halo & liens au curseur) */
+      var mx = mouse.x * W, my = mouse.y * H;
+      for (var k = 0; k < P.length; k++) {
+        var p = P[k], near = 0;
+        if (mouse.active) {
+          var ex = p.sx - mx, ey = p.sy - my, dm = Math.sqrt(ex * ex + ey * ey);
+          if (dm < 150) {
+            near = 1 - dm / 150;
+            ctx.strokeStyle = "rgba(255,216,154," + (near * 0.5 * p.sc).toFixed(3) + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(p.sx, p.sy); ctx.stroke();
+          }
+        }
+        var r = (1.0 + p.sc * 1.5) * (1 + near * 1.3);
+        /* halo doux (2 arcs, sans shadowBlur global pour la perf) */
+        ctx.fillStyle = "rgba(255,157,61," + (0.08 + 0.12 * p.sc + near * 0.25).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r * 2.6, 0, 6.283); ctx.fill();
+        ctx.fillStyle = near > 0.15
+          ? "rgba(255,220,160," + (0.75 + near * 0.25).toFixed(3) + ")"
+          : "rgba(255,177,90," + (0.35 + p.sc * 0.5).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, 6.283); ctx.fill();
+      }
+
       if (!started) { started = true; canvas.classList.add("is-live"); }
       if (!prefersReduced) raf = requestAnimationFrame(frame);
     }
     function loop() { if (!raf && running && visible) raf = requestAnimationFrame(frame); }
 
-    canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }, false);
+    var rt = null;
+    window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { resize(); build(); if (prefersReduced) frame(); }, 180); });
 
     if ("IntersectionObserver" in window && cover) {
       var vio = new IntersectionObserver(function (entries) {
@@ -371,9 +383,9 @@
       }, { threshold: 0 });
       vio.observe(cover);
     }
-    document.addEventListener("visibilitychange", function () { if (document.hidden) { running = false; } else { running = true; startT = null; loop(); } });
+    document.addEventListener("visibilitychange", function () { if (document.hidden) running = false; else { running = true; loop(); } });
 
-    if (prefersReduced) { resize(); startT = 0; frame(performance.now()); } /* une seule image figée */
+    if (prefersReduced) frame(); /* une seule image figée */
     else loop();
   })();
 

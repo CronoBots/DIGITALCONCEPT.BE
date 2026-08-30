@@ -217,8 +217,7 @@ body::after {
 .forge-canvas.is-live { opacity: 1; }
 /* Repli statique (WebGL absent / reduced-motion) */
 .cover { background:
-    radial-gradient(80% 70% at 72% 18%, rgba(255,157,61,.20), transparent 55%),
-    radial-gradient(60% 60% at 80% 40%, rgba(198,119,46,.22), transparent 60%),
+    radial-gradient(68% 58% at 66% 34%, rgba(255,157,61,.10), transparent 62%),
     linear-gradient(180deg, #0b0e14, #07090d);
 }
 .forge-veil {

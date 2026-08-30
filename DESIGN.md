@@ -5,7 +5,7 @@
 
 ## Direction
 
-**Atelier en fusion** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une matière métallique en fusion (WebGL vivant) est forgée à la main en produit fini. Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon froid » du studio-tech générique. La chaleur est **bronze/ambre**, dans la continuité de la marque, jamais un néon.
+**Studio obsidienne — réseau vivant** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une constellation de nœuds reliés en 3D (Canvas temps réel) qui respire et réagit au visiteur — elle évoque d'un seul visuel le web (connexions), l'IA (réseau de neurones), la crypto (nœuds) et les bots (automatisation). Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon bleu » du studio-tech générique. L'accent est **bronze/ambre**, dans la continuité de la marque : un réseau « tech chaud », jamais le cyan par défaut.
 
 ## Palette
 
@@ -37,7 +37,7 @@ Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat
 
 ## Composants
 
-- **Scène en fusion (`.cover` + `canvas[data-forge]`)** : hero plein écran (`100svh`, colonne, contenu ancré en bas). Shader WebGL fragment (fbm + domain-warp + rampe de chaleur, réactif au pointeur) ; repli CSS (dégradé de forge) si WebGL/`reduced-motion` absent. Voile (`.forge-veil`) pour la lisibilité du texte à gauche.
+- **Réseau vivant (`.cover` + `canvas[data-forge]`)** : hero plein écran (`100svh`, colonne, contenu ancré en bas). Constellation de nœuds en **Canvas 2D à projection 3D** (perspective, rotation lente auto, drift, connexions par proximité écran, parallaxe à la souris, nœud illuminé + liens vers le curseur ; ~44 nœuds mobile / ~90 desktop, DPR ≤2, en pause hors-viewport et onglet caché). Repli CSS (dégradé sombre) si Canvas/`reduced-motion` absent (image figée). Voile (`.forge-veil`) pour la lisibilité du texte à gauche. Le foyer du réseau est décalé à droite (`cx≈0.6W`) sur desktop.
 - **Vitrines de verre (`.step`, `.showcase-stage`, `.commission-side`, `.portrait`)** : panneaux à `backdrop-filter`, filet haut chauffé, profondeur par ombres à offset + blur (`--sh-glass`, `--bloom`).
 - **Showcase (`.showcase`)** : maquette navigateur + téléphone dans une vitrine à halo de chaleur, parallaxe 3D à la souris, rotation auto 3.8 s, points de progression ocre. **Élément conservé** (demande explicite du client).
 - **Signature (`.sig`)** : tracé SVG (getTotalLength) qui s'écrit à l'entrée, filtre `drop-shadow` chaud — le fil humain « la main qui forge ». Instantané en `reduced-motion`.
@@ -49,7 +49,7 @@ Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat
 
 ## Motion
 
-Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translateY 28px → 0, ease-out `cubic-bezier(.2,.7,.2,1)`, délais d1–d4), signature qui se trace, shader qui respire (temps réel, en pause hors-viewport / onglet caché), boutons magnétiques, barre de chaleur au survol. Toutes les transitions d'interaction passent par `transform`/`opacity` (aucune animation de propriété de layout). Tout respecte `prefers-reduced-motion` (shader figé sur une image, révélations désactivées).
+Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translateY 28px → 0, ease-out `cubic-bezier(.2,.7,.2,1)`, délais d1–d4), signature qui se trace, réseau de nœuds qui respire (temps réel, en pause hors-viewport / onglet caché), boutons magnétiques, barre de chaleur au survol. Toutes les transitions d'interaction passent par `transform`/`opacity` (aucune animation de propriété de layout). Tout respecte `prefers-reduced-motion` (shader figé sur une image, révélations désactivées).
 
 ## Surfaces navigateur
 
