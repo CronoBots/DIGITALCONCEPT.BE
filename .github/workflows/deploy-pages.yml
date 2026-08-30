@@ -41,9 +41,6 @@ jobs:
           echo "Version injectée : ${BUILD}"
           grep -E "styles\.css|script\.js|favicon\.svg|Version en ligne" index.html
 
-      - name: Exclure les fichiers de configuration du site publié
-        run: rm -rf .claude .mcp.json
-
       - name: Uploader le site
         uses: actions/upload-pages-artifact@v3
         with:
