@@ -81,6 +81,7 @@ body.legal-page .hero-note strong { color: var(--heat-txt); }
 
 /* Sections */
 body.legal-page .section { border-color: var(--line) !important; }
+body.legal-page .legal-section h2 .num { color: var(--ink-dim) !important; } /* 5.8:1 sur obsidienne */
 body.legal-page .section-title { color: var(--ink) !important; }
 
 /* Boutons */

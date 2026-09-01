@@ -27,7 +27,7 @@ Prospection entrante via le site (Google, bouche-à-oreille). Le visiteur lit su
 - Services : création de sites web (vitrine, e-commerce, plateformes) ; applications mobiles iOS/Android ; IA (chatbots, assistants, automatisation) ; crypto/blockchain (tokens, smart contracts, dashboards Web3) ; bots Telegram/Discord/WhatsApp/Instagram ; solutions sur mesure.
 - Site statique hébergé sur **GitHub Pages** (contrainte : pas de backend serveur ; JS côté client uniquement ; formulaire via service externe). Domaine digitalconcept.be.
 - Site en FR uniquement aujourd'hui : les traductions EN/NL de `i18n.js` ne sont plus chargées par aucune page. Une version multilingue devra passer par des URL distinctes (`/en/`, `/nl/`) + `hreflang` — une bascule côté client sur la même URL n'est pas indexée.
-- Pages SEO existantes déjà construites (création-site-web-liège + application mobile + niches crypto/IA/bots) à préserver ; la refonte concerne la page d'accueil (index.html) et l'identité visuelle.
+- Pages SEO existantes déjà construites (création-site-web-liège + application mobile + niches crypto/IA/bots) à préserver ; le Labo (6 pages, 5 outils 100 % statiques) est la preuve de savoir-faire du site — chaque outil affiche honnêtement ce qu'il fait et ne fait pas (pas d'IA générative, pas de vrai serveur de bot) ; la refonte concerne la page d'accueil (index.html) et l'identité visuelle.
 - Perf/SEO : Core Web Vitals, schema.org, sitemap déjà en place — à ne pas régresser.
 
 ## Brand Commitments

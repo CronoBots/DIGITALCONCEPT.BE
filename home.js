@@ -93,6 +93,26 @@
     var endpoint = (form.dataset.endpoint || "").trim();
     if (endpoint) form.setAttribute("action", endpoint);
 
+    // Préremplissage depuis le Labo (estimateur) : ?projet=…&type=…
+    try {
+      var qs = new URLSearchParams(window.location.search);
+      var pre = qs.get("projet"), preType = qs.get("type");
+      var msgEl = form.elements.namedItem("message"), typeEl = form.elements.namedItem("Type de projet");
+      if (pre && msgEl && !msgEl.value) msgEl.value = pre;
+      if (preType && typeEl) {
+        var want = preType.toLowerCase();
+        Array.prototype.some.call(typeEl.options, function (o) {
+          var t = o.text.toLowerCase();
+          var hit = (want.indexOf("mobile") > -1 && t.indexOf("mobile") > -1) || (want.indexOf("ia") === 0 || want.indexOf("assistant") > -1) && t.indexOf("intelligence") > -1
+            || (want.indexOf("bot") > -1 && t.indexOf("bot ") === 0) || (want.indexOf("sur mesure") > -1 && t.indexOf("autre") === 0)
+            || ((want.indexOf("site") > -1 || want.indexOf("e-commerce") > -1) && t.indexOf("site web") === 0);
+          if (hit) typeEl.value = o.value || o.text;
+          return hit;
+        });
+      }
+      if (pre || preType) { history.replaceState(null, "", window.location.pathname + window.location.hash); }
+    } catch (e) {}
+
     function showError(msg) { message.className = "form-message error"; message.textContent = msg; }
     // Repli : si l'envoi échoue, la demande n'est pas perdue — on propose un
     // e-mail pré-rempli vers l'adresse de data-mailto.
