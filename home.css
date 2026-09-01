@@ -253,7 +253,7 @@ body::after {
 .fact { display: flex; flex-direction: column; }
 .fact b { font-family: var(--f-display); font-size: clamp(1.8rem, 1.2rem + 2vw, 2.7rem); font-weight: 800; color: var(--ink); line-height: 1; letter-spacing: -.03em; }
 .fact span { margin-top: .35rem; font-size: .8rem; color: var(--ink-soft); letter-spacing: .01em; }
-.sig-block { text-align: right; }
+
 .sig { width: 168px; height: auto; overflow: visible; }
 .sig path { fill: none; stroke: var(--heat); stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(139,124,255,.4)); }
 .sig-cap { margin-top: .3rem; font-family: var(--f-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
@@ -358,8 +358,6 @@ body::after {
 /* =====================================================================
    LE CHAMP — index typographique
    ===================================================================== */
-.aftercare { padding-top: 0; }
-.lab-teaser .spread-head { max-width: 62ch; }
 .field-list { border-top: 1px solid var(--line-2); }
 .field-row {
   position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: clamp(1rem,3vw,2.4rem); align-items: center;
@@ -490,7 +488,6 @@ a.field-row:hover .arrow { opacity: 1; transform: none; }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .cover-foot { flex-direction: column; align-items: flex-start; gap: 2rem; }
-  .sig-block { text-align: left; }
   .showcase-info { flex-direction: column; align-items: flex-start; }
   .colophon-cols { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }
 }
@@ -590,3 +587,6 @@ a.field-row:hover .arrow { opacity: 1; transform: none; }
   .scroll-cue-line::after { display: none; }
   .forge-canvas { transition: none; }
 }
+
+/* Mobile : le repère de défilement chevauchait les faits du hero — décoratif, il s'efface */
+@media (max-width: 720px) { .scroll-cue { display: none; } }

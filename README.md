@@ -9,7 +9,7 @@ sociaux**. Des solutions sur mesure pour faire grandir votre entreprise.
 
 | Fichier | Rôle |
 |---|---|
-| `index.html` | Page d'accueil (hero réseau vivant, thèse, travaux, artisan, signature, le champ, et après, questions, commande) + SEO et données structurées JSON-LD |
+| `index.html` | Page d'accueil (hero réseau vivant, thèse, travaux, artisan, signature, le champ, questions, commande) + SEO et données structurées JSON-LD |
 | `creation-site-web-liege.html` | Page SEO — création de site web à Liège & Neupré |
 | `creation-application-mobile-belgique.html` | Page SEO — application mobile iOS & Android |
 | `chatbot-ia-pme-belgique.html` | Page SEO — chatbot IA & automatisation pour PME |

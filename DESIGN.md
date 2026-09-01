@@ -44,7 +44,6 @@ Les trois familles sont **auto-hébergées** (`fonts.css` + `fonts/*.woff2`, sou
 - **Showcase (`.showcase`)** : maquette navigateur + téléphone dans une vitrine à halo de chaleur, parallaxe 3D à la souris, rotation auto 3.8 s, points de progression ocre. **Élément conservé** (demande explicite du client).
 - **Signature (`.sig`)** : tracé SVG (getTotalLength) qui s'écrit à l'entrée, filtre `drop-shadow` chaud — le fil humain « la main qui forge ». Instantané en `reduced-motion`.
 - **Index services (`.field-list` / `.field-row`)** : liste typographique numérotée, barre de chaleur qui monte + décalage du contenu (`translateX`) au survol des lignes liées. **Pas de grille de cartes.**
-- **Et après (`.aftercare`)** : section propre (folio `IV·b`), triade de vitrines `.step` — hébergement, maintenance, évolutions. Rend visible l'accompagnement dans la durée, qui ne vivait que dans la FAQ. Volontairement hors de la grille sticky de `#champ` (deux colonnes) pour occuper toute la largeur.
 - **Le Labo (`.lab-teaser` sur l'accueil, `labo.css` sur les 6 pages)** : hub en cartes de verre (`.lab-card`, filet haut chauffé) et coquille d'outil (`.lab-panel` + barre mono `.lab-panel__bar` avec point lumineux). Chaque outil ouvre sur une **note d'honnêteté** (`.lab-note`) qui dit ce que la démo fait vraiment. Composants : choix en cartes (`.est-choice`), chat (`.chat__*`), simulateur Telegram (`.tg__*`), éditeur + rendu (`.pg__*`), comparateur en cellules (`.cmp__*`). Même palette, mêmes vitrines de verre, accent violet réservé aux états actifs et aux bulles de l'utilisateur.
 - **FAQ (`.qa`)** : `<details>` à filets, marqueur « + » ocre.
 - **Formulaire (`.cta-form`)** : champs à filet bas (registre ledger), labels mono, validation + envoi AJAX (formsubmit.co) sans quitter la page, coche SVG animée.
@@ -58,6 +57,10 @@ Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translate
 ## Surfaces navigateur
 
 `::selection` (violet/obsidienne), scrollbar (dégradé indigo sur obsidienne), focus visible (contour violet 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
+
+## Sobriété
+
+L'accueil tient en six mouvements (engagement, travaux, artisan, champ, questions, commande) et une navigation à trois entrées + l'action. Tout ce qui n'est pas ce fil vit ailleurs : le Labo (`labo*.html`) est accessible depuis le pied de page et les pages de service, jamais imposé au premier défilement. La signature ne s'écrit qu'une fois, dans la section L'artisan.
 
 ## Périmètre
 
