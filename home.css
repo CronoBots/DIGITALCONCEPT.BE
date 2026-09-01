@@ -227,10 +227,19 @@ body::after {
     linear-gradient(0deg, rgba(7,9,13,.9) 2%, transparent 42%);
 }
 .cover .wrap { width: 100%; }
-.cover-grid { max-width: 940px; }
+.cover-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(240px, .7fr); gap: clamp(1.6rem, 4vw, 4.5rem); align-items: end; }
+.cover-copy { min-width: 0; }
+.cover-portrait { justify-self: end; width: min(100%, 400px); margin-bottom: .4rem; }
+.cover-portrait img { aspect-ratio: 4 / 5; }
+.cover-fields { list-style: none; margin: clamp(1.1rem, 2vw, 1.5rem) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.cover-fields a {
+  display: inline-block; padding: .5rem .9rem; border-radius: 999px; font-size: .9rem; font-weight: 500; color: var(--ink);
+  background: rgba(242,238,230,.04); border: 1px solid var(--line-2); transition: border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
+}
+.cover-fields a:hover { border-color: var(--line-heat); background: rgba(139,124,255,.10); color: var(--heat-core); }
 .cover-tag { font-family: var(--f-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-warm); margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
 .display {
-  font-size: clamp(2.3rem, 1rem + 6vw, 6rem);
+  font-size: clamp(2.2rem, 1rem + 4.4vw, 4.9rem);
   font-weight: 800; letter-spacing: -0.04em; line-height: 0.98;
   text-shadow: 0 2px 40px rgba(0,0,0,.55);
   overflow-wrap: break-word;
@@ -338,14 +347,13 @@ body::after {
    ARTISAN
    ===================================================================== */
 .maker { border-top: 1px solid var(--line); }
-.maker-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.maker-copy { max-width: 72ch; }
 .maker-copy .prose { margin-top: 1.4rem; }
 .prose p { max-width: 62ch; color: var(--ink-soft); margin-bottom: 1rem; }
 .prose strong { color: var(--ink); font-weight: 600; }
 .maker-sign { margin-top: 1.8rem; display: flex; align-items: center; gap: 1.2rem; }
 .maker-sign .sig { width: 150px; }
 .maker-sign .role { font-family: var(--f-mono); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.5; }
-.maker-plate { position: relative; }
 .portrait { margin: 0; position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--sh-glass); }
 .portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(7,9,13,.6)); pointer-events: none; }
 .portrait img { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: contrast(1.04) saturate(1.02); }
@@ -479,8 +487,7 @@ a.field-row:hover .arrow { opacity: 1; transform: none; }
    Responsive
    ===================================================================== */
 @media (max-width: 960px) {
-  .maker-grid, .commission-grid, .colophon-grid { grid-template-columns: 1fr; }
-  .maker-plate { max-width: 460px; }
+  .commission-grid, .colophon-grid { grid-template-columns: 1fr; }
   .triad { grid-template-columns: 1fr; }
   .colophon-bottom { flex-direction: column; align-items: flex-start; }
 }
@@ -590,3 +597,11 @@ a.field-row:hover .arrow { opacity: 1; transform: none; }
 
 /* Mobile : le repère de défilement chevauchait les faits du hero — décoratif, il s'efface */
 @media (max-width: 720px) { .scroll-cue { display: none; } }
+
+/* Hero personnel : sous 860px, le portrait passe au-dessus du titre, en petit */
+@media (max-width: 860px) {
+  .cover-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .cover-portrait { order: -1; justify-self: start; width: 132px; margin-bottom: 0; }
+  .cover-portrait img { aspect-ratio: 1 / 1; }
+  .cover-portrait .stamp { display: none; }
+}

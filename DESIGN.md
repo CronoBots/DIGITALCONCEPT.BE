@@ -58,6 +58,10 @@ Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translate
 
 `::selection` (violet/obsidienne), scrollbar (dégradé indigo sur obsidienne), focus visible (contour violet 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
 
+## Personnel d'abord
+
+Le premier écran dit qui parle et ce qu'il fait, sans détour : « Je suis Vincent, je crée sites, apps et IA sur mesure. », son portrait (`.cover-portrait`, à droite sur desktop, en vignette au-dessus du titre sur mobile) et ses cinq métiers en pastilles cliquables (`.cover-fields`) qui mènent aux pages de service. Le portrait ne vit plus que là ; la section L'artisan garde le récit, les faits et la signature.
+
 ## Sobriété
 
 L'accueil tient en six mouvements (engagement, travaux, artisan, champ, questions, commande) et une navigation à trois entrées + l'action. Tout ce qui n'est pas ce fil vit ailleurs : le Labo (`labo*.html`) est accessible depuis le pied de page et les pages de service, jamais imposé au premier défilement. La signature ne s'écrit qu'une fois, dans la section L'artisan.
