@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://digitalconcept.be/</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -11,12 +11,13 @@
       <image:title>Digital Concept — solutions digitales sur mesure</image:title>
     </image:image>
   </url>
-  <url><loc>https://digitalconcept.be/creation-site-web-liege.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://digitalconcept.be/creation-token-crypto-belgique.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://digitalconcept.be/chatbot-ia-pme-belgique.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://digitalconcept.be/bot-telegram-discord-belgique.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://digitalconcept.be/mentions-legales.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://digitalconcept.be/conditions-generales.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://digitalconcept.be/politique-confidentialite.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://digitalconcept.be/politique-cookies.html</loc><lastmod>2026-08-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://digitalconcept.be/creation-site-web-liege.html</loc><lastmod>2026-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://digitalconcept.be/creation-application-mobile-belgique.html</loc><lastmod>2026-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://digitalconcept.be/creation-token-crypto-belgique.html</loc><lastmod>2026-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://digitalconcept.be/chatbot-ia-pme-belgique.html</loc><lastmod>2026-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://digitalconcept.be/bot-telegram-discord-belgique.html</loc><lastmod>2026-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://digitalconcept.be/mentions-legales.html</loc><lastmod>2026-09-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://digitalconcept.be/conditions-generales.html</loc><lastmod>2026-09-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://digitalconcept.be/politique-confidentialite.html</loc><lastmod>2026-09-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://digitalconcept.be/politique-cookies.html</loc><lastmod>2026-09-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

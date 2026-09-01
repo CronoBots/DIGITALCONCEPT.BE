@@ -94,6 +94,27 @@
     if (endpoint) form.setAttribute("action", endpoint);
 
     function showError(msg) { message.className = "form-message error"; message.textContent = msg; }
+    // Repli : si l'envoi échoue, la demande n'est pas perdue — on propose un
+    // e-mail pré-rempli vers l'adresse de data-mailto.
+    function showFallback(msg) {
+      var to = (form.dataset.mailto || "").trim();
+      message.className = "form-message error";
+      message.textContent = msg;
+      if (!to) return;
+      var typeEl = form.elements.namedItem("Type de projet");
+      var msgEl = form.elements.namedItem("message");
+      var body = "Nom / entreprise : " + nameInput.value.trim()
+        + "\nE-mail : " + emailInput.value.trim()
+        + "\nType de projet : " + ((typeEl && typeEl.value) || "non précisé")
+        + "\n\n" + ((msgEl && msgEl.value.trim()) || "");
+      var a = document.createElement("a");
+      a.href = "mailto:" + to + "?subject=" + encodeURIComponent("Demande de devis — digitalconcept.be")
+        + "&body=" + encodeURIComponent(body);
+      a.className = "form-fallback";
+      a.textContent = "Envoyer par e-mail";
+      message.appendChild(document.createTextNode(" "));
+      message.appendChild(a);
+    }
     function showSuccess(msg) {
       if (formCheck) { void formCheck.offsetWidth; formCheck.classList.add("show"); }
       message.className = "form-message success"; message.textContent = msg;
@@ -133,12 +154,12 @@
             showSuccess("Merci " + name + " ! Votre demande est envoyée, je vous réponds à " + email + " sous 24 h.");
             form.reset();
           } else {
-            showError("Un souci est survenu. Réessayez, ou appelez-moi au 0460 96 21 46.");
+            showFallback("Un souci est survenu. Réessayez, appelez-moi au 0460 96 21 46, ou :");
           }
         })
         .catch(function () {
           setLoading(false);
-          showError("Connexion impossible. Réessayez, ou appelez-moi au 0460 96 21 46.");
+          showFallback("Connexion impossible. Réessayez, appelez-moi au 0460 96 21 46, ou :");
         });
     });
   })();
@@ -148,14 +169,24 @@
     var showcase = $("[data-showcase]");
     if (!showcase) return;
     var PROJECTS = [
-      { host: "jaydenmusic.com", url: "https://jaydenmusic.com/", desktop: "img/jaydenmusic-desktop.jpg?v=4", mobile: "img/jaydenmusic-mobile.jpg?v=4", name: "Jayden", kind: "Site web · Artiste musical", desc: "Site officiel du chanteur Jayden — rock, soul et poésie." },
-      { host: "cronobots.github.io/PIZZAPINO", url: "https://cronobots.github.io/PIZZAPINO/", desktop: "img/pizzapino-desktop.jpg?v=1", mobile: "img/pizzapino-mobile.jpg?v=1", name: "Pizzeria Pino", kind: "Site web · Restaurant italien", desc: "Restaurant italien & pizzas au feu de bois à Nandrin." },
-      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=4", mobile: "img/yumea-mobile.jpg?v=4", name: "Yuméa Wellness", kind: "Site web · Bien-être & Head Spa", desc: "Institut de Head Spa japonais et de soins du visage." },
-      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kind: "NFT · Crypto.com", desc: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
-      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kind: "Site web · Gravure laser", desc: "Studio de gravure laser et création sur mesure." },
-      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kind: "Site web · Physiothérapie", desc: "Cabinet de physiothérapie à Tolochenaz." }
+      { host: "jaydenmusic.com", url: "https://jaydenmusic.com/", desktop: "img/jaydenmusic-desktop.webp?v=5", mobile: "img/jaydenmusic-mobile.webp?v=5", name: "Jayden", kind: "Site web · Artiste musical", desc: "Site officiel du chanteur Jayden — rock, soul et poésie." },
+      { host: "cronobots.github.io/PIZZAPINO", url: "https://cronobots.github.io/PIZZAPINO/", desktop: "img/pizzapino-desktop.webp?v=5", mobile: "img/pizzapino-mobile.webp?v=5", name: "Pizzeria Pino", kind: "Site web · Restaurant italien", desc: "Restaurant italien & pizzas au feu de bois à Nandrin." },
+      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.webp?v=5", mobile: "img/yumea-mobile.webp?v=5", name: "Yuméa Wellness", kind: "Site web · Bien-être & Head Spa", desc: "Institut de Head Spa japonais et de soins du visage." },
+      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.webp?v=5", mobile: "img/cryptonauts-mobile.webp?v=5", name: "Cryptonauts", kind: "NFT · Crypto.com", desc: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
+      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.webp?v=5", mobile: "img/oryxia-mobile.webp?v=5", name: "Oryxia Design", kind: "Site web · Gravure laser", desc: "Studio de gravure laser et création sur mesure." },
+      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.webp?v=5", mobile: "img/toukin-mobile.webp?v=5", name: "Toukin Physiothérapie", kind: "Site web · Physiothérapie", desc: "Cabinet de physiothérapie à Tolochenaz." }
     ];
-    PROJECTS.forEach(function (p) { new Image().src = p.desktop; new Image().src = p.mobile; });
+    // Préchargement paresseux : le premier aperçu est déjà dans le HTML, les
+    // suivants n'arrivent qu'un cran à l'avance et jamais avant le premier rendu.
+    var warmed = {};
+    function warm(i) {
+      var p = PROJECTS[(i + PROJECTS.length) % PROJECTS.length];
+      var k = (i + PROJECTS.length) % PROJECTS.length;
+      if (!p || warmed[k]) return;
+      warmed[k] = true;
+      new Image().src = p.desktop;
+      new Image().src = p.mobile;
+    }
 
     var q = function (s) { return showcase.querySelector(s); };
     var elDesktop = q("[data-sc-desktop]"), elMobile = q("[data-sc-mobile]");
@@ -206,6 +237,7 @@
     }
     function go(i, animate) {
       index = (i + PROJECTS.length) % PROJECTS.length;
+      warm(index + 1);
       if (animate && !prefersReduced) {
         showcase.classList.add("is-swapping");
         setTimeout(function () { paint(index); showcase.classList.remove("is-swapping"); }, 220);
@@ -215,6 +247,9 @@
     function stop() { clearInterval(timer); }
 
     paint(0);
+    warmed[0] = true;
+    if ("requestIdleCallback" in window) requestIdleCallback(function () { warm(1); }, { timeout: 3000 });
+    else window.addEventListener("load", function () { setTimeout(function () { warm(1); }, 600); });
 
     if ("IntersectionObserver" in window && !prefersReduced) {
       var io = new IntersectionObserver(function (entries) {

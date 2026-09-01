@@ -22,9 +22,9 @@
   --shadow-glow: 0 16px 44px -14px rgba(31, 111, 79, 0.4);
   --container: 1140px;
   --espresso: #17130d;
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-body: "Libre Franklin", system-ui, -apple-system, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -1583,38 +1583,6 @@ body {
 .hero--showcase .hero-content .lead { font-size: 1.06rem; }
 .hero-actions--below { justify-content: center; margin-top: 2.6rem; }
 .hero--showcase .hero-note { text-align: center; margin: 1rem 0 0; }
-
-/* ===================================================================
-   BANDE VIDEO "code" — atmosphere developpement sur mesure
-   =================================================================== */
-.codeband {
-  position: relative; overflow: hidden; display: flex; align-items: center;
-  min-height: clamp(340px, 44vw, 500px);
-  border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);
-}
-.codeband-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-.codeband-overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(90deg, rgba(7, 11, 20, 0.95) 0%, rgba(7, 11, 20, 0.78) 48%, rgba(7, 11, 20, 0.5) 100%);
-}
-.codeband-inner { position: relative; z-index: 2; max-width: 640px; padding-top: clamp(40px, 6vw, 64px); padding-bottom: clamp(40px, 6vw, 64px); }
-.codeband-eyebrow {
-  display: inline-flex; align-items: center; gap: 0.7em;
-  font-family: var(--font-mono); font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.22em; font-size: 0.72rem; color: var(--primary); margin-bottom: 1.1rem;
-}
-.codeband-eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--primary); }
-.codeband-text {
-  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em;
-  font-size: clamp(1.3rem, 2.5vw, 2rem); line-height: 1.32; color: var(--text);
-}
-@media (max-width: 640px) {
-  .codeband-overlay { background: linear-gradient(180deg, rgba(7, 11, 20, 0.72) 0%, rgba(7, 11, 20, 0.93) 100%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .codeband-video { display: none; }
-  .codeband { background: #070b14 url("img/coding-poster.jpg") center / cover; }
-}
 
 /* ===== Formulaire de contact : ajout du champ message ===== */
 .cta-form { max-width: 620px; margin-left: auto; margin-right: auto; }

@@ -174,23 +174,6 @@
   const heroContent = document.querySelector(".hero-content");
   if (heroContent) requestAnimationFrame(() => heroContent.classList.add("is-visible"));
 
-  // Bande vidéo "code" : ne se charge/joue que lorsqu'elle est visible (perf), pause sinon
-  const codeVid = document.querySelector(".codeband-video");
-  if (codeVid) {
-    if (prefersReduced) {
-      codeVid.removeAttribute("autoplay");
-      try { codeVid.pause(); } catch (e) {}
-    } else if ("IntersectionObserver" in window) {
-      const vio = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) { codeVid.play().catch(() => {}); }
-          else { codeVid.pause(); }
-        });
-      }, { threshold: 0.12 });
-      vio.observe(codeVid);
-    }
-  }
-
   // Compteurs animés
   function animateCount(el) {
     const target = parseFloat(el.dataset.count || "0");
@@ -463,12 +446,12 @@
     const showcase = document.querySelector("[data-showcase]");
     if (!showcase) return;
     const PROJECTS = [
-      { host: "jaydenmusic.com", url: "https://jaydenmusic.com/", desktop: "img/jaydenmusic-desktop.jpg?v=4", mobile: "img/jaydenmusic-mobile.jpg?v=4", name: "Jayden", kindKey: "kind.jayden", kindFr: "Site web · Artiste musical", descKey: "desc.jayden", descFr: "Site officiel du chanteur Jayden — rock, soul et poésie." },
-      { host: "cronobots.github.io/PIZZAPINO", url: "https://cronobots.github.io/PIZZAPINO/", desktop: "img/pizzapino-desktop.jpg?v=1", mobile: "img/pizzapino-mobile.jpg?v=1", name: "Pizzeria Pino", kindKey: "kind.pizzapino", kindFr: "Site web · Restaurant italien", descKey: "desc.pizzapino", descFr: "Restaurant italien & pizzas au feu de bois à Nandrin." },
-      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.jpg?v=4", mobile: "img/yumea-mobile.jpg?v=4", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Institut de Head Spa japonais et de soins du visage." },
-      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.jpg?v=2", mobile: "img/cryptonauts-mobile.jpg?v=2", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
-      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.jpg?v=2", mobile: "img/oryxia-mobile.jpg?v=2", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Studio de gravure laser et création sur mesure." },
-      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.jpg?v=2", mobile: "img/toukin-mobile.jpg?v=2", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Cabinet de physiothérapie à Tolochenaz." }
+      { host: "jaydenmusic.com", url: "https://jaydenmusic.com/", desktop: "img/jaydenmusic-desktop.webp?v=5", mobile: "img/jaydenmusic-mobile.webp?v=5", name: "Jayden", kindKey: "kind.jayden", kindFr: "Site web · Artiste musical", descKey: "desc.jayden", descFr: "Site officiel du chanteur Jayden — rock, soul et poésie." },
+      { host: "cronobots.github.io/PIZZAPINO", url: "https://cronobots.github.io/PIZZAPINO/", desktop: "img/pizzapino-desktop.webp?v=5", mobile: "img/pizzapino-mobile.webp?v=5", name: "Pizzeria Pino", kindKey: "kind.pizzapino", kindFr: "Site web · Restaurant italien", descKey: "desc.pizzapino", descFr: "Restaurant italien & pizzas au feu de bois à Nandrin." },
+      { host: "yumea-wellness.be", url: "https://www.yumea-wellness.be/", desktop: "img/yumea-desktop.webp?v=5", mobile: "img/yumea-mobile.webp?v=5", name: "Yuméa Wellness", kindKey: "kind.yumea", kindFr: "Site web · Bien-être & Head Spa", descKey: "desc.yumea", descFr: "Institut de Head Spa japonais et de soins du visage." },
+      { host: "crypto-nauts.com", url: "https://www.crypto-nauts.com", desktop: "img/cryptonauts-desktop.webp?v=5", mobile: "img/cryptonauts-mobile.webp?v=5", name: "Cryptonauts", kindKey: null, kindFr: "NFT · Crypto.com", descKey: "desc.crypto", descFr: "Collection NFT d'avatars d'astronautes sur Crypto.com." },
+      { host: "oryxia.be", url: "https://oryxia.be/", desktop: "img/oryxia-desktop.webp?v=5", mobile: "img/oryxia-mobile.webp?v=5", name: "Oryxia Design", kindKey: "kind.oryxia", kindFr: "Site web · Gravure laser", descKey: "desc.oryxia", descFr: "Studio de gravure laser et création sur mesure." },
+      { host: "cronobots.github.io/TOUKIN", url: "https://cronobots.github.io/TOUKIN/", desktop: "img/toukin-desktop.webp?v=5", mobile: "img/toukin-mobile.webp?v=5", name: "Toukin Physiothérapie", kindKey: "kind.toukin", kindFr: "Site web · Physiothérapie", descKey: "desc.toukin", descFr: "Cabinet de physiothérapie à Tolochenaz." }
     ];
     // Précharge tous les aperçus (PC + mobile) -> changement instantané, plus de "flash"
     PROJECTS.forEach((p) => { new Image().src = p.desktop; new Image().src = p.mobile; });
