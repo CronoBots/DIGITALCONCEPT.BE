@@ -1,73 +1,41 @@
 # Design
 
-<!-- impeccable:design-schema 1 -->
-<!-- Monde construit pour la page d'accueil (index.html + home.css + home.js). Les autres pages (SEO et légales) suivent styles.css + page-theme.css / chrome legal-page. -->
-
 ## Direction
 
-**Studio obsidienne — réseau vivant** (seed 02e1f084, mode persuade, code-led ; monde épinglé par le client). L'accueil est une scène obsidienne filmée dans le noir : une constellation de nœuds reliés en 3D (Canvas temps réel) qui respire et réagit au visiteur — elle évoque d'un seul visuel le web (connexions), l'IA (réseau de neurones), la crypto (nœuds) et les bots (automatisation). Refuse deux ruts à la fois — l'ancienne monographie papier ET le « near-black + un néon bleu » du studio-tech générique. L'accent est **indigo/violet** (neural) sur obsidienne : le réseau prend des allures de réseau de neurones — premium, à l'écart du cyan par défaut.
+**Clair, une couleur, trois écrans.** L'accueil dit qui est Vincent, montre son travail, et propose une seule action : le formulaire. Fond blanc, vert profond en unique accent, Manrope partout. Aucune animation lourde, aucune requête tierce. Le site se lit en 30 secondes.
 
 ## Palette
 
-Stratégie : **committed / drenched** — l'obsidienne indigo noie toute la surface, l'accent indigo→violet est l'unique porteur (hero, CTA, filets, états, mot-marque du titre).
-
 | Rôle | Token | Valeur |
 |---|---|---|
-| Obsidienne indigo (fond) | `--bg` | `#0B0B16` |
-| Obsidienne 2 / 3 | `--bg-2` `--bg-3` | `#0D1017` · `#0F131B` |
-| Panneau élevé | `--panel` `--panel-2` | `#12161F` · `#171C28` |
-| Verre (vitrines, backdrop-blur réel) | `--glass` `--glass-2` | `rgba(18,22,31,.62)` · `rgba(24,29,41,.7)` |
-| Encre claire chaude (texte) | `--ink` | `#F2EEE6` |
-| Secondaire /obsidienne (teinté froid) | `--ink-soft` | `#9AA2B4` |
-| Légendes, tampons (teinté chaud) | `--ink-warm` | `#CBBEA9` |
-| Texte discret (AA ≥4.5:1) | `--ink-dim` | `#878FA1` |
-| Violet clair — grand affichage, fills, filets | `--heat` | `#8B7CFF` |
-| Indigo — liens / indigo profond | `--heat-2` `--heat-deep` | `#6366F1` · `#4F46E5` |
-| Cœur clair, hautes lumières | `--heat-core` | `#C4B5FD` |
-| Petit texte violet sur obsidienne (AA) | `--heat-txt` | `#A99CFF` |
-| Filet · filet chaud | `--line` `--line-2` `--line-heat` | `rgba(242,238,230,.10)` · `.17` · `rgba(255,157,61,.28)` |
+| Fond | `--bg` | `#FFFFFF` |
+| Fond doux (contact, captures) | `--bg-2` | `#F4F7F5` |
+| Texte | `--ink` | `#131A18` |
+| Texte secondaire (AA) | `--ink-2` | `#5A6663` |
+| Filet | `--line` | `#E1E7E4` |
+| **La couleur** | `--green` | `#0E5E4A` |
+| Survol | `--green-2` | `#0B4C3C` |
+| Halo, focus | `--green-soft` | `#E3F0EA` |
 
-Règle : le mot-marque incandescent du titre est une **couleur pleine** (`--heat`) + halo (`text-shadow`), jamais un gradient-text. L'ocre vif porte le grand affichage et les aplats ; le petit texte ocre passe par `--heat-txt`.
+Règle : une seule couleur. Elle porte le mot fort du titre, les boutons, les liens, le focus. Rien d'autre n'est coloré ; les captures de sites apportent le reste.
 
 ## Typographie
 
-Les trois familles sont **auto-hébergées** (`fonts.css` + `fonts/*.woff2`, sous-ensembles latin / latin-ext, WOFF2 variables, `font-display: swap`). Aucune requête vers `fonts.googleapis.com` : le rendu du texte ne dépend plus d'un tiers, et le site ne dépose plus aucune donnée chez Google.
+- **Manrope** (`--f`) — tout : titres (800, tracking −0.03em), corps (400), boutons (700). Auto-hébergée (`fonts/manrope-*.woff2`, variable 200–800).
+- **Spline Sans Mono** (`--f-mono`) — uniquement les très petites étiquettes (lien « ↗ » des captures).
 
-- **Bricolage Grotesque** (`--f-display`) — titres, wordmark, chiffres géants. `.display` clamp 2.3→6rem (poids 800), tracking -0.04em. Caractère « fait main » conservé de l'ADN de marque.
-- **Libre Franklin** (`--f-body`) — corps, boutons, lead. Mesure 62–68ch.
-- **Spline Sans Mono** (`--f-mono`) — folios, labels de formulaire, URL navigateur, téléphone, tampons. Réservé aux **données/mesures**.
+## Accueil (`index.html` + `home.css` + `home.js`)
 
-## Composants
+1. **Qui** — vignette ronde, « Vincent Buron · développeur web, Neupré (Liège) », puis le titre : *Un site web qui vous ressemble, fait par une seule personne.* Deux lignes, un bouton vers le formulaire, un lien vers les réalisations.
+2. **Le travail** — quatre captures en grand (Jayden, Pizzeria Pino, Yuméa, Toukin), nom, type, lien. Sous la grille, quatre promesses en une ligne chacune.
+3. **Le contact** — bandeau doux, texte court, téléphone et adresse, formulaire : nom, e-mail, téléphone (facultatif), message. Envoi AJAX, repli e-mail si l'envoi échoue.
 
-- **Réseau vivant (`.cover` + `canvas[data-forge]`)** : hero plein écran (`100svh`, colonne, contenu ancré en bas). Constellation de nœuds en **Canvas 2D à projection 3D** (perspective, rotation lente auto, drift, connexions par proximité écran, parallaxe à la souris, nœud illuminé + liens vers le curseur ; ~44 nœuds mobile / ~90 desktop, DPR ≤2, en pause hors-viewport et onglet caché). Repli CSS (dégradé sombre) si Canvas/`reduced-motion` absent (image figée). Voile (`.forge-veil`) pour la lisibilité du texte à gauche. Le foyer du réseau est décalé à droite (`cx≈0.6W`) sur desktop.
-- **Vitrines de verre (`.step`, `.showcase-stage`, `.commission-side`, `.portrait`)** : panneaux à `backdrop-filter`, filet haut chauffé, profondeur par ombres à offset + blur (`--sh-glass`, `--bloom`).
-- **Showcase (`.showcase`)** : maquette navigateur + téléphone dans une vitrine à halo de chaleur, parallaxe 3D à la souris, rotation auto 3.8 s, points de progression ocre. **Élément conservé** (demande explicite du client).
-- **Signature (`.sig`)** : tracé SVG (getTotalLength) qui s'écrit à l'entrée, filtre `drop-shadow` chaud — le fil humain « la main qui forge ». Instantané en `reduced-motion`.
-- **Index services (`.field-list` / `.field-row`)** : liste typographique numérotée, barre de chaleur qui monte + décalage du contenu (`translateX`) au survol des lignes liées. **Pas de grille de cartes.**
-- **Le Labo (`.lab-teaser` sur l'accueil, `labo.css` sur les 6 pages)** : hub en cartes de verre (`.lab-card`, filet haut chauffé) et coquille d'outil (`.lab-panel` + barre mono `.lab-panel__bar` avec point lumineux). Chaque outil ouvre sur une **note d'honnêteté** (`.lab-note`) qui dit ce que la démo fait vraiment. Composants : choix en cartes (`.est-choice`), chat (`.chat__*`), simulateur Telegram (`.tg__*`), éditeur + rendu (`.pg__*`), comparateur en cellules (`.cmp__*`). Même palette, mêmes vitrines de verre, accent violet réservé aux états actifs et aux bulles de l'utilisateur.
-- **FAQ (`.qa`)** : `<details>` à filets, marqueur « + » ocre.
-- **Formulaire (`.cta-form`)** : champs à filet bas (registre ledger), labels mono, validation + envoi AJAX (formsubmit.co) sans quitter la page, coche SVG animée.
-- **Boutons (`.btn--mark`)** : remplissage violet (dégradé indigo→violet), bloom, aimantés au curseur (`[data-magnetic]`) sur pointeur fin.
-- **Colophon (`.colophon`)** : pied — wordmark, colonnes Le champ / L'atelier / Contact, mentions légales, signature « Conçu & développé par Vincent Buron ».
+Motion : apparition discrète des captures (`.reveal`, 14 px, 0,6 s), filet sous l'en-tête au défilement. Tout respecte `prefers-reduced-motion`.
 
-## Motion
+## Pages de service et légales
 
-Grammaire unique « la chaleur qui monte » : révélations `.reveal` (translateY 28px → 0, ease-out `cubic-bezier(.2,.7,.2,1)`, délais d1–d4), signature qui se trace, réseau de nœuds qui respire (temps réel, en pause hors-viewport / onglet caché), boutons magnétiques, barre de chaleur au survol. Toutes les transitions d'interaction passent par `transform`/`opacity` (aucune animation de propriété de layout). Tout respecte `prefers-reduced-motion` (shader figé sur une image, révélations désactivées).
+`styles.css` + `page-theme.css` (surcharge claire, chargée après) : mêmes tokens, même typo, hero blanc à filet, cartes blanches, bouton vert. Deux pages de service : création de site web à Liège, application mobile.
 
-## Surfaces navigateur
+## Ce qui n'existe plus
 
-`::selection` (violet/obsidienne), scrollbar (dégradé indigo sur obsidienne), focus visible (contour violet 2px), placeholder teinté AA, caret hérité. Themées depuis la palette.
-
-## Personnel d'abord
-
-Le premier écran dit qui parle et ce qu'il fait, sans détour : « Je suis Vincent, je crée sites, apps et IA sur mesure. », son portrait (`.cover-portrait`, à droite sur desktop, en vignette au-dessus du titre sur mobile) et ses cinq métiers en pastilles cliquables (`.cover-fields`) qui mènent aux pages de service. Le portrait ne vit plus que là ; la section L'artisan garde le récit, les faits et la signature.
-
-## Sobriété
-
-L'accueil tient en six mouvements (engagement, travaux, artisan, champ, questions, commande) et une navigation à trois entrées + l'action. Tout ce qui n'est pas ce fil vit ailleurs : le Labo (`labo*.html`) est accessible depuis le pied de page et les pages de service, jamais imposé au premier défilement. La signature ne s'écrit qu'une fois, dans la section L'artisan.
-
-## Périmètre
-
-Ce monde couvre **index.html** (via `home.css` + `home.js`, autonomes, FR). Un hook de capture (`?still` → classe `.capture`) fige les entrées et borne le hero pour la revue plein-page ; inerte en usage normal. Les **5 pages SEO** (catégories, dont `creation-application-mobile-belgique.html`) et les **6 pages du Labo** (qui ajoutent `labo.css` + `labo.js`) chargent `page-theme.css` **après** `styles.css` : surcharge qui harmonise leur chrome `legal-page` au monde obsidienne indigo (fond, typo Bricolage/Libre Franklin/Spline, cartes verre, accent violet, hero à champ de points rappelant le réseau). Les **4 pages légales** chargent désormais la même surcharge : tout le site parle la même langue graphique, et `styles.css` pointe sur les polices de marque plutôt que sur l'ancien trio Space Grotesk / Inter / Space Mono, qui n'est plus servi.
-
-`script.js` et `i18n.js` ne sont plus chargés par aucune page (héritage de l'ancienne page d'accueil) ; ils sont conservés tels quels, sans coût au chargement. Contraintes respectées : statique GitHub Pages (aucun backend), SEO/schema/Core Web Vitals préservés, `theme-color` `#0B0B16`, zéro requête tierce et zéro violation axe-core sur l'ensemble des 16 pages.
+Le monde « obsidienne / réseau vivant », la signature en particules, le carrousel, le Labo et ses cinq outils, les pages crypto / IA / bots, le multilingue. Décision du client : le site doit être simple, personnel, lisible au premier défilement.
