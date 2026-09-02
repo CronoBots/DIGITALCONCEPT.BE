@@ -8,13 +8,13 @@ seule personne : sites web pour indépendants et artistes, applications mobiles.
 
 | Fichier | Rôle |
 |---|---|
-| `index.html` | Accueil en trois écrans : qui (Vincent), le travail (4 sites), le contact (formulaire). SEO + JSON-LD |
+| `index.html` | Accueil en trois écrans, monde obsidienne : qui (Vincent), le travail (carrousel, 4 sites), le contact (formulaire). SEO + JSON-LD |
 | `creation-site-web-liege.html` | Page SEO — création de site web à Liège & Neupré |
 | `creation-application-mobile-belgique.html` | Page SEO — application mobile iOS & Android |
 | `mentions-legales.html` · `conditions-generales.html` · `politique-confidentialite.html` · `politique-cookies.html` | Pages légales |
 | `home.css` / `home.js` | Thème et script de l'accueil (autonomes) |
-| `styles.css` + `page-theme.css` | Thème des pages SEO et légales (`page-theme.css` chargée après : surcharge claire) |
-| `fonts.css` + `fonts/*.woff2` | Manrope et Spline Sans Mono, auto-hébergées |
+| `styles.css` + `page-theme.css` | Thème des pages SEO et légales (`page-theme.css` chargée après : surcharge obsidienne) |
+| `fonts.css` + `fonts/*.woff2` | Bricolage Grotesque, Libre Franklin, Spline Sans Mono, auto-hébergées |
 | `cookies.js` | Bandeau et préférences cookies |
 | `img/*.webp` | Captures des réalisations et portrait |
 | `favicon.svg` · `og-image.png` | Icône et image de partage |
