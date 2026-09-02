@@ -2,11 +2,11 @@
    Digital Concept — page-theme.css
    Surcharge claire pour les pages de service et légales (chrome
    legal-page de styles.css). Chargée APRÈS styles.css. Aligne ces pages
-   sur l'accueil : blanc, une couleur (vert profond), Manrope.
+   sur l'accueil : verre liquide, halos, une couleur (vert profond), Manrope.
    ===================================================================== */
 
 body.legal-page {
-  --bg: #FFFFFF; --bg-soft: #F4F7F5; --bg-card: #FFFFFF;
+  --bg: #F7F9F8; --bg-soft: rgba(255,255,255,.55); --bg-card: rgba(255,255,255,.6);
   --border: #E1E7E4; --border-soft: #EDF1EF;
   --text: #131A18; --text-muted: #5A6663;
   --primary: #0E5E4A; --primary-2: #0B4C3C; --accent: #0E5E4A; --accent-ink: #0E5E4A;
@@ -25,7 +25,16 @@ body.legal-page {
   font-family: var(--font-body) !important;
   -webkit-font-smoothing: antialiased;
 }
-body.legal-page::before { content: none; }
+/* Halos fixes derrière le verre */
+body.legal-page::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(48vw 48vw at -8vw -10vw, #9FE0C4 0%, transparent 65%),
+    radial-gradient(42vw 42vw at 104vw 12vh, #BFE0F5 0%, transparent 65%),
+    radial-gradient(40vw 40vw at 45vw 78vh, #FFD9C2 0%, transparent 65%),
+    radial-gradient(56vw 56vw at 108vw 110vh, #D7F0E4 0%, transparent 68%);
+  filter: blur(40px); opacity: .85;
+}
 body.legal-page ::selection { background: #E3F0EA; color: var(--text); }
 body.legal-page :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
@@ -100,6 +109,30 @@ body.legal-page .cookie-consent h3 { color: var(--text) !important; }
 body.legal-page .cookie-consent p { color: var(--text-muted) !important; }
 body.legal-page .cookie-consent .c-accept { color: #fff !important; background: var(--primary) !important; border: none !important; }
 body.legal-page .cookie-consent .c-refuse { color: var(--text) !important; background: #fff !important; border: 1px solid var(--border) !important; }
+
+
+/* ---------- Verre : surfaces communes ---------- */
+body.legal-page .legal-nav, body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .local-steps > *,
+body.legal-page .local-faq, body.legal-page .cross-links a, body.legal-page .legal-footer, body.legal-page .cookie-consent, body.legal-page .btn-secondary {
+  background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.55) 55%, rgba(255,255,255,.62)) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255,255,255,.85) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 24px 60px -34px rgba(14,40,32,.45) !important;
+}
+body.legal-page .legal-nav { border-width: 0 0 1px !important; }
+body.legal-page .legal-hero { background: transparent !important; border-bottom: 1px solid rgba(255,255,255,.7); }
+body.legal-page .gradient-text { position: relative; }
+body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .local-steps > *, body.legal-page .local-faq, body.legal-page .cross-links a { border-radius: 20px !important; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s !important; }
+body.legal-page .highlight:hover, body.legal-page .legal-card:hover, body.legal-page .cross-links a:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.95) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 30px 64px -30px rgba(14,40,32,.55) !important; }
+body.legal-page .btn-primary {
+  position: relative; overflow: hidden; border-radius: 999px !important; border: 1px solid rgba(255,255,255,.35) !important;
+  background: linear-gradient(160deg, #1D7A62, var(--primary) 55%, var(--primary-2)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 6px rgba(0,0,0,.18), 0 16px 34px -16px rgba(14,94,74,.75) !important;
+}
+body.legal-page .btn-primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 6px rgba(0,0,0,.18), 0 22px 44px -16px rgba(14,94,74,.8), 0 0 0 8px rgba(14,94,74,.10) !important; }
+body.legal-page .btn-secondary { border-radius: 999px !important; }
+body.legal-page .legal-section h2 .num { color: var(--text-muted) !important; }
+@media (prefers-reduced-motion: reduce) { body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .cross-links a { transition: none !important; } }
 
 /* Transitions de page (View Transitions API) — sobres */
 @view-transition { navigation: auto; }

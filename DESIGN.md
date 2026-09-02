@@ -2,14 +2,15 @@
 
 ## Direction
 
-**Clair, une couleur, trois écrans.** L'accueil dit qui est Vincent, montre son travail, et propose une seule action : le formulaire. Fond blanc, vert profond en unique accent, Manrope partout. Aucune animation lourde, aucune requête tierce. Le site se lit en 30 secondes.
+**Verre liquide, une couleur, trois écrans.** L'accueil dit qui est Vincent, montre son travail, et propose une seule action : le formulaire. Fond clair traversé de halos colorés qui dérivent lentement ; par-dessus, des surfaces de verre floutées (`backdrop-filter`) à reflet spéculaire, façon Liquid Glass d'Apple : barre de navigation flottante, cadres des captures, promesses, formulaire, pied de page. Les cadres des réalisations s'inclinent en 3D sous le curseur et une lueur suit la souris. Vert profond en unique accent, Manrope partout, aucune requête tierce. Tout se fige sous `prefers-reduced-motion`.
 
 ## Palette
 
 | Rôle | Token | Valeur |
 |---|---|---|
-| Fond | `--bg` | `#FFFFFF` |
-| Fond doux (contact, captures) | `--bg-2` | `#F4F7F5` |
+| Fond | `--bg` | `#F7F9F8` |
+| Halos | `--h1` … `--h4` | menthe `#9FE0C4`, ciel `#BFE0F5`, pêche `#FFD9C2`, vert d'eau `#D7F0E4` |
+| Verre | `--glass` `--glass-2` `--glass-edge` | `rgba(255,255,255,.55)` · `.72` · bord `.85` |
 | Texte | `--ink` | `#131A18` |
 | Texte secondaire (AA) | `--ink-2` | `#5A6663` |
 | Filet | `--line` | `#E1E7E4` |
@@ -17,7 +18,7 @@
 | Survol | `--green-2` | `#0B4C3C` |
 | Halo, focus | `--green-soft` | `#E3F0EA` |
 
-Règle : une seule couleur. Elle porte le mot fort du titre, les boutons, les liens, le focus. Rien d'autre n'est coloré ; les captures de sites apportent le reste.
+Règle : une seule couleur d'encre. Les halos sont de la lumière, pas de la couleur : pâles, floutés à 70 px, toujours derrière le verre, jamais sous le texte sans verre. Le texte reste AA partout (`--ink-2` `#4F5B58` sur verre).
 
 ## Typographie
 
@@ -30,7 +31,13 @@ Règle : une seule couleur. Elle porte le mot fort du titre, les boutons, les li
 2. **Le travail** — quatre captures en grand (Jayden, Pizzeria Pino, Yuméa, Toukin), nom, type, lien. Sous la grille, quatre promesses en une ligne chacune.
 3. **Le contact** — bandeau doux, texte court, téléphone et adresse, formulaire : nom, e-mail, téléphone (facultatif), message. Envoi AJAX, repli e-mail si l'envoi échoue.
 
-Motion : apparition discrète des captures (`.reveal`, 14 px, 0,6 s), filet sous l'en-tête au défilement. Tout respecte `prefers-reduced-motion`.
+Motion :
+- halos qui dérivent (26–38 s, alternance) et suivent très légèrement le curseur (`--mx`/`--my`, amorti à 6 %) ;
+- cartes : `rotateX/Y` jusqu'à ±5°/±4° selon la position du pointeur, `perspective: 1400px`, lueur radiale au point de survol, retour en 0,5 s ;
+- boutons : goutte de reflet en haut, balayage lumineux au survol, halo externe de 8 px ;
+- portrait : anneau conique flouté qui tourne en 14 s ;
+- apparition : `.reveal` sur les cadres, promesses et formulaire.
+Tout s'arrête sous `prefers-reduced-motion` ; l'inclinaison et le suivi du curseur ne s'activent que sur pointeur fin (`hover: hover`).
 
 ## Pages de service et légales
 

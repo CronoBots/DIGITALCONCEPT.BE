@@ -1,23 +1,58 @@
 /* =====================================================================
    Digital Concept — home.js
-   Accueil : en-tête au défilement, apparition discrète des captures,
-   formulaire (envoi AJAX + repli e-mail). Rien d'autre.
+   Accueil verre liquide : halos qui suivent doucement le curseur, cartes
+   qui s'inclinent en 3D, apparition, formulaire (AJAX + repli e-mail).
    ===================================================================== */
 (function () {
   "use strict";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  /* ---- En-tête : filet dès qu'on a quitté le haut de page ---- */
+  /* ---- En-tête : ombre dès qu'on a quitté le haut de page ---- */
   var top = $(".top");
   if (top) {
     var onScroll = function () { top.classList.toggle("is-scrolled", window.scrollY > 8); };
     onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  /* ---- Apparition discrète des réalisations ---- */
-  var items = $$(".work, .promises li");
+  /* ---- Halos : dérive légère vers le curseur (desktop, mouvement autorisé) ---- */
+  var halos = $(".halos");
+  if (halos && finePointer && !prefersReduced) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+    var tick = function () {
+      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+      halos.style.setProperty("--mx", cx.toFixed(1) + "px"); halos.style.setProperty("--my", cy.toFixed(1) + "px");
+      if (Math.abs(tx - cx) > 0.2 || Math.abs(ty - cy) > 0.2) raf = requestAnimationFrame(tick); else raf = null;
+    };
+    window.addEventListener("pointermove", function (e) {
+      tx = (e.clientX / window.innerWidth - 0.5) * 40; ty = (e.clientY / window.innerHeight - 0.5) * 28;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+
+  /* ---- Cartes : inclinaison 3D + lueur qui suit le curseur ---- */
+  if (finePointer && !prefersReduced) {
+    $$(".work").forEach(function (card) {
+      var shot = $(".shot", card), r = null;
+      card.addEventListener("pointerenter", function () { r = card.getBoundingClientRect(); card.classList.add("is-tilting"); });
+      card.addEventListener("pointermove", function (e) {
+        if (!r) r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        card.style.setProperty("--ry", ((px - 0.5) * 10).toFixed(2) + "deg");
+        card.style.setProperty("--rx", ((0.5 - py) * 8).toFixed(2) + "deg");
+        if (shot) { shot.style.setProperty("--gx", (px * 100).toFixed(1) + "%"); shot.style.setProperty("--gy", (py * 100).toFixed(1) + "%"); }
+      });
+      card.addEventListener("pointerleave", function () {
+        card.classList.remove("is-tilting");
+        card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); r = null;
+      });
+    });
+  }
+
+  /* ---- Apparition ---- */
+  var items = $$(".work .shot, .promises li, .form");
   if (items.length && "IntersectionObserver" in window && !prefersReduced) {
     items.forEach(function (el) { el.classList.add("reveal"); });
     var io = new IntersectionObserver(function (entries) {
@@ -38,7 +73,6 @@
     var showError = function (msg) { message.className = "form-message error"; message.textContent = msg; };
     var showSuccess = function (msg) { message.className = "form-message success"; message.textContent = msg; };
     var setLoading = function (on) { if (!submitBtn) return; submitBtn.disabled = on; submitBtn.textContent = on ? "Envoi…" : "Envoyer ma demande"; };
-    // Si l'envoi échoue, la demande n'est pas perdue : e-mail pré-rempli vers data-mailto.
     var showFallback = function (msg) {
       showError(msg);
       var to = (form.dataset.mailto || "").trim(); if (!to) return;
