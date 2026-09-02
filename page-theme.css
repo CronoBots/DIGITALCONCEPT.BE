@@ -6,15 +6,15 @@
    ===================================================================== */
 
 body.legal-page {
-  --bg: #F7F9F8; --bg-soft: rgba(255,255,255,.55); --bg-card: rgba(255,255,255,.6);
+  --bg: #F6FBF8; --bg-soft: rgba(255,255,255,.55); --bg-card: rgba(255,255,255,.6);
   --border: #E1E7E4; --border-soft: #EDF1EF;
-  --text: #131A18; --text-muted: #5A6663;
-  --primary: #0E5E4A; --primary-2: #0B4C3C; --accent: #0E5E4A; --accent-ink: #0E5E4A;
+  --text: #2F4858; --text-muted: #4E6470;
+  --primary: #2F4858; --primary-2: #223A48; --accent: #2F4858; --accent-ink: #2F4858;
   --danger: #C0392B;
   --header-bg: rgba(255,255,255,.86); --header-bg-scrolled: rgba(255,255,255,.92);
   --btn-secondary-bg: #FFFFFF;
-  --shadow: 0 24px 50px -36px rgba(19,26,24,.35);
-  --shadow-glow: 0 10px 24px -14px rgba(14,94,74,.6);
+  --shadow: 0 24px 50px -36px rgba(47,72,88,.35);
+  --shadow-glow: 0 10px 24px -14px rgba(47,72,88,.6);
   --font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
   --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
   --font-mono: "Spline Sans Mono", ui-monospace, monospace;
@@ -29,13 +29,13 @@ body.legal-page {
 body.legal-page::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(48vw 48vw at -8vw -10vw, #9FE0C4 0%, transparent 65%),
-    radial-gradient(42vw 42vw at 104vw 12vh, #BFE0F5 0%, transparent 65%),
-    radial-gradient(40vw 40vw at 45vw 78vh, #FFD9C2 0%, transparent 65%),
-    radial-gradient(56vw 56vw at 108vw 110vh, #D7F0E4 0%, transparent 68%);
+    radial-gradient(48vw 48vw at -8vw -10vw, #DDFBEF 0%, transparent 65%),
+    radial-gradient(42vw 42vw at 104vw 12vh, #BFEFD9 0%, transparent 65%),
+    radial-gradient(40vw 40vw at 45vw 78vh, #D6E4EA 0%, transparent 65%),
+    radial-gradient(56vw 56vw at 108vw 110vh, #DDFBEF 0%, transparent 68%);
   filter: blur(40px); opacity: .85;
 }
-body.legal-page ::selection { background: #E3F0EA; color: var(--text); }
+body.legal-page ::selection { background: #DDFBEF; color: var(--text); }
 body.legal-page :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
 /* Typo */
@@ -70,7 +70,7 @@ body.legal-page .section-title { color: var(--text) !important; }
 body.legal-page .legal-section h2 .num { color: var(--text-muted) !important; }
 
 /* Boutons */
-body.legal-page .btn-primary { color: #fff !important; border: none !important; background: var(--primary) !important; box-shadow: var(--shadow-glow) !important; }
+body.legal-page .btn-primary { color: #DDFBEF !important; border: none !important; background: var(--primary) !important; box-shadow: var(--shadow-glow) !important; }
 body.legal-page .btn-primary::after { display: none; }
 body.legal-page .btn-primary:hover { background: var(--primary-2) !important; transform: translateY(-1px); }
 body.legal-page .btn-secondary { color: var(--text) !important; background: #fff !important; border: 1px solid var(--border) !important; }
@@ -83,7 +83,7 @@ body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .local-
 body.legal-page .highlight:hover, body.legal-page .legal-card:hover { border-color: #cfd9d4 !important; }
 body.legal-page .highlight h3, body.legal-page .legal-card h3, body.legal-page .local-steps h3, body.legal-page .local-faq summary, body.legal-page .highlight strong, body.legal-page .legal-card b { color: var(--text) !important; }
 body.legal-page .highlight p, body.legal-page .legal-card p, body.legal-page .local-steps p, body.legal-page .local-faq p, body.legal-page .highlight span { color: var(--text-muted) !important; }
-body.legal-page .highlight-ic { color: var(--primary) !important; background: #E3F0EA !important; border: 1px solid #cfe3d9 !important; }
+body.legal-page .highlight-ic { color: var(--primary) !important; background: #DDFBEF !important; border: 1px solid #BFEFD9 !important; }
 
 /* FAQ */
 body.legal-page .local-faq summary { cursor: pointer; background: transparent !important; font-weight: 700; }
@@ -104,10 +104,10 @@ body.legal-page .legal-footer__links a:hover { color: var(--primary) !important;
 body.legal-page .legal-footer .sep { color: var(--border) !important; }
 
 /* Cookies */
-body.legal-page .cookie-consent { background: #fff !important; border: 1px solid var(--border) !important; color: var(--text) !important; box-shadow: 0 24px 60px -24px rgba(19,26,24,.4) !important; }
+body.legal-page .cookie-consent { background: #fff !important; border: 1px solid var(--border) !important; color: var(--text) !important; box-shadow: 0 24px 60px -24px rgba(47,72,88,.4) !important; }
 body.legal-page .cookie-consent h3 { color: var(--text) !important; }
 body.legal-page .cookie-consent p { color: var(--text-muted) !important; }
-body.legal-page .cookie-consent .c-accept { color: #fff !important; background: var(--primary) !important; border: none !important; }
+body.legal-page .cookie-consent .c-accept { color: #DDFBEF !important; background: var(--primary) !important; border: none !important; }
 body.legal-page .cookie-consent .c-refuse { color: var(--text) !important; background: #fff !important; border: 1px solid var(--border) !important; }
 
 
@@ -117,19 +117,19 @@ body.legal-page .local-faq, body.legal-page .cross-links a, body.legal-page .leg
   background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.55) 55%, rgba(255,255,255,.62)) !important;
   -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
   border: 1px solid rgba(255,255,255,.85) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 24px 60px -34px rgba(14,40,32,.45) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 24px 60px -34px rgba(47,72,88,.45) !important;
 }
 body.legal-page .legal-nav { border-width: 0 0 1px !important; }
 body.legal-page .legal-hero { background: transparent !important; border-bottom: 1px solid rgba(255,255,255,.7); }
 body.legal-page .gradient-text { position: relative; }
 body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .local-steps > *, body.legal-page .local-faq, body.legal-page .cross-links a { border-radius: 20px !important; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s !important; }
-body.legal-page .highlight:hover, body.legal-page .legal-card:hover, body.legal-page .cross-links a:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.95) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 30px 64px -30px rgba(14,40,32,.55) !important; }
+body.legal-page .highlight:hover, body.legal-page .legal-card:hover, body.legal-page .cross-links a:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.95) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 30px 64px -30px rgba(47,72,88,.55) !important; }
 body.legal-page .btn-primary {
   position: relative; overflow: hidden; border-radius: 999px !important; border: 1px solid rgba(255,255,255,.35) !important;
-  background: linear-gradient(160deg, #1D7A62, var(--primary) 55%, var(--primary-2)) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 6px rgba(0,0,0,.18), 0 16px 34px -16px rgba(14,94,74,.75) !important;
+  background: linear-gradient(160deg, #3D5B6D, var(--primary) 55%, var(--primary-2)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 6px rgba(0,0,0,.18), 0 16px 34px -16px rgba(47,72,88,.75) !important;
 }
-body.legal-page .btn-primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 6px rgba(0,0,0,.18), 0 22px 44px -16px rgba(14,94,74,.8), 0 0 0 8px rgba(14,94,74,.10) !important; }
+body.legal-page .btn-primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 6px rgba(0,0,0,.18), 0 22px 44px -16px rgba(47,72,88,.8), 0 0 0 8px rgba(47,72,88,.10) !important; }
 body.legal-page .btn-secondary { border-radius: 999px !important; }
 body.legal-page .legal-section h2 .num { color: var(--text-muted) !important; }
 @media (prefers-reduced-motion: reduce) { body.legal-page .highlight, body.legal-page .legal-card, body.legal-page .cross-links a { transition: none !important; } }

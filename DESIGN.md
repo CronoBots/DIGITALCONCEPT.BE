@@ -2,23 +2,23 @@
 
 ## Direction
 
-**Verre liquide, une couleur, trois écrans.** L'accueil dit qui est Vincent, montre son travail, et propose une seule action : le formulaire. Fond clair traversé de halos colorés qui dérivent lentement ; par-dessus, des surfaces de verre floutées (`backdrop-filter`) à reflet spéculaire, façon Liquid Glass d'Apple : barre de navigation flottante, cadres des captures, promesses, formulaire, pied de page. Les cadres des réalisations s'inclinent en 3D sous le curseur et une lueur suit la souris. Vert profond en unique accent, Manrope partout, aucune requête tierce. Tout se fige sous `prefers-reduced-motion`.
+**Verre liquide, une couleur, trois écrans.** L'accueil dit qui est Vincent, montre son travail, et propose une seule action : le formulaire. Fond clair traversé de halos colorés qui dérivent lentement ; par-dessus, des surfaces de verre floutées (`backdrop-filter`) à reflet spéculaire, façon Liquid Glass d'Apple : barre de navigation flottante, cadres des captures, promesses, formulaire, pied de page. Les cadres des réalisations s'inclinent en 3D sous le curseur et une lueur suit la souris. Slate Ocean `#2F4858` et Cloud Mint `#DDFBEF` pour seules couleurs, Manrope partout, aucune requête tierce. Tout se fige sous `prefers-reduced-motion`.
 
 ## Palette
 
 | Rôle | Token | Valeur |
 |---|---|---|
-| Fond | `--bg` | `#F7F9F8` |
-| Halos | `--h1` … `--h4` | menthe `#9FE0C4`, ciel `#BFE0F5`, pêche `#FFD9C2`, vert d'eau `#D7F0E4` |
+| Fond | `--bg` | `#F6FBF8` |
+| Halos | `--h1` … `--h4` | Cloud Mint `#DDFBEF`, menthe dense `#BFEFD9`, ardoise pâle `#D6E4EA`, Cloud Mint |
 | Verre | `--glass` `--glass-2` `--glass-edge` | `rgba(255,255,255,.55)` · `.72` · bord `.85` |
-| Texte | `--ink` | `#131A18` |
-| Texte secondaire (AA) | `--ink-2` | `#5A6663` |
+| Texte, encre | `--ink` | Slate Ocean `#2F4858` |
+| Texte secondaire (AA) | `--ink-2` | `#4E6470` |
 | Filet | `--line` | `#E1E7E4` |
-| **La couleur** | `--green` | `#0E5E4A` |
-| Survol | `--green-2` | `#0B4C3C` |
-| Halo, focus | `--green-soft` | `#E3F0EA` |
+| **Accent** (boutons, liens) | `--green` | Slate Ocean `#2F4858` |
+| Survol | `--green-2` | `#223A48` |
+| Surligneur du titre, focus | `--green-soft` | Cloud Mint `#DDFBEF` |
 
-Règle : une seule couleur d'encre. Les halos sont de la lumière, pas de la couleur : pâles, floutés à 70 px, toujours derrière le verre, jamais sous le texte sans verre. Le texte reste AA partout (`--ink-2` `#4F5B58` sur verre).
+Règle : deux couleurs, Slate Ocean et Cloud Mint, et rien d'autre. L'ardoise est l'encre et la matière des boutons (texte menthe dessus, comme dans la palette d'origine) ; le menthe est la lumière : halos, surligneur du mot fort du titre, focus. Les halos sont de la lumière, pas de la couleur : pâles, floutés à 70 px, toujours derrière le verre, jamais sous le texte sans verre. Le texte reste AA partout (`--ink-2` `#4F5B58` sur verre).
 
 ## Typographie
 

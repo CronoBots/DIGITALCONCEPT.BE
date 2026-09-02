@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Digital Concept — Un site web qui vous ressemble, fait par une seule personne">
   <rect width="1200" height="630" fill="#FFFFFF"/>
-  <rect x="0" y="0" width="1200" height="14" fill="#0E5E4A"/>
-  <text x="90" y="128" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="800" fill="#131A18" letter-spacing="-0.5">Digital<tspan fill="#0E5E4A">Concept</tspan></text>
-  <text x="90" y="300" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="66" font-weight="800" fill="#131A18" letter-spacing="-2">Un site web qui vous ressemble,</text>
-  <text x="90" y="380" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="66" font-weight="800" fill="#0E5E4A" letter-spacing="-2">fait par une seule personne.</text>
-  <text x="90" y="470" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="27" fill="#5A6663">Vincent Buron · développeur web indépendant · Neupré (Liège)</text>
-  <text x="90" y="560" font-family="'Spline Sans Mono', ui-monospace, monospace" font-size="24" fill="#0E5E4A" letter-spacing="2">digitalconcept.be</text>
+  <rect x="0" y="0" width="1200" height="14" fill="#2F4858"/>
+  <text x="90" y="128" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="800" fill="#2F4858" letter-spacing="-0.5">Digital<tspan fill="#2F4858">Concept</tspan></text>
+  <text x="90" y="300" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="66" font-weight="800" fill="#2F4858" letter-spacing="-2">Un site web qui vous ressemble,</text>
+  <text x="90" y="380" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="66" font-weight="800" fill="#2F4858" letter-spacing="-2">fait par une seule personne.</text>
+  <text x="90" y="470" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="27" fill="#4E6470">Vincent Buron · développeur web indépendant · Neupré (Liège)</text>
+  <text x="90" y="560" font-family="'Spline Sans Mono', ui-monospace, monospace" font-size="24" fill="#2F4858" letter-spacing="2">digitalconcept.be</text>
 </svg>
